@@ -1,9 +1,11 @@
 #/usr/bin/env bash
 
 vagrant=/vagrant
+src=/vagrant/src
 install=$vagrant/install
-client=$vagrant/client
-server=$vagrant/server
+client=$src/client
+server=$src/spring
+HOME_DIR=/home/ubuntu
 
 print_help () {
   echo "#################################################"
@@ -29,8 +31,8 @@ then
 fi
 
 # Create install folder
-mkdir $client
-mkdir $server
+mkdir -p $client
+mkdir -p $server
 
 # Update system
 apt-get update
@@ -65,7 +67,11 @@ sudo apt-get install -y maven
 # Install js packages
 cd $client
 yarn global add create-react-app
-yarn add -D enzyme @types/enzyme react-addons-test-utils
-yarn add -S redux react-redux @types/react-redux
+
+# Fix error with shared folder and npm modules
+# https://medium.com/@dtinth/isolating-node-modules-in-vagrant-9e646067b36
+mkdir $HOME_DIR/vagrant_node_modules
+mkdir $client/node_modules
+mount --bind $HOME_DIR/vagrant_node_modules $client/node_modules
 
 print_help
