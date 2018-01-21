@@ -12,6 +12,5 @@ before_script:
     - cd src/client
     - yarn install
 
-script: 
-  - cd src/client
+script:
   - yarn build
