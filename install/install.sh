@@ -1,8 +1,7 @@
-#/usr/bin/env bash
+#!/bin/bash
 
 vagrant=/vagrant
 src=/vagrant/src
-install=$vagrant/install
 client=$src/client
 server=$src/spring
 HOME_DIR=/home/vagrant
