@@ -5,7 +5,7 @@ src=/vagrant/src
 install=$vagrant/install
 client=$src/client
 server=$src/spring
-HOME_DIR=/home/ubuntu
+HOME_DIR=/home/vagrant
 
 print_help () {
   echo "#################################################"
