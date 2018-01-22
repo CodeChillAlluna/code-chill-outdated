@@ -30,7 +30,7 @@ matrix:
       script:
         - sudo sh mvnw clean package
       after_success:
-        - sudo sh mvnw clean test jacoco:report coveralls:report
+        - sudo sh mvnw clean test -DTRAVIS_JOB_ID=$TRAVIS_JOB_ID jacoco:report coveralls:report
         
 notifications:
 email: false
