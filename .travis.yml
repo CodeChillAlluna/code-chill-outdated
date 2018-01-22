@@ -20,15 +20,15 @@ matrix:
 
       sudo: required
       before_script:
-        - apt-get install -y maven
-        - apt-get install -y python-dev
-        - apt-get install -y libpq-dev
-        - service postgresql restart
-        - sh install/db.sh
+        - sudo apt-get install -y maven
+        - sudo apt-get install -y python-dev
+        - sudo apt-get install -y libpq-dev
+        - sudo service postgresql restart
+        - sudo sh install/db.sh
         - cd src/spring
 
       script:
-        - ./mvnw clean package
+        - sudo sh mvnw clean package
         
 notifications:
 email: false
