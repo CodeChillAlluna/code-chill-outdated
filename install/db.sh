@@ -4,7 +4,6 @@ DB_USER=code
 DB_PWD=chill
 DB_NAME=codechill
 
-service postgresql restart
 sudo su - postgres -c psql <<EOF
 CREATE DATABASE $DB_NAME;
 CREATE USER $DB_USER WITH PASSWORD '$DB_PWD';
