@@ -1,11 +1,11 @@
+sudo: required
 matrix:
   include:
     - language: node_js
-    node_js:
-      - "9"
+      node_js:
+        - "9"
 
-    sudo: false
-    before_script:
+      before_script:
         - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
         - echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
         - sudo apt-get update
@@ -13,14 +13,13 @@ matrix:
         - cd src/client
         - yarn install
 
-    script:
-      - yarn build
+      script:
+        - yarn build
 
     - language: java
-    jdk: oraclejdk8
+      jdk: oraclejdk8
 
-    sudo: false
-    before_script:
+      before_script:
         - sudo apt-get install -y maven
         - sudo apt-get install -y python-dev
         - sudo apt-get install -y libpq-dev
@@ -30,5 +29,8 @@ matrix:
         - sudo ./install/db.sh
         - cd src/spring
 
-    script:
-      - ./mvnw clean package
+      script:
+        - ./mvnw clean package
+        
+notifications:
+email: false
