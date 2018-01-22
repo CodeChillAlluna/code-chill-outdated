@@ -42,6 +42,7 @@
             "timeEnd",
             "trace"
         ],
+        "arrow-parens": true,
         "no-consecutive-blank-lines": true,
         "no-construct": true,
         "no-debugger": true,
@@ -61,7 +62,7 @@
             "check-open-brace",
             "check-whitespace"
         ],
-        "quotemark": [true, "single", "jsx-double"],
+        "quotemark": [true, "double"],
         "radix": true,
         "semicolon": [true, "always"],
         "switch-default": true,
