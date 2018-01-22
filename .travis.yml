@@ -24,7 +24,7 @@ matrix:
         - sudo apt-get install -y python-dev
         - sudo apt-get install -y libpq-dev
         - sudo service postgresql restart
-        - sudo ./install/db.sh
+        - sudo sh install/db.sh
         - cd src/spring
 
       script:
