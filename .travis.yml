@@ -28,7 +28,7 @@ matrix:
         - cd src/spring
 
       script:
-        - ./mvnw clean package
+        - sudo ./mvnw clean package
         
 notifications:
 email: false
