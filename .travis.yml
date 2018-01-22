@@ -23,8 +23,6 @@ matrix:
         - sudo apt-get install -y maven
         - sudo apt-get install -y python-dev
         - sudo apt-get install -y libpq-dev
-        - sudo apt-get install -y postgresql
-        - sudo apt-get install -y postgresql-contrib
         - sudo service postgresql restart
         - sudo ./install/db.sh
         - cd src/spring
