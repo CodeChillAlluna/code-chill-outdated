@@ -64,6 +64,34 @@ sudo apt-get install -y openjdk-8-jdk openjdk-8-jre
 # Install build automation
 sudo apt-get install -y maven
 
+
+# Installation de postgresql
+sudo apt-get install -y python-dev
+sudo apt-get install -y libpq-dev
+sudo apt-get install -y postgresql
+sudo apt-get install -y postgresql-contrib
+
+# Configuration de la BDD postgresql
+DB_USER=code
+DB_PWD=chill
+DB_NAME=codechill
+
+service postgresql restart
+sudo su - postgres -c psql <<EOF
+CREATE DATABASE $DB_NAME;
+CREATE USER $DB_USER WITH PASSWORD '$DB_PWD';
+
+ALTER ROLE $DB_USER SET client_encoding TO 'utf8';
+ALTER ROLE $DB_USER SET default_transaction_isolation TO 'read committed';
+ALTER ROLE $DB_USER SET timezone TO 'UTC';
+
+GRANT ALL PRIVILEGES ON DATABASE $DB_NAME TO $DB_USER;
+ALTER USER $DB_USER CREATEDB;
+EOF
+
+# Installation de Docker
+apt-get install -y docker
+
 # Install js packages
 cd $client
 yarn global add create-react-app
