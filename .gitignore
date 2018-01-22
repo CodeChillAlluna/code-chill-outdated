@@ -28,7 +28,6 @@ hs_err_pid*
 ### Java-Web ###
 ## ignoring target file
 target/
-!.mvn/wrapper/maven-wrapper.jar
 
 ### Node ###
 # Logs
