@@ -100,6 +100,6 @@ yarn global add create-react-app
 mkdir $HOME_DIR/vagrant_node_modules
 sudo chown -R vagrant:vagrant $HOME_DIR/vagrant_node_modules
 mkdir $client/node_modules
-mount --bind $HOME_DIR/vagrant_node_modules $client/node_modules
+sudo mount --bind $HOME_DIR/vagrant_node_modules $client/node_modules
 
 print_help
