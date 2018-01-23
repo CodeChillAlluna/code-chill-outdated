@@ -7,3 +7,27 @@
 [![Coverage Status](https://coveralls.io/repos/github/CodeChillAlluna/code-chill/badge.svg?branch=master)](https://coveralls.io/github/CodeChillAlluna/code-chill?branch=master)
 
 Master project : Online development environment
+
+# Installation guide
+## Environment installation
+### Requirements
+* **Vagrant** is needed, you can download it here : 
+https://www.vagrantup.com/downloads.html
+* **VirtualBox** needs to be installed. You can download it here : https://www.virtualbox.org/wiki/Downloads
+### Download
+Choose either of the solutions:
+- Cloning the repository : `git clone https://github.com/CodeChillAlluna/code-chill.git`
+- Downloading the repository : `https://github.com/CodeChillAlluna/code-chill/archive/master.zip`
+
+### Setup vagrant
+1. Move to the project directory : `cd code-chill`
+2. Run the command : `vagrant up`.
+2. Wait for Vagrant to download all dependencies.
+3. Run `vagrant ssh` to connect to the virtual machine.
+4. You should be connected to the VM, in `/vagrant` where the project is located.
+### Common commands
+- Connect to the VM: `vagrant ssh`
+- Shutdown the VM: `vagrant halt`
+- Launch the VM: `vagrant up`
+- Delete the VM: `vagrant destroy`
+- Verify packages are up to date: `vagrant provision`
