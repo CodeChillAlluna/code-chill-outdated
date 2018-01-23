@@ -29,5 +29,6 @@ Choose either of the solutions:
 - Connect to the VM: `vagrant ssh`
 - Shutdown the VM: `vagrant halt`
 - Launch the VM: `vagrant up`
+- Reload the VM: `vagrant reload`
 - Delete the VM: `vagrant destroy`
 - Verify packages are up to date: `vagrant provision`
