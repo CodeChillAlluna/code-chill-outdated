@@ -94,7 +94,11 @@ sudo apt-get install -y docker
 
 # Install js packages
 cd $client
-yarn global add create-react-app
+sudo yarn global add create-react-app
+sudo yarn global add serve
+
+# Install client dependencies
+sudo yarn install
 
 # Fix error with shared folder and npm modules
 # https://medium.com/@dtinth/isolating-node-modules-in-vagrant-9e646067b36
