@@ -34,8 +34,8 @@ mkdir -p $client
 mkdir -p $server
 
 # Update system
-apt-get update
-apt-get upgrade -y
+sudo apt-get update
+sudo apt-get upgrade -y
 
 # Install dependencies for installation
 sudo apt-get install software-properties-common -y
@@ -75,7 +75,7 @@ DB_USER=code
 DB_PWD=chill
 DB_NAME=codechill
 
-service postgresql restart
+sudo service postgresql restart
 sudo su - postgres -c psql <<EOF
 CREATE DATABASE $DB_NAME;
 CREATE USER $DB_USER WITH PASSWORD '$DB_PWD';
@@ -89,7 +89,7 @@ ALTER USER $DB_USER CREATEDB;
 EOF
 
 # Installation de Docker
-apt-get install -y docker
+sudo apt-get install -y docker
 
 # Install js packages
 cd $client
