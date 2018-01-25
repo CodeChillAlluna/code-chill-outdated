@@ -18,7 +18,7 @@ We wanted to create something useful and worth for any programmer, from beginner
 You can use Code&Chill on both computer and mobile devices.
 
 ## Want to know more about Code&Chill ?
-You can click here to see more about Code&Chill : https://github.com/CodeChillAlluna/code-chill
+You can click <a href="https://github.com/CodeChillAlluna/code-chill">here</a> to see more about Code&Chill.
 
 ## Docs
 Available later.
