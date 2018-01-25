@@ -13,6 +13,7 @@ print_help () {
   echo "Connect to the VM: 'vagrant ssh'"
   echo "Shutdown the VM: 'vagrant halt'"
   echo "Launch the VM: 'vagrant up'"
+  echo "Reload the VM: 'vagrant reload'"
   echo "Delete the VM: 'vagrant destroy'"
   echo "Verify packages are up to date: 'vagrant provision'"
 }
