@@ -6,29 +6,22 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3373b12b915d4be68943182e1c2ff979)](https://www.codacy.com/app/Lulu300/code-chill?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CodeChillAlluna/code-chill&amp;utm_campaign=Badge_Grade)
 [![Coverage Status](https://coveralls.io/repos/github/CodeChillAlluna/code-chill/badge.svg?branch=master)](https://coveralls.io/github/CodeChillAlluna/code-chill?branch=master)
 
-Master project : Online development environment
+## What is Code&Chill ?
+Code&Chill is an Online Development Environment.
+It is an application allowing anyone to program and execute code in a web browser.
+You can chose between hosting the application in your computer and hosting in an external machine.
 
-# Installation guide
-## Environment installation
-### Requirements
-* **Vagrant** is needed, you can download it here : 
-https://www.vagrantup.com/downloads.html
-* **VirtualBox** needs to be installed. You can download it here : https://www.virtualbox.org/wiki/Downloads
-### Download
-Choose either of the solutions:
-- Cloning the repository : `git clone https://github.com/CodeChillAlluna/code-chill.git`
-- Downloading the repository : `https://github.com/CodeChillAlluna/code-chill/archive/master.zip`
+## Why Code&Chill ?
+We wanted to create something useful and worth for any programmer, from beginner to expert. We took advantage of our Master degree project to create something big and clean.
 
-### Setup vagrant
-1. Move to the project directory : `cd code-chill`
-2. Run the command : `vagrant up`.
-2. Wait for Vagrant to download all dependencies.
-3. Run `vagrant ssh` to connect to the virtual machine.
-4. You should be connected to the VM, in `/vagrant` where the project is located.
-### Common commands
-- Connect to the VM: `vagrant ssh`
-- Shutdown the VM: `vagrant halt`
-- Launch the VM: `vagrant up`
-- Reload the VM: `vagrant reload`
-- Delete the VM: `vagrant destroy`
-- Verify packages are up to date: `vagrant provision`
+## How can I use Code&Chill ?
+You can use Code&Chill on both computer and mobile devices.
+
+## Want to know more about Code&Chill ?
+You can click here to see more about Code&Chill : https://github.com/CodeChillAlluna/code-chill
+
+## Docs
+Available later.
+
+## Installation guide
+Available later.
