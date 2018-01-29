@@ -32,3 +32,20 @@ Choose either of the solutions:
 - Reload the VM: `vagrant reload`
 - Delete the VM: `vagrant destroy`
 - Verify packages are up to date: `vagrant provision`
+
+## Usage
+## Build Spring
+```BASH
+cd src/spring
+sh mvnw clean package
+cd target
+java -jar spring-0.0.1-SNAPSHOT.jar
+```
+
+## Build React
+```BASH
+cd src/client
+sudo yarn install # install dependencies
+yarn build
+serve -s build
+```
