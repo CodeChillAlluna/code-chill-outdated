@@ -90,7 +90,7 @@ ALTER USER $DB_USER CREATEDB;
 EOF
 
 # Installation de Docker
-sudo apt-get install -y docker
+sudo apt-get install -y docker.io
 
 # Install js packages
 cd $client
