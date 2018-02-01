@@ -20,9 +20,9 @@ print_help () {
 
 export DEBIAN_FRONTEND=noninteractive
 
-if ! grep -qF "cd "$vagrant /home/ubuntu/.bashrc
+if ! grep -qF "sudo mount --bind "$HOME_DIR"/vagrant_node_modules "$client"/node_modules" /home/vagrant/.bashrc
 then
-        echo "cd "$vagrant >> /home/ubuntu/.bashrc
+        echo "sudo mount --bind "$HOME_DIR"/vagrant_node_modules "$client"/node_modules" >> /home/vagrant/.bashrc
 fi
 
 if ! grep -qF "cd "$vagrant /home/vagrant/.bashrc
