@@ -1,16 +1,11 @@
 import * as React from "react";
-import Terminal from "react-bash";
+import Term, { Terminal } from "./components/Term";
 
 export default class App extends React.Component<any, any> {
-    showMsg = () => "Hello World";
     render() {
         return (
-            <div 
-                style={{
-                    height: "250px"
-                }}
-            >
-                <Terminal
+            <div>
+                <Term
                     prefix="code@chill" 
                     theme={Terminal.Themes.DARK}    
                 />
