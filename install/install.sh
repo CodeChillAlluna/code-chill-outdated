@@ -96,7 +96,6 @@ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubun
 sudo apt-get update
 sudo apt-get install docker-ce -y
 sudo su -
-export DOCKER_HOST=tcp://localhost:2375
 echo -e "[Unit]
 Description=Docker Application Container Engine
 Documentation=https://docs.docker.com
@@ -131,6 +130,9 @@ StartLimitInterval=60s\n
 WantedBy=multi-user.target" > /lib/systemd/system/docker.service
 systemctl daemon-reload                                                                            
 systemctl restart docker
+export DOCKER_HOST=tcp://localhost:2375
+systemctl restart docker
+docker pull ubuntu
 
 # Install js packages
 cd $client
