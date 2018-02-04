@@ -25,3 +25,17 @@ Available later.
 
 ## Installation guide
 Available later.
+
+# Features
+## User Management 
+Code&Chill will allow you to administrate the profile of your users , in the long run you will be able to create  a profile , delete it , update it  and additionnal features to get a forgoten password.
+## Docker Management
+Our solution will allow our users a complete management interface for their dockers , they will be able link the docker to their profile , create or delete one with a terminal delivered with it.
+## Langage Choice
+Code&Chill allow our users to chose their own programmation langage depending on their needs
+ ## Basic Terminal 
+ Our basic terminal is emulated by javascript and will allow you to execute and send basic command line to a server.
+ ## Advanced Terminal
+The advanced terminal will function exactly like the one you can use on a linux system and provide features like the autocompletion or the tabulation to automaticaly end a command line.
+ ## Personnal server
+ Our users will be able to use a personnal cloud server allowing them to use a server of their choice.
