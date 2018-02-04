@@ -130,9 +130,15 @@ StartLimitInterval=60s\n
 WantedBy=multi-user.target" > /lib/systemd/system/docker.service
 systemctl daemon-reload                                                                            
 systemctl restart docker
-export DOCKER_HOST=tcp://localhost:2375
+# export DOCKER_HOST=tcp://localhost:2375
+if ! grep -qF "DOCKER_HOST=tcp://localhost:2375" /etc/environment
+then
+        echo "DOCKER_HOST=tcp://localhost:2375" >> /etc/environment
+fi
+source /etc/environment
 systemctl restart docker
 docker pull ubuntu
+docker run --name code-chil -i -t ubuntu /bin/bash
 
 # Install js packages
 cd $client
