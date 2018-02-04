@@ -34,18 +34,17 @@ Choose either of the solutions:
 - Verify packages are up to date: `vagrant provision`
 
 ## Usage
-## Build Spring
-```BASH
-cd src/spring
-sh mvnw clean package
-cd target
-java -jar spring-0.0.1-SNAPSHOT.jar
-```
+## Usage
+### Build Spring
+To build Spring ,  you will have to use the following command lines : 
 
-## Build React
-```BASH
-cd src/client
-sudo yarn install # install dependencies
-yarn build
-serve -s build
-```
+1. cd src/spring : will place you in the source dictionnary.
+2. sh mvnw clean package : will compile java files to create a runnable jar package.
+3. cd target : will place you in the build dictionnary of the project.
+4. java -jar spring-0.0.1-SNAPSHOT.jar : will launch the Spring project, depending on what you are using the version might not always be "0.0.1".
+### Build React
+To build React  ,  you will have to use the following command lines : 
+1. cd src/client : will place you in the source dictionnary.
+2. sudo yarn install : will install if they are missing and update the dependencies of the project.
+2. yarn build : will build the project.
+3. serve -s build : will launch the project properly.
