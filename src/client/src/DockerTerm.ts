@@ -5,7 +5,7 @@ export default class DockerTerm {
 
     constructor(url: string) {
         this.socket = new WebSocket(url);
-        this.socket.addEventListener('message', this.receiveData);
+        this.socket.addEventListener("message", this.receiveData);
     }
 
     sendData (data: string): void {
