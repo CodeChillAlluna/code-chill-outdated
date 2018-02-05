@@ -2,7 +2,7 @@
 1. [Code-Chill](https://codechillalluna.github.io/code-chill/#code-chill)
 	* [What is Code&Chill](https://codechillalluna.github.io/code-chill/#what-is-codechill-)
 	* [Why Code&Chill](https://codechillalluna.github.io/code-chill/#why-codechill-)
-	* [How can i use Code&Chill](https://codechillalluna.github.io/code-chill/#how-can-i-use-codechill-)
+	* [How can I use Code&Chill](https://codechillalluna.github.io/code-chill/#how-can-i-use-codechill-)
 	* [Want to know more about Code&Chill ?](https://codechillalluna.github.io/code-chill/#want-to-know-more-about-codechill-)
 2. [Features](https://codechillalluna.github.io/code-chill/#features)
 	* [User Management](https://codechillalluna.github.io/code-chill/#user-management)
