@@ -12,7 +12,9 @@ Master project : Online development environment
 * If you want  to set up our project from scratch using our vagrant click [here](#vagrant-installation-guide)
 * If you want to set up our project without vagrant click [here](#vagrantless-installation-guide) 
 # Release installation guide
-* You need <a href="http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html">Java 8+</a> and <a href="https://nodejs.org/en/">NodeJS 9+</a>.
+* You need <a href="http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html">Java 8+</a> , <a href="https://nodejs.org/en/">NodeJS 9+</a> and <a href="https://www.postgresql.org/download/">PostgresSQL</a>.
+* Create a user `code` with password `chill` in postgresSQL
+* Create a database `codechill` and grant permission on this database to your user.
 * You can install Code&Chill <a href="https://github.com/CodeChillAlluna/code-chill/releases">here</a>.
 * Go to your spring repository : `cd ./spring`
 * Run the command : `java -jar spring-0.1.0.jar`
@@ -47,7 +49,7 @@ Choose either of the solutions:
 # Vagrantless installation guide
 ## Environment installation
 ### Requirements
-You will find all our project dependancies in `install/install.sh``
+You will find all our project dependancies in `install/install.sh`
 ### Download
 Choose either of the solutions:
 - Cloning the repository : `git clone https://github.com/CodeChillAlluna/code-chill.git`
@@ -79,3 +81,4 @@ To run react in development mode, you will have to use the following command lin
 1. `cd src/client` : will place you in the source dictionnary.
 2. `sudo yarn install` : will install if they are missing and update the dependencies of the project.
 3. `yarn start`: will check your code validity and launch the node server.
+
