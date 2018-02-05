@@ -60,7 +60,9 @@ Our basic terminal is emulated by javascript and allows you to execute and send 
 Available later.
 
 # Installation guide
-* You need <a href="http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html">Java 8+</a> and <a href="https://nodejs.org/en/">NodeJS 9+</a>.
+* You need <a href="http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html">Java 8+</a> , <a href="https://nodejs.org/en/">NodeJS 9+</a> and <a href="https://www.postgresql.org/download/">PostgresSQL</a>.
+* Create a user `code` with password `chill` in postgresSQL
+* Create a database `codechill` and grant permission on this database to your user.
 * You can install Code&Chill <a href="https://github.com/CodeChillAlluna/code-chill/releases">here</a>.
 * Go to your spring repository : `cd ./spring`
 * Run the command : `java -jar spring-0.1.0.jar`
