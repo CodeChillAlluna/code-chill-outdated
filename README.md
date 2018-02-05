@@ -10,7 +10,8 @@
 	* [Language Choice](https://codechillalluna.github.io/code-chill/#language-choice)
 	* [Basic Terminal](https://codechillalluna.github.io/code-chill/#basic-terminal)
 	* [Advanced Terminal](https://codechillalluna.github.io/code-chill/#advanced-terminal)
-	* [Personnal server](https://codechillalluna.github.io/code-chill/#personnal-server)
+	* [Personnal Server](https://codechillalluna.github.io/code-chill/#personnal-server)
+	* [Fee Server](https://codechillalluna.github.io/code-chill/#fee-server)
 3. [Docs](https://codechillalluna.github.io/code-chill/#docs)
 4. [Installation guide](https://codechillalluna.github.io/code-chill/#installation-guide)
 
@@ -65,4 +66,4 @@ Available later.
 * Run the command : `java -jar spring-0.1.0.jar`
 * And then : `npm install serve`
 * To run the server : `serve -s client` 
-* You can go to http://localhost:5000/ on your browser to access to your terminal.
+* You can go to <a href="http://localhost:5000/">http://localhost:5000/</a> on your browser to access to your terminal.
