@@ -53,7 +53,7 @@ Our basic terminal is emulated by javascript and allows you to execute and send 
 ## Personnal server
 <span style="color:grey;">Our users can use a personnal cloud server allowing them to use a server of their choice.</span>
 ## Fee Server
-<span style="color:grey;">If you want us to manage your server, we can offer you a fee server and link it to your account. Note that this is optionnal and you do not have to pay.</span>
+<span style="color:grey;">If you want us to manage your server, we can offer you a fee server and link it to your account. Note that this is optionnal and you do not have to pay and you do not want, go check the Personnal Server section.</span>
 
 # Docs
 Available later.
