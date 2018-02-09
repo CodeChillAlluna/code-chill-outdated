@@ -13,15 +13,16 @@ print_help () {
   echo "Connect to the VM: 'vagrant ssh'"
   echo "Shutdown the VM: 'vagrant halt'"
   echo "Launch the VM: 'vagrant up'"
+  echo "Reload the VM: 'vagrant reload'"
   echo "Delete the VM: 'vagrant destroy'"
   echo "Verify packages are up to date: 'vagrant provision'"
 }
 
 export DEBIAN_FRONTEND=noninteractive
 
-if ! grep -qF "cd "$vagrant /home/ubuntu/.bashrc
+if ! grep -qF "sudo mount --bind $HOME_DIR/vagrant_node_modules $client/node_modules" /home/vagrant/.bashrc
 then
-        echo "cd "$vagrant >> /home/ubuntu/.bashrc
+        echo "sudo mount --bind $HOME_DIR/vagrant_node_modules $client/node_modules" >> /home/vagrant/.bashrc
 fi
 
 if ! grep -qF "cd "$vagrant /home/vagrant/.bashrc
@@ -34,8 +35,8 @@ mkdir -p $client
 mkdir -p $server
 
 # Update system
-apt-get update
-apt-get upgrade -y
+sudo apt-get update
+sudo apt-get upgrade -y
 
 # Install dependencies for installation
 sudo apt-get install software-properties-common -y
@@ -75,7 +76,7 @@ DB_USER=code
 DB_PWD=chill
 DB_NAME=codechill
 
-service postgresql restart
+sudo service postgresql restart
 sudo su - postgres -c psql <<EOF
 CREATE DATABASE $DB_NAME;
 CREATE USER $DB_USER WITH PASSWORD '$DB_PWD';
@@ -89,17 +90,69 @@ ALTER USER $DB_USER CREATEDB;
 EOF
 
 # Installation de Docker
-apt-get install -y docker
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo apt-key fingerprint 0EBFCD88
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+sudo apt-get update
+sudo apt-get install docker-ce -y
+sudo su -
+echo -e "[Unit]
+Description=Docker Application Container Engine
+Documentation=https://docs.docker.com
+After=network-online.target docker.socket firewalld.service
+Wants=network-online.target
+Requires=docker.socket\n
+[Service]
+Type=notify
+# the default is not to use systemd for cgroups because the delegate issues still
+# exists and systemd currently does not support the cgroup feature set required
+# for containers run by docker
+ExecStart=/usr/bin/dockerd -H=tcp://0.0.0.0:2375
+ExecReload=/bin/kill -s HUP \$MAINPID
+LimitNOFILE=1048576
+# Having non-zero Limit*s causes performance problems due to accounting overhead
+# in the kernel. We recommend using cgroups to do container-local accounting.
+LimitNPROC=infinity
+LimitCORE=infinity
+# Uncomment TasksMax if your systemd version supports it.
+# Only systemd 226 and above support this version.
+TasksMax=infinity
+TimeoutStartSec=0
+# set delegate yes so that systemd does not reset the cgroups of docker containers
+Delegate=yes
+# kill only the docker process, not all processes in the cgroup
+KillMode=process
+# restart the docker process if it exits prematurely
+Restart=on-failure
+StartLimitBurst=3
+StartLimitInterval=60s\n
+[Install]
+WantedBy=multi-user.target" > /lib/systemd/system/docker.service
+systemctl daemon-reload                                                                            
+systemctl restart docker
+export DOCKER_HOST=tcp://localhost:2375
+if ! grep -qF "DOCKER_HOST=tcp://localhost:2375" /etc/environment
+then
+        echo "DOCKER_HOST=tcp://localhost:2375" >> /etc/environment
+fi
+source /etc/environment
+systemctl restart docker
+docker pull ubuntu
+docker run --name code-chill -dti ubuntu /bin/bash
 
 # Install js packages
 cd $client
 yarn global add create-react-app
+yarn global add serve
 
 # Fix error with shared folder and npm modules
 # https://medium.com/@dtinth/isolating-node-modules-in-vagrant-9e646067b36
 mkdir $HOME_DIR/vagrant_node_modules
-sudo chown -R vagrant:vagrant $HOME_DIR/vagrant_node_modules
 mkdir $client/node_modules
 sudo mount --bind $HOME_DIR/vagrant_node_modules $client/node_modules
+sudo chown -R vagrant:vagrant $HOME_DIR/vagrant_node_modules
+
+# Install client dependencies
+sudo yarn install
 
 print_help
