@@ -1,4 +1,4 @@
-package fr.codechill.spring.domain;
+package fr.codechill.spring.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ public class Docker {
     private String name;
     
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "dockers")
-    private List<CodeChillUser> users = new ArrayList<>();
+    private List<User> users = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "docker_language",
@@ -41,11 +41,11 @@ public class Docker {
         return this.name;
     }
 
-    public List<CodeChillUser> getUsers() {
+    public List<User> getUsers() {
         return this.users;
     }
 
-    public void setUsers(List<CodeChillUser> u) {
+    public void setUsers(List<User> u) {
         this.users = u;
     }
 }

@@ -1,4 +1,4 @@
-package fr.codechill.spring.domain;
+package fr.codechill.spring.model;
 
 import java.util.ArrayList;
 import java.util.List;
