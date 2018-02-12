@@ -9,6 +9,7 @@
 	* [Docker Management](#docker-management)
 	* [Language Choice](#language-choice)
 	* [Basic Terminal](#basic-terminal)
+	* [Docker Terminal](#docker-terminal)
 	* [Advanced Terminal](#advanced-terminal)
 	* [Personnal Server](#personnal-server)
 	* [Fee Server](#fee-server)
@@ -39,21 +40,23 @@ You can use Code&Chill on both computer and mobile devices.
 You can click <a href="https://github.com/CodeChillAlluna/code-chill">here</a> to see more about Code&Chill.
 
 # Features
-## User Management 
+## :soon: User Management 
 <span style="color:grey;">Code&Chill allows you to manage the profile of your users. You can create a profile, delete it or update it. You have access to additionnal features such as forgotten password.</span>
-## Docker Management
+## :soon: Docker Management
 <span style="color:grey;">Our solution permits users to have a complete management interface for their dockers, they are able to link the docker to their profile, create or delete one with a terminal delivered with it.</span>
-## Docker importation & exportation
+## :soon: Docker importation & exportation
 <span style="color:grey;">Our users can export dockers they created in the platform. They can also import their own dockerfile if they want to use their personnal work environment. It is possible to import your personal .bashrc file to increase your user experience.</span>
-## Language Choice
+## :soon: Language Choice
 <span style="color:grey;">Code&Chill enables users to chose their own programmation language depending on their needs. You can choose C, C++, Java or any other language like Haskell. You can either add a language in command line or with a graphic interface.</span>
-## Basic Terminal 
+## :heavy_check_mark: Basic Terminal 
 Our basic terminal is emulated by javascript and allows you to execute and send basic command line to a server.
-## Advanced Terminal
+## :soon: Docker Terminal
+<span style="color:#123456;"> Works just like the basic terminal, but have an integration with docker to execute commands in a real Linux environment.</span>
+## :soon: Advanced Terminal
 <span style="color:grey;">The advanced terminal functions exactly like the one you can use on a linux system and provide features like autocompletion or tabulation to automaticaly end a command line.</span>
-## Personnal server
+## :soon: Personnal server
 <span style="color:grey;">Our users can use a personnal cloud server allowing them to use a server of their choice.</span>
-## Fee Server
+## :soon: Fee Server
 <span style="color:grey;">If you want us to manage your server, we can offer you a fee server and link it to your account. Note that this is optionnal and you do not have to pay and you do not want, go check the Personnal Server section.</span>
 
 # Docs
