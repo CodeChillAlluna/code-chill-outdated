@@ -1,22 +1,22 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
 import "./index.css";
 import Term, { Terminal } from "./components/Term";
+import NotFound from "./components/NotFound";
 
 ReactDOM.render(
   <Router>
-    <div>
+    <Switch>
       <Route exact="true" path="/" component={App} />
-      <Route 
-        exact="true" 
-        path="/term" 
-        render={(props) => <Term prefix="code@chill" theme={Terminal.Themes.DARK} />} 
+      <Route
+          path="/term" 
+          render={(props) => <Term prefix="code@chill" theme={Terminal.Themes.WHITE} />} 
       />
-    </div>
-  </Router>,
-  document.getElementById("root") as HTMLElement
-);
+      <Route component={NotFound} />
+    </Switch>
+  </Router>
+, document.getElementById("root") as HTMLElement);
 registerServiceWorker();
