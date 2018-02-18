@@ -1,15 +1,22 @@
 import * as React from "react";
-import Term, { Terminal } from "./components/Term";
+import AuthService from "./AuthService";
+import withAuth from "./components/withAuth";
 
-export default class App extends React.Component<any, any> {
+class App extends React.Component<any, any> {
+    Auth: AuthService;
+    
+    constructor(props?: any, context?: any) {
+        super(props, context);
+        this.Auth = new AuthService();
+    }
+
     render() {
         return (
             <div>
-                <Term
-                    prefix="code@chill" 
-                    theme={Terminal.Themes.DARK}    
-                />
+                Welcome
             </div>
         );
     }
+
 }
+export default withAuth(App);
