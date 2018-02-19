@@ -8,4 +8,5 @@ import fr.codechill.spring.model.User;
  */
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByUsername(String username);
+    User findOne(Long id);
 }

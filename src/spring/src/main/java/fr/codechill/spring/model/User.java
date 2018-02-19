@@ -22,10 +22,13 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import fr.codechill.spring.model.security.Authority;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.io.Serializable;
 
 @Entity
 @Table(name = "codechilluser")
-public class User {
+public class User implements Serializable {
 
     @Id
     @Column(name = "id")
@@ -72,12 +75,14 @@ public class User {
             name = "user_authority",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "authority_id", referencedColumnName = "id")})
+    @JsonIgnoreProperties("users")
     private List<Authority> authorities;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "codechilluser_docker",
         joinColumns = @JoinColumn(name = "codechilluser_id", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(name = "docker_id", referencedColumnName = "id"))     
+    @JsonIgnoreProperties("users")
     private List<Docker> dockers = new ArrayList<>();
 
     public Long getId() {
