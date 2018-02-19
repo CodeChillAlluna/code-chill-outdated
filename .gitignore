@@ -277,5 +277,10 @@ Temporary Items
 .vagrant/
 *.box
 
+# Build files
+src/client/build
+src/client/yarn.lock
+src/spring/target
+
 
 # End of https://www.gitignore.io/api/node,java,vagrant,java-web,reactnative

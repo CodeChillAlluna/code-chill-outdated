@@ -3,11 +3,12 @@ package fr.codechill.spring.model.security;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import fr.codechill.spring.model.User;;
+import fr.codechill.spring.model.User;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "authority")
-public class Authority {
+public class Authority implements Serializable {
 
     @Id
     @Column(name = "id")

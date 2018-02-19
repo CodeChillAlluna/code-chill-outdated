@@ -27,10 +27,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.*;
 
 import fr.codechill.spring.model.security.Authority;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.io.Serializable;
 
 @Entity
 @Table(name = "codechilluser")
-public class User implements Serializable{
+public class User implements Serializable {
 
     @Id
     @Column(name = "id")
@@ -82,8 +85,8 @@ public class User implements Serializable{
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "codechilluser_docker",
         joinColumns = @JoinColumn(name = "codechilluser_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "docker_id", referencedColumnName = "id"))
-    @JsonIgnoreProperties("users")     
+        inverseJoinColumns = @JoinColumn(name = "docker_id", referencedColumnName = "id"))     
+    @JsonIgnoreProperties("users")
     private List<Docker> dockers = new ArrayList<>();
 
 
