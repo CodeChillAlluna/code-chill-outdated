@@ -89,8 +89,12 @@ public class User implements Serializable {
     @JsonIgnoreProperties("users")
     private List<Docker> dockers = new ArrayList<>();
 
+    // token for forgotten password
+    @Column(name = "tokenpassword")
+	private String tokenPassword;
 
-    private User(){}
+
+    public User(){}
 
     public User(String nom,String prenom){
         this.lastname = nom;
@@ -176,4 +180,12 @@ public class User implements Serializable {
     public void setDockers(List<Docker> dockers) {
         this.dockers = dockers;
     }
+
+    public String getTokenPassword() {
+		return tokenPassword;
+	}
+
+	public void setTokenPassword(String tokenPassword) {
+		this.tokenPassword = tokenPassword;
+	}
 }
