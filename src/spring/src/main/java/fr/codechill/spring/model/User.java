@@ -1,5 +1,6 @@
 package fr.codechill.spring.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,16 +22,19 @@ import javax.persistence.CascadeType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import org.hibernate.annotations.*;
+
 import fr.codechill.spring.model.security.Authority;
 
 @Entity
 @Table(name = "codechilluser")
-public class User {
+public class User implements Serializable{
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
-    @SequenceGenerator(name = "user_seq", sequenceName = "user_seq", allocationSize = 1)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "username", length = 50, unique = true)
@@ -72,13 +76,23 @@ public class User {
             name = "user_authority",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "authority_id", referencedColumnName = "id")})
+    @JsonIgnoreProperties("users")
     private List<Authority> authorities;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "codechilluser_docker",
         joinColumns = @JoinColumn(name = "codechilluser_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "docker_id", referencedColumnName = "id"))     
+        inverseJoinColumns = @JoinColumn(name = "docker_id", referencedColumnName = "id"))
+    @JsonIgnoreProperties("users")     
     private List<Docker> dockers = new ArrayList<>();
+
+
+    private User(){}
+
+    public User(String nom,String prenom){
+        this.lastname = nom;
+        this.firstname = prenom;
+    }
 
     public Long getId() {
         return id;

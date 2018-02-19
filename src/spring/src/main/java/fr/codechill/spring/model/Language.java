@@ -10,16 +10,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-public class Language {
+public class Language implements Serializable {
     @Id
-	@NotNull
+    @NotNull
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     private String name;
     
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "languages")
+    @JsonIgnoreProperties("dockers")
     private List<Docker> dockers = new ArrayList<>();
 
     private Language() {}

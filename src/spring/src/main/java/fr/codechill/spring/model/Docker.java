@@ -13,11 +13,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Entity
-public class Docker {
+public class Docker implements Serializable {
     @Id
-	@NotNull
+    @NotNull
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     private String name;
