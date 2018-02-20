@@ -8,6 +8,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -46,6 +47,14 @@ public class UserController {
     public User getUser(@PathVariable("id") Long id) {
         User user = this.urepo.findOne(id);
         return user;
+    }
+
+    
+    @DeleteMapping("/user/{id}")
+    public Boolean deleteUser(@PathVariable("id") Long id) {
+        User user = this.urepo.findOne(id);
+        this.urepo.delete(user);
+        return true;
     }
 
     @PutMapping("/user/{id}")
@@ -91,8 +100,8 @@ public class UserController {
         Date currentDate = new Date();
         Calendar c = Calendar.getInstance();
         c.setTime(user.getLastPasswordResetDate());
-        Date currentDatePlusOne = c.getTime();
         c.add(Calendar.DATE, 1);
+        Date currentDatePlusOne = c.getTime();
 
         if(user != null) {
             if(currentDate.after(user.getLastPasswordResetDate()) && currentDate.before(currentDatePlusOne)) {
