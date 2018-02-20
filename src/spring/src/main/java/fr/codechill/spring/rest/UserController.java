@@ -91,8 +91,8 @@ public class UserController {
         Date currentDate = new Date();
         Calendar c = Calendar.getInstance();
         c.setTime(user.getLastPasswordResetDate());
-        Date currentDatePlusOne = c.getTime();
         c.add(Calendar.DATE, 1);
+        Date currentDatePlusOne = c.getTime();
 
         if(user != null) {
             if(currentDate.after(user.getLastPasswordResetDate()) && currentDate.before(currentDatePlusOne)) {
