@@ -4,8 +4,13 @@ import { Route, Switch } from "react-router-dom";
 import App from "../App";
 import Term, { Terminal } from "./Term";
 import UserConnection from "./user/UserConnection";
+import Presentation from "./Presentation";
+import NotFound from "./NotFound";
+import withAuth from "./withAuth";
 
 export default class CodeChillRouter extends React.Component<any, any> {
+
+    Term = withAuth(Term);
 
     render() {
         return (
@@ -14,7 +19,7 @@ export default class CodeChillRouter extends React.Component<any, any> {
                     <Route 
                         exact={true} 
                         path="/" 
-                        render={(props) => <Term prefix="code@chill" theme={Terminal.Themes.DARK} />}
+                        component={Presentation}
                     />
                     <Route 
                         exact={true} 
@@ -31,6 +36,10 @@ export default class CodeChillRouter extends React.Component<any, any> {
                         path="/login" 
                         // render={(props) => <UserConnection props={...props} />}
                         component={UserConnection} 
+                    />
+                    <Route 
+                        path="*"
+                        component={NotFound}
                     />
                 </Switch>
             </main>

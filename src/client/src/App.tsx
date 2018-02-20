@@ -13,7 +13,7 @@ class App extends React.Component<any, any> {
     render() {
         return (
             <div>
-                Welcome
+                Welcome {this.props.user.sub}
             </div>
         );
     }
