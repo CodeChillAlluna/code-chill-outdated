@@ -1,0 +1,45 @@
+# config context path to "/" by setting an empty string
+server:
+  contextPath:
+
+# JACKSON
+spring:
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+  mail:
+    host: ""
+    port: 587
+    username: ""      
+    password: ""
+    smtp: 
+      protocol: smtp
+      debug: true
+    properties.mail.smtp: 
+      auth: true
+      starttls.enable: true
+      
+  datasource:
+    url: jdbc:postgresql://localhost/codechill
+    username: code
+    password: chill
+
+  jpa:
+    generate:
+      ddl: true
+    hibernate:
+      ddl-auto: create
+
+jwt:
+  header: Authorization
+  secret: mySecret
+  expiration: 604800
+  route:
+    authentication:
+      path: auth
+      refresh: refresh
+
+#logging:
+#  level:
+#    org.springframework:
+#      security: DEBUG

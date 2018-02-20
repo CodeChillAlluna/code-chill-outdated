@@ -1,5 +1,6 @@
 import * as React from "react";
 import Terminal from "react-bash";
+import AuthService from "../AuthService";
 
 export interface TermProps {
     extensions?: object;
@@ -13,6 +14,7 @@ export interface TermProps {
 export default class Term extends React.Component<TermProps, any> {
 
     terminal = Terminal;
+    Auth: AuthService;
 
     constructor(props?: any, context?: any) {
         super(props, context);
@@ -37,4 +39,4 @@ export default class Term extends React.Component<TermProps, any> {
         );
     }
 }
-export { Terminal };
+export {Terminal};

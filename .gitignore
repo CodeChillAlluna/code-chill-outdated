@@ -22,6 +22,13 @@
 *.tar.gz
 *.rar
 
+# Intellij
+src/spring/.classpath
+src/spring/.project
+src/spring/.settings
+src/spring/.idea
+
+
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
@@ -269,6 +276,11 @@ Temporary Items
 ### Vagrant ###
 .vagrant/
 *.box
+
+# Build files
+src/client/build
+src/client/yarn.lock
+src/spring/target
 
 
 # End of https://www.gitignore.io/api/node,java,vagrant,java-web,reactnative

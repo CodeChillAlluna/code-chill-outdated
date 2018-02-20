@@ -3,12 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/lodash": "^4.14.104",
     "@types/react-redux": "^5.0.14",
+    "jwt-decode": "^2.2.0",
     "react": "^16.2.0",
     "react-bash": "^1.6.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.2",
     "react-scripts-ts": "2.12.0",
+    "semantic-ui-css": "^2.2.14",
+    "semantic-ui-react": "^0.78.2",
     "text-encoding": "^0.6.4"
   },
   "scripts": {

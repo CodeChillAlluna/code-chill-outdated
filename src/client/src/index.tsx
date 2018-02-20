@@ -1,11 +1,13 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import App from "./App";
-import registerServiceWorker from "./registerServiceWorker";
-import "./index.css";
+import { BrowserRouter } from "react-router-dom";
+import CodeChillRouter from "./components/CodeChillRouter";
+import "semantic-ui-css/semantic.min.css";
+import "./App.css";
 
 ReactDOM.render(
-  <App />,
-  document.getElementById("root") as HTMLElement
+    <BrowserRouter>
+        <CodeChillRouter />
+    </BrowserRouter>,
+    document.getElementById("root") as HTMLElement,
 );
-registerServiceWorker();
