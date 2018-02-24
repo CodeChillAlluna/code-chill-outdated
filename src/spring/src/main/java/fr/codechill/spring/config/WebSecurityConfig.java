@@ -68,13 +68,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/favicon.ico",
                         "/**/*.html",
                         "/**/*.css",
-                        "/**/*.js"
+                        "/**/*.js",
+                        "/reset/*"
+                ).permitAll()
+
+                .antMatchers(
+                        HttpMethod.POST,
+                        "/user",
+                        "/user/forgottenpassword",
+                        "/reset"
                 ).permitAll()
 
                 // Un-secure H2 Database
                 .antMatchers("/h2-console/**/**").permitAll()
 
                 .antMatchers("/auth/**").permitAll()
+                .antMatchers("/persons/**").permitAll()
                 .anyRequest().authenticated();
 
         // Custom JWT based security filter

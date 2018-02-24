@@ -29,8 +29,8 @@ import fr.codechill.spring.repository.UserRepository;
 @RestController
 public class UserController {
     private final UserRepository urepo;
-    private final String SENDFROM = "";
-    private final String BASE_URL = "localhost:8080";
+    private final String SENDFROM = "codechill@hotmail.com";
+    private final String BASE_URL = "http://localhost:8080";
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -84,7 +84,7 @@ public class UserController {
             passwordResetEmail.setFrom(SENDFROM);
             passwordResetEmail.setTo(user.getEmail());
             passwordResetEmail.setSubject("Password Reset Request");
-            passwordResetEmail.setText("Reset link:\n" + BASE_URL + "/reset?token=" + user.getTokenPassword());
+            passwordResetEmail.setText("Reset link:\n" + BASE_URL + "/reset/" + user.getTokenPassword());
             
             mailSender.send(passwordResetEmail);
             return ResponseEntity.ok().headers(responseHeaders).body(user);
