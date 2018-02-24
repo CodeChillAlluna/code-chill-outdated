@@ -20,10 +20,10 @@ print_help () {
 
 export DEBIAN_FRONTEND=noninteractive
 
-if ! grep -qF "sudo mount --bind $HOME_DIR/vagrant_node_modules $client/node_modules" /home/vagrant/.bashrc
-then
-        echo "sudo mount --bind $HOME_DIR/vagrant_node_modules $client/node_modules" >> /home/vagrant/.bashrc
-fi
+# if ! grep -qF "sudo mount --bind $HOME_DIR/vagrant_node_modules $client/node_modules" /home/vagrant/.bashrc
+# then
+#         echo "sudo mount --bind $HOME_DIR/vagrant_node_modules $client/node_modules" >> /home/vagrant/.bashrc
+# fi
 
 if ! grep -qF "cd "$vagrant /home/vagrant/.bashrc
 then
@@ -148,11 +148,11 @@ yarn global add serve
 # Fix error with shared folder and npm modules
 # https://medium.com/@dtinth/isolating-node-modules-in-vagrant-9e646067b36
 mkdir $HOME_DIR/vagrant_node_modules
-mkdir $client/node_modules
-sudo mount --bind $HOME_DIR/vagrant_node_modules $client/node_modules
 sudo chown -R vagrant:vagrant $HOME_DIR/vagrant_node_modules
+mkdir $client/node_modules
+# sudo mount --rbind $HOME_DIR/vagrant_node_modules $client/node_modules
 
 # Install client dependencies
-sudo yarn install
+yarn install --no-bin-links
 
 print_help
