@@ -62,7 +62,7 @@ export default class NavBar extends React.Component<any, any> {
                                     <Icon name="sidebar" />
                                 </Menu.Item>
                                 <Menu.Menu position="right">
-                                <Dropdown item={true} text={this.props.user.sub}>
+                                <Dropdown item={true} text={this.props.user.username}>
                                     <Dropdown.Menu>
                                         <Dropdown.Item><a href="/profile">Profile</a></Dropdown.Item>
                                         <Dropdown.Item
@@ -84,7 +84,7 @@ export default class NavBar extends React.Component<any, any> {
                             </Menu.Item>
                             {_.map(this.leftItems, (item) => <Menu.Item {...item} />)}
                             <Menu.Menu position="right">
-                            <Dropdown item={true} text={this.props.user.sub}>
+                            <Dropdown item={true} text={this.props.user.username}>
                                 <Dropdown.Menu>
                                     <Dropdown.Item><a href="/profile">Profile</a></Dropdown.Item>
                                     <Dropdown.Item

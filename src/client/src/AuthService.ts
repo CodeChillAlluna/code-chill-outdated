@@ -2,13 +2,16 @@ import decode from "jwt-decode";
 export default class AuthService {
     // Initializing important variables
 
+    user: Object;
     domain: string;
 
     constructor(domain?: string) {
         this.domain = domain || "http://localhost:8080"; // API server domain
+        this.user = Object;
         this.fetch = this.fetch.bind(this); // React binding stuff
         this.login = this.login.bind(this);
         this.getProfile = this.getProfile.bind(this);
+        this.getUserInfos = this.getUserInfos.bind(this);
     }
 
     login(username: string, password: string) {
@@ -62,6 +65,14 @@ export default class AuthService {
     getProfile() {
         // Using jwt-decode npm package to decode the token
         return decode(this.getToken());
+    }
+
+     getUserInfos () {
+        return this.fetch(`${this.domain}/user`, {
+            method: "GET",
+         }).then((res) => {
+           return Promise.resolve(res);
+        });
     }
 
     fetch(url: any, options: any) {
