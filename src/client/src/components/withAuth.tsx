@@ -8,6 +8,7 @@ export default function withAuth(AuthComponent: any) {
         constructor(props?: any, context?: any) {
             super(props, context);
             this.state = {
+                token: null,
                 user: null
             };
         }
@@ -17,8 +18,11 @@ export default function withAuth(AuthComponent: any) {
             } else {
                 try {
                     const profile = Auth.getProfile();
-                    this.setState({
-                        user: profile
+                    Auth.getUserInfos().then((res) => {
+                        this.setState({
+                            token: profile,
+                            user: res
+                        });
                     });
                 } catch (err) {
                     Auth.logout();
@@ -27,10 +31,10 @@ export default function withAuth(AuthComponent: any) {
             }
         }
         render() {
-            if (this.state.user) {
+            if (this.state.token) {
                 return (
-                    <NavBar history={this.props.history} user={this.state.user}>
-                        <AuthComponent history={this.props.history} user={this.state.user} />
+                    <NavBar history={this.props.history} token={this.state.token} user={this.state.user}>
+                        <AuthComponent history={this.props.history} token={this.state.token} user={this.state.user} />
                     </NavBar>
                 );
             } else {

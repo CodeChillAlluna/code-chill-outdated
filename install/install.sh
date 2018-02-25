@@ -144,6 +144,8 @@ docker run --name code-chill -dti ubuntu /bin/bash
 cd $client
 yarn global add create-react-app
 yarn global add serve
+yarn global add typescript
+yarn global add react-scripts-ts
 
 # Fix error with shared folder and npm modules
 # https://medium.com/@dtinth/isolating-node-modules-in-vagrant-9e646067b36
