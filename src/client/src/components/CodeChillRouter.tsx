@@ -15,6 +15,7 @@ export default class CodeChillRouter extends React.Component<any, any> {
     
     render() {
         const ccxterm = "CodeChillXterm";
+        const url = "ws://localhost:2375/containers/code-chill/attach/ws?logs=0&stream=1&stdin=0&stdout=0&stderr=0";
         return (
             <main>
                 <Switch>
@@ -46,6 +47,7 @@ export default class CodeChillRouter extends React.Component<any, any> {
                             <CodeChillXterm 
                                 ref={ccxterm} 
                                 style={{overflow: "hidden", position: "relative", width: "100%", height: "100%"}}
+                                url={url}
                             />}
                     />
                     <Route 
