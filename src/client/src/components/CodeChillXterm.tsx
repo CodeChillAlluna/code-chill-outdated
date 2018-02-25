@@ -61,13 +61,14 @@ export default class CodeChillXterm extends React.Component<IxTermProps, IxTermS
             this.xterm.write(this.props.value);
         }
         this.xterm.writeln("Welcome to Code&Chill");
-        this.xterm.writeln("\r\n$ ");
+        this.xterm.write("$ ");
 
-        this.getTerminal().on("key", function(key: any, ev: any) {
-            if (ev.keyCode === 13) {
+        this.getTerminal().on("key", function(key: string, e: KeyboardEvent) {
+            // e: KeyboardEvent; e.key: string; e.which: numberx
+            if (e.key === "Enter") {
                 xt.xterm.write("\r\n$ ");
             } else {
-                xt.xterm.write(key + " " + ev.keyCode);
+                xt.xterm.write(key);
             }
         });
         
