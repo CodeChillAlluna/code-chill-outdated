@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.config.RepositoryNameSpaceHandler;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -69,6 +70,44 @@ public class UserController {
         return user;
     }
 
+    
+    //method sending a mail to a new user email
+    @PostMapping(value="/user/updateemail")
+    public ResponseEntity<?> updateUserEmail(@RequestParam("email")String email)
+    {
+        HttpHeaders responseHeaders = new HttpHeaders();
+        if(!email.equals(""))
+        {
+            SimpleMailMessage updateEmail = new SimpleMailMessage();
+            updateEmail.setFrom(SENDFROM);
+            updateEmail.setTo(email);
+            updateEmail.setSubject("Email adresse change");
+            updateEmail.setText("Your new email adress has been saved by our services");
+
+            mailSender.send(updateEmail);
+            return ResponseEntity.ok().headers(responseHeaders).body("Email update is a success");
+        }
+        return ResponseEntity.badRequest().headers(responseHeaders).body("Update Failed");
+    }
+    //Method sending an error message for the former email adress
+    @PostMapping(value = "/user/updateinfoerror")
+    public ResponseEntity<?> updateEmailError(@RequestParam("email")String email){
+        User user = urepo.findByEmail(email);
+        HttpHeaders responseHeaders = new HttpHeaders();
+        if (user!=null){
+            SimpleMailMessage infoUpdateFail = new SimpleMailMessage();
+            infoUpdateFail.setFrom(SENDFROM);
+            infoUpdateFail.setTo(user.getEmail());
+            infoUpdateFail.setSubject("Suspicious access to your account");
+            infoUpdateFail.setText("We have registered a suspicious activity on your acccount");
+            
+            mailSender.send(infoUpdateFail);
+            return ResponseEntity.ok().headers(responseHeaders).body(user);
+        }
+
+        return ResponseEntity.badRequest().headers(responseHeaders).body(user);
+    }
+    
     // Process form submission from forgotPassword page
 	@PostMapping(value = "/user/forgottenpassword")
 	public ResponseEntity<?> processForgotPasswordForm(@RequestParam("email") String email) {
@@ -96,13 +135,11 @@ public class UserController {
     public ResponseEntity<?> resetPassword(@PathVariable("token") String token) {
         HttpHeaders responseHeaders = new HttpHeaders();
         User user = urepo.findByTokenPassword(token);
-
         Date currentDate = new Date();
         Calendar c = Calendar.getInstance();
         c.setTime(user.getLastPasswordResetDate());
         c.add(Calendar.DATE, 1);
         Date currentDatePlusOne = c.getTime();
-
         if(user != null) {
             if(currentDate.after(user.getLastPasswordResetDate()) && currentDate.before(currentDatePlusOne)) {
                 return ResponseEntity.ok().headers(responseHeaders).body(null);
