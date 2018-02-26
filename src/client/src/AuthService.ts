@@ -75,6 +75,14 @@ export default class AuthService {
         });
     }
 
+    deleteUser (id: number) {
+        return this.fetch(`${this.domain}/user/${id}`, {
+            method: "DELETE",
+         }).then((res) => {
+           return Promise.resolve(res);
+        });
+    }
+
     fetch(url: any, options: any) {
         // performs api calls sending the required authentication headers
         const headers = {
