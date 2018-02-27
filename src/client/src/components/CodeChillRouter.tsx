@@ -5,7 +5,10 @@ import App from "../App";
 import CodeChillXterm from "./CodeChillXterm";
 import Term, { Terminal } from "./Term";
 import UserConnection from "./user/UserConnection";
+import UserSignUp from "./user/UserSignUp";
+import DeleteUser from "./user/DeleteUser";
 import Presentation from "./Presentation";
+import UserProfile from "./user/UserProfile";
 import NotFound from "./NotFound";
 import withAuth from "./withAuth";
 
@@ -29,16 +32,32 @@ export default class CodeChillRouter extends React.Component<any, any> {
                         path="/home"
                         component={App}
                     />
+                    <Route
+                        exact={true}
+                        path="/user/delete"
+                        component={DeleteUser}
+                    />
                     <Route 
                         exact={true} 
                         path="/term" 
                         render={(props) => <Term prefix="code@chill" theme={Terminal.Themes.DARK} />} 
+                    />
+                    <Route
+                        exact={true}
+                        path="/profile"
+                        component={UserProfile}
                     />
                     <Route 
                         exact={true}
                         path="/login" 
                         // render={(props) => <UserConnection props={...props} />}
                         component={UserConnection} 
+                    />
+                    <Route 
+                        exact={true}
+                        path="/signup" 
+                        // render={(props) => <UserConnection props={...props} />}
+                        component={UserSignUp} 
                     />
                     <Route
                         exact={true}

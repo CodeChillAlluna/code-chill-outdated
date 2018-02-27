@@ -67,9 +67,26 @@ export default class AuthService {
         return decode(this.getToken());
     }
 
-     getUserInfos () {
+    getUserInfos () {
         return this.fetch(`${this.domain}/user`, {
             method: "GET",
+         }).then((res) => {
+           return Promise.resolve(res);
+        });
+    }
+
+    editUser (user: Object) {
+        return this.fetch(`${this.domain}/user`, {
+            method: "PUT",
+            body: JSON.stringify(user)
+        }).then((res) => {
+            return Promise.resolve(res);
+        });
+    }
+
+    deleteUser (id: number) {
+        return this.fetch(`${this.domain}/user/${id}`, {
+            method: "DELETE",
          }).then((res) => {
            return Promise.resolve(res);
         });

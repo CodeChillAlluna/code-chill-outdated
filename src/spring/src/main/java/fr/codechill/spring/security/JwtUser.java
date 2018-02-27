@@ -93,6 +93,10 @@ public class JwtUser implements UserDetails {
         return password;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
