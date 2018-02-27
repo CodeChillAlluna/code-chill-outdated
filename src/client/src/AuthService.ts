@@ -83,6 +83,15 @@ export default class AuthService {
         });
     }
 
+    createAccount(user: Object) {
+        return this.fetch(`${this.domain}/user`, {
+            method: "POST",
+            body: JSON.stringify(user)
+         }).then((res) => {
+           return Promise.resolve(res);
+        });
+    }
+
     fetch(url: any, options: any) {
         // performs api calls sending the required authentication headers
         const headers = {

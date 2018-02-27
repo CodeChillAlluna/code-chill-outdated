@@ -19,10 +19,6 @@ export default class NavBar extends React.Component<any, any> {
 
     Auth: AuthService;
 
-    leftItems = [
-        { as: "a", content: "Terminal", key: "terminal", href: "/term" }
-    ];
-
     constructor(props?: any, context?: any) {
         super(props, context);
         this.Auth = new AuthService();
@@ -37,7 +33,8 @@ export default class NavBar extends React.Component<any, any> {
     render() {
         const { children } = this.props;
         let rmenu: any;
-        if (this.props.user !== null) {
+        let leftItems: any;
+        if (this.props.user) {
             rmenu = (
                 <Dropdown item={true} text={this.props.user.username}>
                     <Dropdown.Menu>
@@ -49,12 +46,16 @@ export default class NavBar extends React.Component<any, any> {
                     </Dropdown.Menu>
                 </Dropdown>
             );
+            leftItems = [
+                { as: "a", content: "Terminal", key: "terminal", href: "/term" }
+            ];
         } else {
             rmenu = (
                 <Menu.Item>
                     <a href="/login">Login</a>
                 </Menu.Item>
             );
+            leftItems = [];
         }
         return (
             <div>
@@ -65,7 +66,7 @@ export default class NavBar extends React.Component<any, any> {
                             animation="overlay"
                             icon="labeled"
                             inverted={true}
-                            items={this.leftItems}
+                            items={leftItems}
                             vertical={true}
                             visible={this.state.visible}
                         />
@@ -94,7 +95,7 @@ export default class NavBar extends React.Component<any, any> {
                             <Menu.Item>
                                 <Image size="mini" src="https://react.semantic-ui.com/logo.png" />
                             </Menu.Item>
-                            {_.map(this.leftItems, (item) => <Menu.Item {...item} />)}
+                            {_.map(leftItems, (item) => <Menu.Item {...item} />)}
                             <Menu.Menu position="right">
                                 {rmenu}
                             </Menu.Menu>

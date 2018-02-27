@@ -1,27 +1,27 @@
 package fr.codechill.spring.rest;
 
 import java.util.Calendar;
-import java.util.UUID;
-import java.util.Map;
 import java.util.Date;
+import java.util.Map;
+import java.util.UUID;
+import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.config.RepositoryNameSpaceHandler;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.mail.SimpleMailMessage;
-
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import fr.codechill.spring.model.User;
 import fr.codechill.spring.repository.UserRepository;
@@ -65,9 +65,21 @@ public class UserController {
     }
 
     @PostMapping("/user")
-    public User addUser(@RequestBody User user) {
+    public ResponseEntity<?> addUser(@RequestBody User user) {
+        HttpHeaders responseHeaders = new HttpHeaders();
+        if (urepo.findByUsername(user.getUsername()) != null) {
+
+            return ResponseEntity.badRequest().headers(responseHeaders).body("An account with this username already exist!");
+        }
+        if (urepo.findByEmail(user.getEmail()) != null) {
+            return ResponseEntity.badRequest().headers(responseHeaders).body("An account with this email already exist!");
+        }
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         urepo.save(user);
-        return user;
+        final URI location = ServletUriComponentsBuilder
+            .fromCurrentServletMapping().path("/user/{id}").build()
+            .expand(user.getId()).toUri();
+        return ResponseEntity.created(location).headers(responseHeaders).body(urepo.findByUsername(user.getUsername()));
     }
 
     

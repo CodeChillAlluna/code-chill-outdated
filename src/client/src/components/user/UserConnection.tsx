@@ -49,7 +49,7 @@ export default class UserConnection extends React.Component<any, any> {
                                     fluid={true}
                                     icon="user"
                                     iconPosition="left"
-                                    placeholder="E-mail address"
+                                    placeholder="Username"
                                     name="username"
                                     onChange={this.handleChange}
                                 />
