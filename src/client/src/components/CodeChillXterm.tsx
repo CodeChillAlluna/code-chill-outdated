@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Terminal } from "xterm";
-import * as attach from "xterm/dist/addons/attach/attach";
 import * as ClassName from "classnames";
 import * as TextEncoding from "text-encoding";
 
@@ -37,18 +36,21 @@ export default class CodeChillXterm extends React.Component<IxTermProps, IxTermS
         this.state = {
             isFocused: false
         };
+        // this.props.options
         this.msg = "";
+
+        this.xterm = new Terminal({
+            cursorBlink: false,  // Do not blink the terminal's cursor
+            cols: 120,  // Set the terminal's width to 120 columns
+            rows: 80  // Set the terminal's height to 80 rows
+        });
     }
 
-    applyAddon(addon: string) {
-       Terminal.applyAddon(attach);
-    }
     componentDidMount() {
         const xt = this;
 
         if (xt.props.url) {
             xt.webSocket = new WebSocket(xt.props.url);
-            Terminal.applyAddon(attach);
             // this.webSocket.addEventListener("message", this.recieveData);
         }
 
@@ -63,18 +65,19 @@ export default class CodeChillXterm extends React.Component<IxTermProps, IxTermS
             let decoder = new TextEncoding.TextDecoder("utf-8");
             var fileReader = new FileReader();
             fileReader.onload = function() {
-                xt.writeln(decoder.decode(this.result));
-                xt.write("$ ");
+                xt.write(decoder.decode(this.result));
             };
-            console.log(event.data);
             fileReader.readAsArrayBuffer(event.data);
         }; 
-        Terminal.applyAddon(attach);
-        this.xterm = new Terminal(this.props.options);
+        // Terminal.applyAddon(attach);
+        // this.xterm = new Terminal(this.props.options);
         
         this.xterm.open(this.refs.container);
         this.xterm.on("focus", this.focusChanged.bind(this, true));
         this.xterm.on("blur", this.focusChanged.bind(this, false));
+        this.xterm.on("resize", function(size: any) {
+            xt.xterm.resize(size.cols, size.rows);
+        });
 
         if (this.props.onContextMenu) {
             this.xterm.element.addEventListener("contextmenu", this.onContextMenu.bind(this));
@@ -87,17 +90,17 @@ export default class CodeChillXterm extends React.Component<IxTermProps, IxTermS
         if (this.props.value) {
             this.xterm.write(this.props.value);
         }
-        this.xterm.writeln("Welcome to Code&Chill");
-        this.xterm.write("$ ");
 
         this.getTerminal().on("key", function(key: string, e: KeyboardEvent) {
             // e: KeyboardEvent; e.key: string; e.which: numberx
             xt.msg = xt.msg + key;
+            if (e.key === "Backspace") {
+                xt.xterm.write("\b");
+            }
             if (e.key === "Enter") {
-                xt.msg = xt.msg + " \n";
-                xt.webSocket.send(xt.msg);           
+                xt.webSocket.send(xt.msg);     
                 xt.msg = "";
-                xt.xterm.write("\r\n$ ");
+                xt.xterm.write("\r\n");
             } else {
                 xt.xterm.write(key);
             }
@@ -161,46 +164,6 @@ export default class CodeChillXterm extends React.Component<IxTermProps, IxTermS
         if (this.props.onContextMenu) {
             this.props.onContextMenu(e);
         }
-    }
-
-    recieveData(event: MessageEvent) {
-        let str: string = "";
-        console.log(str);
-        let decoder = new TextEncoding.TextDecoder();
-        if (typeof event.data === "object" && event.data instanceof ArrayBuffer) {
-            str = decoder.decode(event.data);
-            console.log("A" + str);
-        } else {
-            str = "Error receiving data.";
-            console.log(str);
-        }
-        str = "erreur";
-        console.log(str);
-        this.xterm.writeln(str);
-    }
-
-    sendData(data: string) {
-        let s = this.webSocket;
-        this.webSocket.onopen = function(event: Event) {
-            s.send(data);
-            console.log("on open : " + event);
-        };
-        this.webSocket.onerror = function() {
-            console.log("onerreur");
-        };
-        this.webSocket.onmessage = function(event: MessageEvent) {
-            console.log("on message : " + event.data);
-            if (event.data instanceof Blob) {
-                console.log("blob");
-                var reader = new FileReader();
-                reader.onload = function() {
-                    console.log("reader : " + reader.result);
-                };
-                reader.readAsText(event.data);
-            } else {
-                console.log("no blob");
-            }
-        };
     }
 
     render() {

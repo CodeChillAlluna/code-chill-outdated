@@ -8,6 +8,7 @@ import UserConnection from "./user/UserConnection";
 import UserSignUp from "./user/UserSignUp";
 import DeleteUser from "./user/DeleteUser";
 import Presentation from "./Presentation";
+import UserProfile from "./user/UserProfile";
 import NotFound from "./NotFound";
 import withAuth from "./withAuth";
 
@@ -41,6 +42,11 @@ export default class CodeChillRouter extends React.Component<any, any> {
                         path="/term" 
                         render={(props) => <Term prefix="code@chill" theme={Terminal.Themes.DARK} />} 
                     />
+                    <Route
+                        exact={true}
+                        path="/profile"
+                        component={UserProfile}
+                    />
                     <Route 
                         exact={true}
                         path="/login" 
@@ -59,7 +65,6 @@ export default class CodeChillRouter extends React.Component<any, any> {
                         render={(props) => 
                             <CodeChillXterm 
                                 ref={ccxterm} 
-                                style={{overflow: "hidden", position: "relative", width: "100%", height: "100%"}}
                                 url={url}
                             />}
                     />
