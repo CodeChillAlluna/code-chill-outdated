@@ -55,9 +55,10 @@ public class UserController {
     }
 
     
-    @DeleteMapping("/user/{id}")
-    public Boolean deleteUser(@PathVariable("id") Long id) {
-        User user = this.urepo.findOne(id);
+    @DeleteMapping("/user")
+    public Boolean deleteUser(@RequestHeader(value="Authorization") String token) {
+        String username = jwtTokenUtil.getUsernameFromToken(token.substring(7));
+        User user = this.urepo.findByUsername(username);
         this.urepo.delete(user);
         return true;
     }

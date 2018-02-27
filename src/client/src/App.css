@@ -26,6 +26,10 @@
   color: rgba(0,0,0,.87) !important;
 }
 
+.modals.visible.transition {
+  display: flex !important;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

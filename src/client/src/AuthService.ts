@@ -75,7 +75,7 @@ export default class AuthService {
         });
     }
 
-    editUser (user: Object) {
+    editUser(user: Object) {
         return this.fetch(`${this.domain}/user`, {
             method: "PUT",
             body: JSON.stringify(user)
@@ -84,8 +84,8 @@ export default class AuthService {
         });
     }
 
-    deleteUser (id: number) {
-        return this.fetch(`${this.domain}/user/${id}`, {
+    deleteUser() {
+        return this.fetch(`${this.domain}/user`, {
             method: "DELETE",
          }).then((res) => {
            return Promise.resolve(res);

@@ -1,7 +1,9 @@
 import * as React from "react";
-import { Button, Form, Message } from "semantic-ui-react";
+import { Button, Form, Message, Grid } from "semantic-ui-react";
 import AuthService from "../../AuthService";
 import withAuth from "../withAuth";
+import DeleteUser from "./DeleteUser";
+import NavBar from "../NavBar";
 
 class UserProfile extends React.Component<any, any> {
     Auth: AuthService;
@@ -49,43 +51,55 @@ class UserProfile extends React.Component<any, any> {
 
     render() {
         return (
-            <Form 
-                success={true}
-                error={true}
-                size="tiny"
-            >
-                <Form.Input
-                    value={this.state.lastname}
-                    required={true}
-                    placeholder="lastname"
-                    name="lastname"
-                    onChange={this.handleChange}
-                />
-                <Form.Input
-                    value={this.state.firstname}
-                    required={true}
-                    placeholder="firstname"
-                    name="firstname"
-                    onChange={this.handleChange}
-                />
-                <Form.Input
-                    value={this.state.email}
-                    required={true}
-                    placeholder="email"
-                    name="email"
-                    onChange={this.handleChange}
-                />
-                <Button 
-                    color="teal"
-                    fluid={true}
-                    size="large"
-                    type="submit"
-                    onClick={this.editUser}
-                >
-                    Valider
-                </Button>
-                {this.state.message}
-            </Form>
+            <NavBar history={this.props.history} user={this.props.user}>
+                <Grid>
+                    <Grid.Column width={12}>
+                        <Form 
+                            success={true}
+                            error={true}
+                            size="tiny"
+                        >
+                            <Form.Input
+                                value={this.state.lastname}
+                                required={true}
+                                placeholder="lastname"
+                                name="lastname"
+                                onChange={this.handleChange}
+                            />
+                            <Form.Input
+                                value={this.state.firstname}
+                                required={true}
+                                placeholder="firstname"
+                                name="firstname"
+                                onChange={this.handleChange}
+                            />
+                            <Form.Input
+                                value={this.state.email}
+                                required={true}
+                                placeholder="email"
+                                name="email"
+                                onChange={this.handleChange}
+                            />
+                            <Button 
+                                color="teal"
+                                fluid={true}
+                                size="large"
+                                type="submit"
+                                onClick={this.editUser}
+                            >
+                                Valider
+                            </Button>
+                            {this.state.message}
+                        </Form>
+                    </Grid.Column>
+                    <Grid.Column width={4}>
+                        <DeleteUser 
+                            history={this.props.history}
+                            user={this.props.user}
+                        />
+                    </Grid.Column>
+                </Grid>
+            </NavBar>
         );
     }
 
