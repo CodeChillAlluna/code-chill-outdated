@@ -38,7 +38,11 @@ export default function withAuth(AuthComponent: any) {
                     </NavBar>
                 );
             } else {
-                return null;
+                return (
+                    <NavBar history={this.props.history} >
+                        <AuthComponent history={this.props.history} />
+                    </NavBar>
+                );
             }                
         }
     };

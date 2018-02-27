@@ -67,7 +67,7 @@ export default class AuthService {
         return decode(this.getToken());
     }
 
-     getUserInfos () {
+    getUserInfos () {
         return this.fetch(`${this.domain}/user`, {
             method: "GET",
          }).then((res) => {
