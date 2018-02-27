@@ -46,7 +46,6 @@ export default class CodeChillRouter extends React.Component<any, any> {
                         render={(props) => 
                             <CodeChillXterm 
                                 ref={ccxterm} 
-                                style={{overflow: "hidden", position: "relative", width: "100%", height: "100%"}}
                                 url={url}
                             />}
                     />
