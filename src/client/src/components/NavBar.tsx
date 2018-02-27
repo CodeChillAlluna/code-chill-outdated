@@ -36,6 +36,26 @@ export default class NavBar extends React.Component<any, any> {
   
     render() {
         const { children } = this.props;
+        let rmenu: any;
+        if (this.props.user !== null) {
+            rmenu = (
+                <Dropdown item={true} text={this.props.user.username}>
+                    <Dropdown.Menu>
+                        <Dropdown.Item><a href="/profile">Profile</a></Dropdown.Item>
+                        <Dropdown.Item
+                            onClick={this.handleLogout}
+                        >Log out
+                        </Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
+            );
+        } else {
+            rmenu = (
+                <Menu.Item>
+                    <a href="/login">Login</a>
+                </Menu.Item>
+            );
+        }
         return (
             <div>
                 <Responsive {...Responsive.onlyMobile}>
@@ -62,15 +82,7 @@ export default class NavBar extends React.Component<any, any> {
                                     <Icon name="sidebar" />
                                 </Menu.Item>
                                 <Menu.Menu position="right">
-                                <Dropdown item={true} text={this.props.user.username}>
-                                    <Dropdown.Menu>
-                                        <Dropdown.Item><a href="/profile">Profile</a></Dropdown.Item>
-                                        <Dropdown.Item
-                                            onClick={this.handleLogout}
-                                        >Log out
-                                        </Dropdown.Item>
-                                    </Dropdown.Menu>
-                                </Dropdown>
+                                    {rmenu}
                                 </Menu.Menu>
                             </Menu>
                             <NavBarChildren>{children}</NavBarChildren>
@@ -84,15 +96,7 @@ export default class NavBar extends React.Component<any, any> {
                             </Menu.Item>
                             {_.map(this.leftItems, (item) => <Menu.Item {...item} />)}
                             <Menu.Menu position="right">
-                            <Dropdown item={true} text={this.props.user.username}>
-                                <Dropdown.Menu>
-                                    <Dropdown.Item><a href="/profile">Profile</a></Dropdown.Item>
-                                    <Dropdown.Item
-                                        onClick={this.handleLogout}
-                                    >Log out
-                                    </Dropdown.Item>
-                                </Dropdown.Menu>
-                            </Dropdown>
+                                {rmenu}
                             </Menu.Menu>
                         </Menu>
                         <NavBarChildren>{children}</NavBarChildren>
