@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -25,6 +26,7 @@ import org.springframework.mail.SimpleMailMessage;
 
 import fr.codechill.spring.model.User;
 import fr.codechill.spring.repository.UserRepository;
+import fr.codechill.spring.security.JwtTokenUtil;
 
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:5000"})
 @RestController
@@ -38,6 +40,8 @@ public class UserController {
     
     @Autowired
     private JavaMailSender mailSender;
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
 
     @Autowired
     public UserController(UserRepository urepo) { 
@@ -58,9 +62,22 @@ public class UserController {
         return true;
     }
 
-    @PutMapping("/user/{id}")
-    public User editUser(@RequestBody User user) {
-        this.urepo.save(user);
+    @PutMapping("/user")
+    public User editUser(@RequestHeader(value="Authorization") String token, @RequestBody User user) {
+       
+       String username = jwtTokenUtil.getUsernameFromToken(token.substring(7));
+       User updatedUser = this.urepo.findByUsername(username);
+        if (updatedUser.getLastname()!=user.getLastname())
+            updatedUser.setLastname(user.getLastname());
+        if (updatedUser.getFirstname()!=user.getFirstname())
+            updatedUser.setFirstname(user.getFirstname());
+        if(updatedUser.getEmail()!=user.getEmail())
+        {
+            updatedUser.setEmail(user.getEmail());
+            updateUserEmail(updatedUser.getEmail());
+        }
+            
+        this.urepo.save(updatedUser);
         return user;
     }
 
@@ -72,10 +89,8 @@ public class UserController {
 
     
     //method sending a mail to a new user email
-    @PostMapping(value="/user/updateemail")
-    public ResponseEntity<?> updateUserEmail(@RequestParam("email")String email)
+    public boolean updateUserEmail(String email)
     {
-        HttpHeaders responseHeaders = new HttpHeaders();
         if(!email.equals(""))
         {
             SimpleMailMessage updateEmail = new SimpleMailMessage();
@@ -83,17 +98,14 @@ public class UserController {
             updateEmail.setTo(email);
             updateEmail.setSubject("Email adresse change");
             updateEmail.setText("Your new email adress has been saved by our services");
-
             mailSender.send(updateEmail);
-            return ResponseEntity.ok().headers(responseHeaders).body("Email update is a success");
+            return true;
         }
-        return ResponseEntity.badRequest().headers(responseHeaders).body("Update Failed");
+        return false;
     }
     //Method sending an error message for the former email adress
-    @PostMapping(value = "/user/updateinfoerror")
-    public ResponseEntity<?> updateEmailError(@RequestParam("email")String email){
+    public boolean updateEmailError(String email){
         User user = urepo.findByEmail(email);
-        HttpHeaders responseHeaders = new HttpHeaders();
         if (user!=null){
             SimpleMailMessage infoUpdateFail = new SimpleMailMessage();
             infoUpdateFail.setFrom(SENDFROM);
@@ -102,10 +114,10 @@ public class UserController {
             infoUpdateFail.setText("We have registered a suspicious activity on your acccount");
             
             mailSender.send(infoUpdateFail);
-            return ResponseEntity.ok().headers(responseHeaders).body(user);
+            return true;
         }
 
-        return ResponseEntity.badRequest().headers(responseHeaders).body(user);
+        return false;
     }
     
     // Process form submission from forgotPassword page

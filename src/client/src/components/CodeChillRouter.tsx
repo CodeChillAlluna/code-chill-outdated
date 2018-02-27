@@ -7,6 +7,7 @@ import Term, { Terminal } from "./Term";
 import UserConnection from "./user/UserConnection";
 import DeleteUser from "./user/DeleteUser";
 import Presentation from "./Presentation";
+import UserProfile from "./user/UserProfile";
 import NotFound from "./NotFound";
 import withAuth from "./withAuth";
 
@@ -39,6 +40,11 @@ export default class CodeChillRouter extends React.Component<any, any> {
                         exact={true} 
                         path="/term" 
                         render={(props) => <Term prefix="code@chill" theme={Terminal.Themes.DARK} />} 
+                    />
+                    <Route
+                        exact={true}
+                        path="/profile"
+                        component={UserProfile}
                     />
                     <Route 
                         exact={true}
