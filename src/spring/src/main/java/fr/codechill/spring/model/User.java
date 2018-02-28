@@ -14,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,13 +22,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import org.hibernate.annotations.*;
-
 import fr.codechill.spring.model.security.Authority;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import java.io.Serializable;
 
 @Entity
 @Table(name = "codechilluser")
@@ -40,14 +33,15 @@ public class User implements Serializable {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "username", length = 50, unique = true)
+    @Column(name = "username", length = 100, unique = true)
     @NotNull
-    @Size(min = 4, max = 50)
+    @Size(min = 5, max = 100)
     private String username;
 
     @Column(name = "password", length = 100)
     @NotNull
     @Size(min = 4, max = 100)
+    @JsonIgnoreProperties("password")
     private String password;
 
     @Column(name = "firstname", length = 50)

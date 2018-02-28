@@ -2,13 +2,16 @@ import decode from "jwt-decode";
 export default class AuthService {
     // Initializing important variables
 
+    user: Object;
     domain: string;
 
     constructor(domain?: string) {
         this.domain = domain || "http://localhost:8080"; // API server domain
+        this.user = Object;
         this.fetch = this.fetch.bind(this); // React binding stuff
         this.login = this.login.bind(this);
         this.getProfile = this.getProfile.bind(this);
+        this.getUserInfos = this.getUserInfos.bind(this);
     }
 
     login(username: string, password: string) {
@@ -62,6 +65,66 @@ export default class AuthService {
     getProfile() {
         // Using jwt-decode npm package to decode the token
         return decode(this.getToken());
+    }
+
+    getUserInfos () {
+        return this.fetch(`${this.domain}/user`, {
+            method: "GET",
+         }).then((res) => {
+           return Promise.resolve(res);
+        });
+    }
+
+    editUser(user: Object) {
+        return this.fetch(`${this.domain}/user`, {
+            method: "PUT",
+            body: JSON.stringify(user)
+        }).then((res) => {
+            return Promise.resolve(res);
+        });
+    }
+
+    deleteUser() {
+        return this.fetch(`${this.domain}/user`, {
+            method: "DELETE",
+         }).then((res) => {
+            return Promise.resolve(res);
+        });
+    }
+
+    createAccount(user: Object) {
+        return this.fetch(`${this.domain}/user`, {
+            method: "POST",
+            body: JSON.stringify(user)
+         }).then((res) => {
+            return Promise.resolve(res);
+        });
+    }
+
+    forgotPassword(email: string) {
+        return this.fetch(`${this.domain}/user/forgottenpassword`, {
+            method: "POST",
+            body: email
+         }).then((res) => {
+            return Promise.resolve(res);
+        });
+    }
+
+    checkTokenPassword(token: string) {
+        return this.fetch(`${this.domain}/reset/${token}`, {
+            method: "GET"
+         }).then((res) => {
+            return Promise.resolve(res);
+        });
+    }
+
+    resetPassword(token: string, password: string) {
+        return this.fetch(`${this.domain}/reset`, {
+            method: "POST",
+            body: JSON.stringify({"token": token, "password": password})
+         }).then((res) => {
+            return Promise.resolve(res);
+        });
     }
 
     fetch(url: any, options: any) {

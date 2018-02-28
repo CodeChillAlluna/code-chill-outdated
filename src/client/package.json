@@ -5,6 +5,7 @@
   "dependencies": {
     "@types/lodash": "^4.14.104",
     "@types/react-redux": "^5.0.14",
+    "axios": "^0.18.0",
     "jwt-decode": "^2.2.0",
     "react": "^16.2.0",
     "react-bash": "^1.6.0",
@@ -14,7 +15,8 @@
     "react-scripts-ts": "2.12.0",
     "semantic-ui-css": "^2.2.14",
     "semantic-ui-react": "^0.78.2",
-    "text-encoding": "^0.6.4"
+    "text-encoding": "^0.6.4",
+    "xterm": "^3.1.0"
   },
   "scripts": {
     "start": "react-scripts-ts start",

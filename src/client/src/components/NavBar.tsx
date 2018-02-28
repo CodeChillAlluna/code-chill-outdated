@@ -19,10 +19,6 @@ export default class NavBar extends React.Component<any, any> {
 
     Auth: AuthService;
 
-    leftItems = [
-        { as: "a", content: "Terminal", key: "terminal", href: "/term" }
-    ];
-
     constructor(props?: any, context?: any) {
         super(props, context);
         this.Auth = new AuthService();
@@ -36,6 +32,31 @@ export default class NavBar extends React.Component<any, any> {
   
     render() {
         const { children } = this.props;
+        let rmenu: any;
+        let leftItems: any;
+        if (this.props.user) {
+            rmenu = (
+                <Dropdown item={true} text={this.props.user.username}>
+                    <Dropdown.Menu>
+                        <Dropdown.Item><a href="/profile">Profile</a></Dropdown.Item>
+                        <Dropdown.Item
+                            onClick={this.handleLogout}
+                        >Log out
+                        </Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
+            );
+            leftItems = [
+                { as: "a", content: "Terminal", key: "terminal", href: "/term" }
+            ];
+        } else {
+            rmenu = (
+                <Menu.Item>
+                    <a href="/login">Login</a>
+                </Menu.Item>
+            );
+            leftItems = [];
+        }
         return (
             <div>
                 <Responsive {...Responsive.onlyMobile}>
@@ -45,7 +66,7 @@ export default class NavBar extends React.Component<any, any> {
                             animation="overlay"
                             icon="labeled"
                             inverted={true}
-                            items={this.leftItems}
+                            items={leftItems}
                             vertical={true}
                             visible={this.state.visible}
                         />
@@ -62,15 +83,7 @@ export default class NavBar extends React.Component<any, any> {
                                     <Icon name="sidebar" />
                                 </Menu.Item>
                                 <Menu.Menu position="right">
-                                <Dropdown item={true} text={this.props.user.sub}>
-                                    <Dropdown.Menu>
-                                        <Dropdown.Item><a href="/profile">Profile</a></Dropdown.Item>
-                                        <Dropdown.Item
-                                            onClick={this.handleLogout}
-                                        >Log out
-                                        </Dropdown.Item>
-                                    </Dropdown.Menu>
-                                </Dropdown>
+                                    {rmenu}
                                 </Menu.Menu>
                             </Menu>
                             <NavBarChildren>{children}</NavBarChildren>
@@ -82,17 +95,9 @@ export default class NavBar extends React.Component<any, any> {
                             <Menu.Item>
                                 <Image size="mini" src="https://react.semantic-ui.com/logo.png" />
                             </Menu.Item>
-                            {_.map(this.leftItems, (item) => <Menu.Item {...item} />)}
+                            {_.map(leftItems, (item) => <Menu.Item {...item} />)}
                             <Menu.Menu position="right">
-                            <Dropdown item={true} text={this.props.user.sub}>
-                                <Dropdown.Menu>
-                                    <Dropdown.Item><a href="/profile">Profile</a></Dropdown.Item>
-                                    <Dropdown.Item
-                                        onClick={this.handleLogout}
-                                    >Log out
-                                    </Dropdown.Item>
-                                </Dropdown.Menu>
-                            </Dropdown>
+                                {rmenu}
                             </Menu.Menu>
                         </Menu>
                         <NavBarChildren>{children}</NavBarChildren>

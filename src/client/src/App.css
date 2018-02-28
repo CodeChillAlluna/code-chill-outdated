@@ -22,8 +22,12 @@
   font-size: large;
 }
 
-.menu .item a {
+.dropdown .menu .item a {
   color: rgba(0,0,0,.87) !important;
+}
+
+.modals.visible.transition {
+  display: flex !important;
 }
 
 @keyframes App-logo-spin {

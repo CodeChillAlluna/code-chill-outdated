@@ -58,7 +58,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 
                 .authorizeRequests()
-                //.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .antMatchers(
+                        HttpMethod.OPTIONS, "/**"
+                ).permitAll()
 
                 // allow anonymous resource requests
                 .antMatchers(
@@ -68,7 +70,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/favicon.ico",
                         "/**/*.html",
                         "/**/*.css",
-                        "/**/*.js"
+                        "/**/*.js",
+                        "/reset/*"
+                        
+                ).permitAll()
+
+                .antMatchers(
+                        HttpMethod.POST,
+                        "/user",
+                        "/user/forgottenpassword",
+                        "/reset"
                 ).permitAll()
 
                 // Un-secure H2 Database
