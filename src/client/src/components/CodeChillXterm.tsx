@@ -92,16 +92,47 @@ export default class CodeChillXterm extends React.Component<IxTermProps, IxTermS
         }
 
         this.getTerminal().on("key", function(key: string, e: KeyboardEvent) {
-            // e: KeyboardEvent; e.key: string; e.which: numberx
-            xt.msg = xt.msg + key;
+            // e: KeyboardEvent; e.key: string; e.which: number
+            console.log("xt.msg (old) : length=" + xt.msg.length + " : " + xt.msg);
+            console.log("xt.msg (new) : length=" + (xt.msg + key).length + " : " + xt.msg + key);
             if (e.key === "Backspace") {
-                xt.xterm.write("\b");
-            }
-            if (e.key === "Enter") {
+                console.log(xt.msg + " : " + xt.msg.length);
+                xt.msg = xt.msg.substring(0, xt.msg.length - 1);
+                console.log(xt.msg + " : " + xt.msg.length);
+                xt.xterm.write("\b \b");
+            } else if (e.key === "Enter") {
+                xt.msg = xt.msg + key;
                 xt.webSocket.send(xt.msg);     
                 xt.msg = "";
                 xt.xterm.write("\r\n");
+            } else if (e.ctrlKey === true) {
+                // xt.webSocket.send(key ou xt.msg + key)
+                // a voir comment faire !
+                /**
+                 * TODO CTRL+KEY HANDLER (block ctrl+w) ctrl+a ctrl+c etc.
+                 */
+            } else if (e.altKey === true) {
+                /**
+                 * TODO ALT+KEY HANDLER
+                 */
+            } else if (e.shiftKey === true) {
+                /**
+                 *  TODO SHIFT+KEY HANDLER
+                 */
+            } else if (e.key === "Tab") {
+                /**
+                 *  TODO TAB HANDLER
+                 */
+            } else if (e.key === "ArrowUp" || e.key === "ArrowDown") {
+                /**
+                 *  TODO ARROWUP ARROWDOWN HANDLER
+                 */
+            } else if (e.key === "Escape") {
+                /**
+                 * TODO ESCAPE HANDLER
+                 */
             } else {
+                xt.msg = xt.msg + key;
                 xt.xterm.write(key);
             }
         });
