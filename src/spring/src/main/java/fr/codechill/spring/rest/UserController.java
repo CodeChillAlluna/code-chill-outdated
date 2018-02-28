@@ -33,7 +33,7 @@ import fr.codechill.spring.security.JwtTokenUtil;
 public class UserController {
     private final UserRepository urepo;
     private final String SENDFROM = "codechill@hotmail.com";
-    private final String BASE_URL = "http://localhost:8080";
+    private final String BASE_URL = "http://localhost:3000";
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -66,14 +66,15 @@ public class UserController {
     @PutMapping("/user")
     public User editUser(@RequestHeader(value="Authorization") String token, @RequestBody User user) {
        
-       String username = jwtTokenUtil.getUsernameFromToken(token.substring(7));
-       User updatedUser = this.urepo.findByUsername(username);
-        if (updatedUser.getLastname()!=user.getLastname())
+        String username = jwtTokenUtil.getUsernameFromToken(token.substring(7));
+        User updatedUser = this.urepo.findByUsername(username);
+        if (!updatedUser.getLastname().equals(user.getLastname())) {
             updatedUser.setLastname(user.getLastname());
-        if (updatedUser.getFirstname()!=user.getFirstname())
+        }
+        if (!updatedUser.getFirstname().equals(user.getFirstname())) {
             updatedUser.setFirstname(user.getFirstname());
-        if(updatedUser.getEmail()!=user.getEmail())
-        {
+        }
+        if (!updatedUser.getEmail().equals(user.getEmail())) {
             updatedUser.setEmail(user.getEmail());
             updateUserEmail(updatedUser.getEmail());
         }
@@ -135,7 +136,7 @@ public class UserController {
     
     // Process form submission from forgotPassword page
 	@PostMapping(value = "/user/forgottenpassword")
-	public ResponseEntity<?> processForgotPasswordForm(@RequestParam("email") String email) {
+	public ResponseEntity<?> processForgotPasswordForm(@RequestBody String email) {
         User user = urepo.findByEmail(email);
         HttpHeaders responseHeaders = new HttpHeaders();
 
@@ -167,14 +168,14 @@ public class UserController {
         Date currentDatePlusOne = c.getTime();
         if(user != null) {
             if(currentDate.after(user.getLastPasswordResetDate()) && currentDate.before(currentDatePlusOne)) {
-                return ResponseEntity.ok().headers(responseHeaders).body(null);
+                return ResponseEntity.ok().headers(responseHeaders).body(user);
             }
         }
         return ResponseEntity.badRequest().headers(responseHeaders).body(null);
     }
 
     @PostMapping(value = "/reset")
-    public ResponseEntity<?> setNewPassword(@RequestParam Map<String, String> requestParams) {
+    public ResponseEntity<?> setNewPassword(@RequestBody Map<String, String> requestParams) {
         User user = urepo.findByTokenPassword(requestParams.get("token"));
         HttpHeaders responseHeaders = new HttpHeaders();
 
@@ -182,7 +183,7 @@ public class UserController {
             user.setPassword(bCryptPasswordEncoder.encode(requestParams.get("password")));
             user.setTokenPassword(null);
             urepo.save(user);
-            return ResponseEntity.ok().headers(responseHeaders).body(null);
+            return ResponseEntity.ok().headers(responseHeaders).body(user);
         }
         return ResponseEntity.badRequest().headers(responseHeaders).body(null);
     }

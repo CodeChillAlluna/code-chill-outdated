@@ -32,7 +32,7 @@ class UserProfile extends React.Component<any, any> {
                     "message": (
                         <Message
                             success={true}
-                            content="Your email have been successfully updated !"
+                            content="Your informations have been successfully updated !"
                         />
                     ),
                 }

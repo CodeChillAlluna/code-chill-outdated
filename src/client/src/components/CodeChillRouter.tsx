@@ -6,11 +6,12 @@ import CodeChillXterm from "./CodeChillXterm";
 import Term, { Terminal } from "./Term";
 import UserConnection from "./user/UserConnection";
 import UserSignUp from "./user/UserSignUp";
-import DeleteUser from "./user/DeleteUser";
 import Presentation from "./Presentation";
 import UserProfile from "./user/UserProfile";
 import NotFound from "./NotFound";
 import withAuth from "./withAuth";
+import UserForgotPassword from "./user/UserForgotPassword";
+import UserResetPassword from "./user/UserResetPassword";
 
 export default class CodeChillRouter extends React.Component<any, any> {
 
@@ -32,11 +33,6 @@ export default class CodeChillRouter extends React.Component<any, any> {
                         path="/home"
                         component={App}
                     />
-                    <Route
-                        exact={true}
-                        path="/user/delete"
-                        component={DeleteUser}
-                    />
                     <Route 
                         exact={true} 
                         path="/term" 
@@ -46,6 +42,18 @@ export default class CodeChillRouter extends React.Component<any, any> {
                         exact={true}
                         path="/profile"
                         component={UserProfile}
+                    />
+                    <Route 
+                        exact={true}
+                        path="/forgot" 
+                        // render={(props) => <UserConnection props={...props} />}
+                        component={UserForgotPassword} 
+                    />
+                    <Route 
+                        exact={true}
+                        path="/reset/:token" 
+                        // render={(props) => <UserConnection props={...props} />}
+                        component={UserResetPassword} 
                     />
                     <Route 
                         exact={true}

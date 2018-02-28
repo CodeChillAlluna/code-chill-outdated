@@ -88,7 +88,7 @@ export default class AuthService {
         return this.fetch(`${this.domain}/user`, {
             method: "DELETE",
          }).then((res) => {
-           return Promise.resolve(res);
+            return Promise.resolve(res);
         });
     }
 
@@ -97,7 +97,33 @@ export default class AuthService {
             method: "POST",
             body: JSON.stringify(user)
          }).then((res) => {
-           return Promise.resolve(res);
+            return Promise.resolve(res);
+        });
+    }
+
+    forgotPassword(email: string) {
+        return this.fetch(`${this.domain}/user/forgottenpassword`, {
+            method: "POST",
+            body: email
+         }).then((res) => {
+            return Promise.resolve(res);
+        });
+    }
+
+    checkTokenPassword(token: string) {
+        return this.fetch(`${this.domain}/reset/${token}`, {
+            method: "GET"
+         }).then((res) => {
+            return Promise.resolve(res);
+        });
+    }
+
+    resetPassword(token: string, password: string) {
+        return this.fetch(`${this.domain}/reset`, {
+            method: "POST",
+            body: JSON.stringify({"token": token, "password": password})
+         }).then((res) => {
+            return Promise.resolve(res);
         });
     }
 
