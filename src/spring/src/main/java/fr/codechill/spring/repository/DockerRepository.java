@@ -1,4 +1,3 @@
-
 package fr.codechill.spring.repository;
 
 import org.springframework.data.repository.CrudRepository;

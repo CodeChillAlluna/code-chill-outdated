@@ -4,9 +4,11 @@ export default class AuthService {
 
     user: Object;
     domain: string;
+    // dockerApi: string;
 
     constructor(domain?: string) {
         this.domain = domain || "http://localhost:8080"; // API server domain
+        // this.dockerApi = "http://localhost:2375";
         this.user = Object;
         this.fetch = this.fetch.bind(this); // React binding stuff
         this.login = this.login.bind(this);
@@ -87,7 +89,7 @@ export default class AuthService {
     deleteUser() {
         return this.fetch(`${this.domain}/user`, {
             method: "DELETE",
-         }).then((res) => {
+        }).then((res) => {
             return Promise.resolve(res);
         });
     }
@@ -96,7 +98,7 @@ export default class AuthService {
         return this.fetch(`${this.domain}/user`, {
             method: "POST",
             body: JSON.stringify(user)
-         }).then((res) => {
+        }).then((res) => {
             return Promise.resolve(res);
         });
     }
@@ -105,7 +107,7 @@ export default class AuthService {
         return this.fetch(`${this.domain}/user/forgottenpassword`, {
             method: "POST",
             body: email
-         }).then((res) => {
+        }).then((res) => {
             return Promise.resolve(res);
         });
     }
@@ -113,7 +115,7 @@ export default class AuthService {
     checkTokenPassword(token: string) {
         return this.fetch(`${this.domain}/reset/${token}`, {
             method: "GET"
-         }).then((res) => {
+        }).then((res) => {
             return Promise.resolve(res);
         });
     }
@@ -122,7 +124,23 @@ export default class AuthService {
         return this.fetch(`${this.domain}/reset`, {
             method: "POST",
             body: JSON.stringify({"token": token, "password": password})
-         }).then((res) => {
+        }).then((res) => {
+            return Promise.resolve(res);
+        });
+    }
+
+    startDocker(id: string) {
+        return this.fetch(`${this.domain}/containers/${id}/start`, {
+            method: "POST",
+        }).then((res) => {
+            return Promise.resolve(res);
+        });
+    }
+
+    stopDocker(id: string) {
+        return this.fetch(`${this.domain}/containers/${id}/stop`, {
+            method: "POST",
+        }).then((res) => {
             return Promise.resolve(res);
         });
     }
@@ -150,7 +168,7 @@ export default class AuthService {
 
     _checkStatus(response: any) {
         // raises an error in case response status is not a success
-        if (response.status >= 200 && response.status < 300) { // Success status lies between 200 to 300
+        if (response.status >= 200 && response.status < 400) { // Success status lies between 200 to 300
             return response;
         } else {
             var error = new Error(response.statusText);

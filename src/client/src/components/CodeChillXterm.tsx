@@ -2,6 +2,8 @@ import * as React from "react";
 import { Terminal } from "xterm";
 import * as ClassName from "classnames";
 import * as TextEncoding from "text-encoding";
+import AuthService from "../AuthService";
+import withAuth from "./withAuth";
 
 export interface IxTermProps extends React.DOMAttributes<{}> {
     onChange?: (e: any) => void;
@@ -15,15 +17,19 @@ export interface IxTermProps extends React.DOMAttributes<{}> {
     value?: string;
     className?: string;
     style?: React.CSSProperties;
-    url: string;
+    // url: string;
+    history?: any;
+    token?: any;
+    user?: any;
 }
 
 export interface IxTermState {
     isFocused: boolean;
 }
 
-export default class CodeChillXterm extends React.Component<IxTermProps, IxTermState> {
+class CodeChillXterm extends React.Component<IxTermProps, IxTermState> {
     xterm: Terminal;
+    Auth: AuthService;
     refs: {
         [s: string]: any;
         container: HTMLDivElement;
@@ -38,6 +44,7 @@ export default class CodeChillXterm extends React.Component<IxTermProps, IxTermS
         };
         // this.props.options
         this.msg = "";
+        this.Auth = new AuthService();
 
         this.xterm = new Terminal({
             cursorBlink: false,  // Do not blink the terminal's cursor
@@ -49,10 +56,15 @@ export default class CodeChillXterm extends React.Component<IxTermProps, IxTermS
     componentDidMount() {
         const xt = this;
 
-        if (xt.props.url) {
-            xt.webSocket = new WebSocket(xt.props.url);
+        this.Auth.startDocker("code-chill").then((res) => {
+            console.log(res);
+        });
+
+        // if (xt.props.url) {
+        xt.webSocket = new WebSocket(`ws://localhost:2375/containers/code-chill/
+attach/ws?logs=0&stream=1&stdin=0&stdout=0&stderr=0`);
             // this.webSocket.addEventListener("message", this.recieveData);
-        }
+        // }
 
         xt.webSocket.onopen = function(event: Event) {
             console.log("connexion");
@@ -144,6 +156,9 @@ export default class CodeChillXterm extends React.Component<IxTermProps, IxTermS
             this.xterm.destroy();
             delete this.xterm;
         }
+        this.Auth.stopDocker("code-chill").then((res) => {
+            console.log(res);
+        });
     }
 
     getTerminal() {
@@ -210,4 +225,5 @@ export default class CodeChillXterm extends React.Component<IxTermProps, IxTermS
     }
 }
 
-export { Terminal, CodeChillXterm };
+export default withAuth(CodeChillXterm);
+export {Terminal};
