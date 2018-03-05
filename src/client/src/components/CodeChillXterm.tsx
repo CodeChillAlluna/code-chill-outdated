@@ -21,6 +21,7 @@ export interface IxTermProps extends React.DOMAttributes<{}> {
     history?: any;
     token?: any;
     user?: any;
+    
 }
 
 export interface IxTermState {
@@ -49,8 +50,10 @@ class CodeChillXterm extends React.Component<IxTermProps, IxTermState> {
         this.xterm = new Terminal({
             cursorBlink: false,  // Do not blink the terminal's cursor
             cols: 120,  // Set the terminal's width to 120 columns
-            rows: 80  // Set the terminal's height to 80 rows
+            rows: 10,  // Set the terminal's height to 80 rows
+          
         });
+            // individual paddings
     }
 
     componentDidMount() {
