@@ -50,7 +50,7 @@ class CodeChillXterm extends React.Component<IxTermProps, IxTermState> {
         this.xterm = new Terminal({
             cursorBlink: false,  // Do not blink the terminal's cursor
             cols: 120,  // Set the terminal's width to 120 columns
-            rows: 10,  // Set the terminal's height to 80 rows
+            // rows: 50,  // Set the terminal's height to 10 rows
           
         });
             // individual paddings
@@ -58,6 +58,7 @@ class CodeChillXterm extends React.Component<IxTermProps, IxTermState> {
 
     componentDidMount() {
         const xt = this;
+        var lastCommand = "";
 
         console.log(this.props.user.dockers[0].name);
         this.Auth.startDocker(this.props.user.dockers[0].name).then((res) => {
@@ -81,13 +82,15 @@ attach/ws?logs=0&stream=1&stdin=0&stdout=0&stderr=0`);
             let decoder = new TextEncoding.TextDecoder("utf-8");
             var fileReader = new FileReader();
             fileReader.onload = function() {
-                xt.write(decoder.decode(this.result));
+                let decoded = decoder.decode(this.result);
+                console.log(decoded.localeCompare(lastCommand));
+                if (decoded.localeCompare(lastCommand) === -1) {
+                    xt.xterm.write(decoded);
+                }
             };
             fileReader.readAsArrayBuffer(event.data);
         }; 
-        // Terminal.applyAddon(attach);
-        // this.xterm = new Terminal(this.props.options);
-        
+
         this.xterm.open(this.refs.container);
         this.xterm.on("focus", this.focusChanged.bind(this, true));
         this.xterm.on("blur", this.focusChanged.bind(this, false));
@@ -109,50 +112,40 @@ attach/ws?logs=0&stream=1&stdin=0&stdout=0&stderr=0`);
 
         this.getTerminal().on("key", function(key: string, e: KeyboardEvent) {
             // e: KeyboardEvent; e.key: string; e.which: number
-            console.log("xt.msg (old) : length=" + xt.msg.length + " : " + xt.msg);
-            console.log("xt.msg (new) : length=" + (xt.msg + key).length + " : " + xt.msg + key);
             if (e.key === "Backspace") {
-                console.log(xt.msg + " : " + xt.msg.length);
                 xt.msg = xt.msg.substring(0, xt.msg.length - 1);
-                console.log(xt.msg + " : " + xt.msg.length);
                 xt.xterm.write("\b \b");
             } else if (e.key === "Enter") {
                 xt.msg = xt.msg + key;
-                xt.webSocket.send(xt.msg);     
+                xt.webSocket.send(xt.msg);   
+                lastCommand = xt.msg;  
                 xt.msg = "";
                 xt.xterm.write("\r\n");
-            } else if (e.ctrlKey === true) {
+            } else if (e.key === "Escape" || e.key === "ArrowUp" || e.key === "ArrowDown") {
+                xt.webSocket.send(key);
+            } else {
+                xt.msg = xt.msg + key;
+                xt.xterm.write(key);
+            }
+            // else if (e.ctrlKey === true) {
                 // xt.webSocket.send(key ou xt.msg + key)
                 // a voir comment faire !
                 /**
                  * TODO CTRL+KEY HANDLER (block ctrl+w) ctrl+a ctrl+c etc.
                  */
-            } else if (e.altKey === true) {
+            // } else if (e.altKey === true) {
                 /**
                  * TODO ALT+KEY HANDLER
                  */
-            } else if (e.shiftKey === true) {
+            // } else if (e.shiftKey === true) {
                 /**
                  *  TODO SHIFT+KEY HANDLER
                  */
-            } else if (e.key === "Tab") {
+            // } else if (e.key === "Tab") {
                 /**
                  *  TODO TAB HANDLER
                  */
-            } else if (e.key === "ArrowUp" || e.key === "ArrowDown") {
-                /**
-                 *  TODO ARROWUP ARROWDOWN HANDLER
-                 */
-            } else if (e.key === "Escape") {
-                /**
-                 * TODO ESCAPE HANDLER
-                 */
-            } else {
-                xt.msg = xt.msg + key;
-                xt.xterm.write(key);
-            }
         });
-        
     }
 
     componentWillUnmount() {
@@ -167,14 +160,6 @@ attach/ws?logs=0&stream=1&stdin=0&stdout=0&stderr=0`);
 
     getTerminal() {
         return this.xterm;
-    }
-
-    write(data: any) {
-        this.xterm.write(data);
-    }
-
-    writeln(data: any) {
-        this.xterm.writeln(data);
     }
 
     focus() {
