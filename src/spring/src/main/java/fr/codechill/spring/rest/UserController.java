@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -27,11 +26,16 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import fr.codechill.spring.model.User;
 import fr.codechill.spring.repository.UserRepository;
 import fr.codechill.spring.security.JwtTokenUtil;
+import fr.codechill.spring.repository.DockerRepository;
+import fr.codechill.spring.controller.DockerController;
+import fr.codechill.spring.model.Docker;
 
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:5000"})
 @RestController
 public class UserController {
     private final UserRepository urepo;
+    private final DockerRepository drepo;
+    private final DockerController dcontroller;
     private final String SENDFROM = "codechill@hotmail.com";
     private final String BASE_URL = "http://localhost:3000";
 
@@ -44,8 +48,10 @@ public class UserController {
     private JwtTokenUtil jwtTokenUtil;
 
     @Autowired
-    public UserController(UserRepository urepo) { 
+    public UserController(UserRepository urepo, DockerRepository drepo) { 
         this.urepo = urepo;
+        this.drepo = drepo;
+        this.dcontroller = new DockerController(drepo);
     }
 
     @GetMapping("/user/{id}")
@@ -94,6 +100,8 @@ public class UserController {
             return ResponseEntity.badRequest().headers(responseHeaders).body("An account with this email already exist!");
         }
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        Docker docker = this.dcontroller.createDocker();
+        user.addDocker(docker);
         urepo.save(user);
         final URI location = ServletUriComponentsBuilder
             .fromCurrentServletMapping().path("/user/{id}").build()

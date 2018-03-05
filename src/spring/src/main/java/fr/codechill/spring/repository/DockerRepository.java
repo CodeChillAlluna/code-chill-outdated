@@ -6,4 +6,6 @@ import fr.codechill.spring.model.Docker;
 
 public interface DockerRepository extends CrudRepository<Docker, Long>{
 	List<Docker> findAll();
+	Docker findOne(long id);
+    Docker save(Docker docker);
 }
