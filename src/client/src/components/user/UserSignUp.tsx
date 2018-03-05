@@ -44,7 +44,7 @@ export default class UserSignUp extends React.Component<any, any> {
                     >
                         <Grid.Column style={{ maxWidth: 450 }}>
                             <Header as="h2" color="teal" textAlign="center">
-                                <Image src="https://react.semantic-ui.com/logo.png" />
+                                <Image src="logocodeandchill.png" />
                             {" "}Register your account
                             </Header>
                             <Form 

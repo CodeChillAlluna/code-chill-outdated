@@ -102,15 +102,16 @@ attach/ws?logs=0&stream=1&stdin=0&stdout=0&stderr=0`);
             this.xterm.element.addEventListener("contextmenu", this.onContextMenu.bind(this));
         }
 
-        if (this.props.onInput) {
+        /* if (this.props.onInput) {
             this.xterm.on("data", this.onInput);
-        }
+        } */
 
         if (this.props.value) {
             this.xterm.write(this.props.value);
         }
 
         this.getTerminal().on("key", function(key: string, e: KeyboardEvent) {
+            console.log(xt.msg + e.key);
             // e: KeyboardEvent; e.key: string; e.which: number
             if (e.key === "Backspace") {
                 xt.msg = xt.msg.substring(0, xt.msg.length - 1);
@@ -121,8 +122,13 @@ attach/ws?logs=0&stream=1&stdin=0&stdout=0&stderr=0`);
                 lastCommand = xt.msg;  
                 xt.msg = "";
                 xt.xterm.write("\r\n");
+            } else if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+                xt.webSocket.send(key);
             } else if (e.key === "Escape" || e.key === "ArrowUp" || e.key === "ArrowDown") {
                 xt.webSocket.send(key);
+            } else if (e.key === "Tab") {
+                xt.msg += key;
+                xt.xterm.write("\t");
             } else {
                 xt.msg = xt.msg + key;
                 xt.xterm.write(key);
@@ -177,11 +183,11 @@ attach/ws?logs=0&stream=1&stdin=0&stdout=0&stderr=0`);
         }
     }
 
-    onInput = (data: any) => {
+    /* onInput = (data: any) => {
         if (this.props.onInput) {
             this.props.onInput(data);
         }
-    }
+    } */
 
     resize (cols: number, rows: number) {
         this.xterm.resize(Math.round(cols), Math.round(rows));
