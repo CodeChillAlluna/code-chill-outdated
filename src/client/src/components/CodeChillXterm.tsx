@@ -120,7 +120,7 @@ attach/ws?logs=0&stream=1&stdin=0&stdout=0&stderr=0`);
                 lastCommand = xt.msg;  
                 xt.msg = "";
                 xt.xterm.write("\r\n");
-            } else if (e.key === "Escape") {
+            } else if (e.key === "Escape" || e.key === "ArrowUp" || e.key === "ArrowDown") {
                 xt.webSocket.send(key);
             } else {
                 xt.msg = xt.msg + key;
@@ -144,12 +144,7 @@ attach/ws?logs=0&stream=1&stdin=0&stdout=0&stderr=0`);
                 /**
                  *  TODO TAB HANDLER
                  */
-            // } else if (e.key === "ArrowUp" || e.key === "ArrowDown") {
-                /**
-                 *  TODO ARROWUP ARROWDOWN HANDLER
-                 */
         });
-        
     }
 
     componentWillUnmount() {
