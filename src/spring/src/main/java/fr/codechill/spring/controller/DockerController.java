@@ -32,6 +32,8 @@ public class DockerController {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode body = mapper.createObjectNode();
         body.put("Image", "ubuntu");
+        body.put("tty", true);
+        body.put("OpenStdin", true);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);

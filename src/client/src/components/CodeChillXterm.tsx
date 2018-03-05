@@ -59,12 +59,13 @@ class CodeChillXterm extends React.Component<IxTermProps, IxTermState> {
     componentDidMount() {
         const xt = this;
 
-        this.Auth.startDocker("code-chill").then((res) => {
+        console.log(this.props.user.dockers[0].name);
+        this.Auth.startDocker(this.props.user.dockers[0].name).then((res) => {
             console.log(res);
         });
 
         // if (xt.props.url) {
-        xt.webSocket = new WebSocket(`ws://localhost:2375/containers/code-chill/
+        xt.webSocket = new WebSocket(`ws://localhost:2375/containers/${this.props.user.dockers[0].name}/
 attach/ws?logs=0&stream=1&stdin=0&stdout=0&stderr=0`);
             // this.webSocket.addEventListener("message", this.recieveData);
         // }
