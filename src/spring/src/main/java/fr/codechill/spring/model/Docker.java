@@ -34,8 +34,8 @@ public class Docker implements Serializable {
 
     private Docker() {}
 
-    public Docker(String f, String l) {
-        this.name = f;
+    public Docker(String name) {
+        this.name = name;
     }
 
     public String getName() {

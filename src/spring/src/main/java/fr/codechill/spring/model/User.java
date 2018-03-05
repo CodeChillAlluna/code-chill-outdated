@@ -181,5 +181,10 @@ public class User implements Serializable {
 
 	public void setTokenPassword(String tokenPassword) {
 		this.tokenPassword = tokenPassword;
-	}
+    }
+    
+    public void addDocker(Docker docker) {
+        this.dockers.add(docker);
+    }
+
 }

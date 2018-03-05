@@ -3,6 +3,7 @@ package fr.codechill.spring.rest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -18,12 +19,12 @@ import fr.codechill.spring.repository.DockerRepository;
 
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:5000"})
 @RestController
-public class DockerController {
+public class DockerRestController {
     private final DockerRepository drepo;
     private final String BASE_URL = "http://localhost:2375";
 
     @Autowired
-    public DockerController(DockerRepository drepo) { 
+    public DockerRestController(DockerRepository drepo) { 
         this.drepo = drepo;
     }
 
