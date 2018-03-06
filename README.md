@@ -40,7 +40,7 @@ You can use Code&Chill on both computer and mobile devices.
 You can click <a href="https://github.com/CodeChillAlluna/code-chill">here</a> to see more about Code&Chill.
 
 # Features
-## :soon: User Management 
+## :heavy_check_mark: User Management 
 <span style="color:grey;">Code&Chill allows you to manage the profile of your users. You can create a profile, delete it or update it. You have access to additionnal features such as forgotten password.</span>
 ## :soon: Docker Management
 <span style="color:grey;">Our solution permits users to have a complete management interface for their dockers, they are able to link the docker to their profile, create or delete one with a terminal delivered with it.</span>
@@ -50,7 +50,7 @@ You can click <a href="https://github.com/CodeChillAlluna/code-chill">here</a> t
 <span style="color:grey;">Code&Chill enables users to chose their own programmation language depending on their needs. You can choose C, C++, Java or any other language like Haskell. You can either add a language in command line or with a graphic interface.</span>
 ## :heavy_check_mark: Basic Terminal 
 Our basic terminal is emulated by javascript and allows you to execute and send basic command line to a server.
-## :soon: Docker Terminal
+## :heavy_check_mark: Docker Terminal
 <span style="color:#123456;"> Works just like the basic terminal, but have an integration with docker to execute commands in a real Linux environment.</span>
 ## :soon: Advanced Terminal
 <span style="color:grey;">The advanced terminal functions exactly like the one you can use on a linux system and provide features like autocompletion or tabulation to automaticaly end a command line.</span>
