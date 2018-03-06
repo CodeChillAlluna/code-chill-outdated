@@ -2,6 +2,8 @@ import * as React from "react";
 import { Terminal } from "xterm";
 import * as ClassName from "classnames";
 import * as TextEncoding from "text-encoding";
+import AuthService from "../AuthService";
+import withAuth from "./withAuth";
 
 export interface IxTermProps extends React.DOMAttributes<{}> {
     onChange?: (e: any) => void;
@@ -15,15 +17,20 @@ export interface IxTermProps extends React.DOMAttributes<{}> {
     value?: string;
     className?: string;
     style?: React.CSSProperties;
-    url: string;
+    // url: string;
+    history?: any;
+    token?: any;
+    user?: any;
+    
 }
 
 export interface IxTermState {
     isFocused: boolean;
 }
 
-export default class CodeChillXterm extends React.Component<IxTermProps, IxTermState> {
+class CodeChillXterm extends React.Component<IxTermProps, IxTermState> {
     xterm: Terminal;
+    Auth: AuthService;
     refs: {
         [s: string]: any;
         container: HTMLDivElement;
@@ -38,21 +45,31 @@ export default class CodeChillXterm extends React.Component<IxTermProps, IxTermS
         };
         // this.props.options
         this.msg = "";
+        this.Auth = new AuthService();
 
         this.xterm = new Terminal({
             cursorBlink: false,  // Do not blink the terminal's cursor
             cols: 120,  // Set the terminal's width to 120 columns
-            rows: 80  // Set the terminal's height to 80 rows
+            // rows: 50,  // Set the terminal's height to 10 rows
+          
         });
+            // individual paddings
     }
 
     componentDidMount() {
         const xt = this;
+        var lastCommand = "";
 
-        if (xt.props.url) {
-            xt.webSocket = new WebSocket(xt.props.url);
+        console.log(this.props.user.dockers[0].name);
+        this.Auth.startDocker(this.props.user.dockers[0].name).then((res) => {
+            console.log(res);
+        });
+
+        // if (xt.props.url) {
+        xt.webSocket = new WebSocket(`ws://localhost:2375/containers/${this.props.user.dockers[0].name}/
+attach/ws?logs=0&stream=1&stdin=0&stdout=0&stderr=0`);
             // this.webSocket.addEventListener("message", this.recieveData);
-        }
+        // }
 
         xt.webSocket.onopen = function(event: Event) {
             console.log("connexion");
@@ -65,13 +82,15 @@ export default class CodeChillXterm extends React.Component<IxTermProps, IxTermS
             let decoder = new TextEncoding.TextDecoder("utf-8");
             var fileReader = new FileReader();
             fileReader.onload = function() {
-                xt.write(decoder.decode(this.result));
+                let decoded = decoder.decode(this.result);
+                console.log(decoded.localeCompare(lastCommand));
+                if (decoded.localeCompare(lastCommand) === -1) {
+                    xt.xterm.write(decoded);
+                }
             };
             fileReader.readAsArrayBuffer(event.data);
         }; 
-        // Terminal.applyAddon(attach);
-        // this.xterm = new Terminal(this.props.options);
-        
+
         this.xterm.open(this.refs.container);
         this.xterm.on("focus", this.focusChanged.bind(this, true));
         this.xterm.on("blur", this.focusChanged.bind(this, false));
@@ -83,29 +102,56 @@ export default class CodeChillXterm extends React.Component<IxTermProps, IxTermS
             this.xterm.element.addEventListener("contextmenu", this.onContextMenu.bind(this));
         }
 
-        if (this.props.onInput) {
+        /* if (this.props.onInput) {
             this.xterm.on("data", this.onInput);
-        }
+        } */
 
         if (this.props.value) {
             this.xterm.write(this.props.value);
         }
 
         this.getTerminal().on("key", function(key: string, e: KeyboardEvent) {
-            // e: KeyboardEvent; e.key: string; e.which: numberx
-            xt.msg = xt.msg + key;
+            console.log(xt.msg + e.key);
+            // e: KeyboardEvent; e.key: string; e.which: number
             if (e.key === "Backspace") {
-                xt.xterm.write("\b");
-            }
-            if (e.key === "Enter") {
-                xt.webSocket.send(xt.msg);     
+                xt.msg = xt.msg.substring(0, xt.msg.length - 1);
+                xt.xterm.write("\b \b");
+            } else if (e.key === "Enter") {
+                xt.msg = xt.msg + key;
+                xt.webSocket.send(xt.msg);   
+                lastCommand = xt.msg;  
                 xt.msg = "";
                 xt.xterm.write("\r\n");
+            } else if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+                xt.webSocket.send(key);
+            } else if (e.key === "Escape" || e.key === "ArrowUp" || e.key === "ArrowDown") {
+                xt.webSocket.send(key);
+            } else if (e.key === "Tab") {
+                xt.msg += key;
+                xt.xterm.write("\t");
             } else {
+                xt.msg = xt.msg + key;
                 xt.xterm.write(key);
             }
+            // else if (e.ctrlKey === true) {
+                // xt.webSocket.send(key ou xt.msg + key)
+                // a voir comment faire !
+                /**
+                 * TODO CTRL+KEY HANDLER (block ctrl+w) ctrl+a ctrl+c etc.
+                 */
+            // } else if (e.altKey === true) {
+                /**
+                 * TODO ALT+KEY HANDLER
+                 */
+            // } else if (e.shiftKey === true) {
+                /**
+                 *  TODO SHIFT+KEY HANDLER
+                 */
+            // } else if (e.key === "Tab") {
+                /**
+                 *  TODO TAB HANDLER
+                 */
         });
-        
     }
 
     componentWillUnmount() {
@@ -113,18 +159,13 @@ export default class CodeChillXterm extends React.Component<IxTermProps, IxTermS
             this.xterm.destroy();
             delete this.xterm;
         }
+        this.Auth.stopDocker("code-chill").then((res) => {
+            console.log(res);
+        });
     }
 
     getTerminal() {
         return this.xterm;
-    }
-
-    write(data: any) {
-        this.xterm.write(data);
-    }
-
-    writeln(data: any) {
-        this.xterm.writeln(data);
     }
 
     focus() {
@@ -142,11 +183,11 @@ export default class CodeChillXterm extends React.Component<IxTermProps, IxTermS
         }
     }
 
-    onInput = (data: any) => {
+    /* onInput = (data: any) => {
         if (this.props.onInput) {
             this.props.onInput(data);
         }
-    }
+    } */
 
     resize (cols: number, rows: number) {
         this.xterm.resize(Math.round(cols), Math.round(rows));
@@ -179,4 +220,5 @@ export default class CodeChillXterm extends React.Component<IxTermProps, IxTermS
     }
 }
 
-export { Terminal, CodeChillXterm };
+export default withAuth(CodeChillXterm);
+export {Terminal};

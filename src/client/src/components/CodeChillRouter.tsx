@@ -3,23 +3,21 @@ import * as React from "react";
 import { Route, Switch } from "react-router-dom";
 import App from "../App";
 import CodeChillXterm from "./CodeChillXterm";
-import Term, { Terminal } from "./Term";
 import UserConnection from "./user/UserConnection";
 import UserSignUp from "./user/UserSignUp";
 import Presentation from "./Presentation";
 import UserProfile from "./user/UserProfile";
 import NotFound from "./NotFound";
-import withAuth from "./withAuth";
 import UserForgotPassword from "./user/UserForgotPassword";
 import UserResetPassword from "./user/UserResetPassword";
 
 export default class CodeChillRouter extends React.Component<any, any> {
 
-    Term = withAuth(Term);
+    // Term = withAuth(Term);
     
     render() {
-        const ccxterm = "CodeChillXterm";
-        const url = "ws://localhost:2375/containers/code-chill/attach/ws?logs=0&stream=1&stdin=0&stdout=0&stderr=0";
+        // const ccxterm = "CodeChillXterm";
+        // const url = "ws://localhost:2375/containers/code-chill/attach/ws?logs=0&stream=1&stdin=0&stdout=0&stderr=0";
         return (
             <main>
                 <Switch>
@@ -32,11 +30,6 @@ export default class CodeChillRouter extends React.Component<any, any> {
                         exact={true} 
                         path="/home"
                         component={App}
-                    />
-                    <Route 
-                        exact={true} 
-                        path="/term" 
-                        render={(props) => <Term prefix="code@chill" theme={Terminal.Themes.DARK} />} 
                     />
                     <Route
                         exact={true}
@@ -69,12 +62,14 @@ export default class CodeChillRouter extends React.Component<any, any> {
                     />
                     <Route
                         exact={true}
-                        path="/xtermtest"
-                        render={(props) => 
-                            <CodeChillXterm 
+                        path="/term"
+                        component={CodeChillXterm} 
+                        /* render={(props) => 
+                            <CodeChillXterm
+                                props={...props} 
                                 ref={ccxterm} 
                                 url={url}
-                            />}
+                            />} */
                     />
                     <Route 
                         path="*"
