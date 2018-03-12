@@ -26,8 +26,8 @@ $(function () {
     function init() {
         var secondFeature = $('#features').offset().top;
         var scroll = $(window).scrollTop();
-        if (scroll >= 150) {
-            $('.sticky-navigation').css({"background-color": '#d81b60'});
+        if (scroll >= 860) {
+            $('.sticky-navigation').css({"background-color": '#00c2cc'});
         } else {
             $('.sticky-navigation').css({"background-color": 'transparent'});
         }
