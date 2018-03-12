@@ -12,7 +12,8 @@ Master project : Online development environment
 * If you want  to set up our project from scratch using our vagrant click [here](#vagrant-installation-guide)
 * If you want to set up our project without vagrant click [here](#vagrantless-installation-guide) 
 # Release installation guide
-You can run our release in our vagrant or install it on your own machine.
+You can run our releases in our vagrant or install it on your own machine.
+You can download our releases <a href="https://github.com/CodeChillAlluna/code-chill/releases">here</a>
 ## Install on Vagrant
 1. Extract the release in your vagrant folder.
 2. Follow <a href="#vagrant-installation-guide">Vagrant installation guide</a>
