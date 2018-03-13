@@ -6630,3 +6630,7 @@ Pricing tables & lists
   color: #fff;
   text-shadow: none;
   background: #00c2cc; }
+
+.todo h6, .todo p {
+  opacity: 0.7;
+}
