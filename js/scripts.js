@@ -26,7 +26,7 @@ $(function () {
     function init() {
         var secondFeature = $('#features').offset().top;
         var scroll = $(window).scrollTop();
-        if (scroll >= 860) {
+        if (scroll >= $('#main').height() + 120) {
             $('.sticky-navigation').css({"background-color": '#00c2cc'});
         } else {
             $('.sticky-navigation').css({"background-color": 'transparent'});
