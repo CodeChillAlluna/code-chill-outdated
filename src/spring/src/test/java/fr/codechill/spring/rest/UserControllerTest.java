@@ -100,7 +100,6 @@ public class UserControllerTest{
             .apply(springSecurity())
             .build();
          testUser = new User(lastname, firstname);
-         testUser.setId(4L);
          testUser.setUsername(username);
          testUser.setPassword(password);
          testUser.setAuthorities(authorities);
