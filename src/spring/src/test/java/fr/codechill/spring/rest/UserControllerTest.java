@@ -3,6 +3,8 @@ package fr.codechill.spring.rest;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import static org.junit.Assert.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -11,24 +13,28 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
-import static org.junit.Assert.*;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
-import java.util.List;
-import java.util.*;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+
+import java.util.List;
+import java.util.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.io.*;
+
 import fr.codechill.spring.model.*;
 import fr.codechill.spring.CodeChillApplication;
 import fr.codechill.spring.repository.*;
 import fr.codechill.spring.controller.*;
 import fr.codechill.spring.model.security.Authority;
 import fr.codechill.spring.model.security.AuthorityName;
+
 import org.springframework.http.*;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -42,6 +48,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.MediaType;
+
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -75,8 +82,8 @@ public class UserControllerTest{
     private Authority auth = new Authority();
     private List<Authority> authorities = new ArrayList<Authority>();
     private Authority auth2 = new Authority();
-    private Docker dock = new Docker("test");
-    private List<Docker> dockers = new ArrayList<>();
+    /*private Docker dock = new Docker("test");
+    private List<Docker> dockers = new ArrayList<>();*/
 
     @Before
     public void setUp(){
@@ -94,7 +101,7 @@ public class UserControllerTest{
          auth2.setId(2L);
          auth2.setName(AuthorityName.ROLE_USER);
          authorities.add(auth2);
-         dockers.add(dock);
+         //dockers.add(dock);
          this.mock = MockMvcBuilders
             .webAppContextSetup(context)
             .apply(springSecurity())
@@ -106,7 +113,7 @@ public class UserControllerTest{
          testUser.setEmail(email);
          testUser.setLastPasswordResetDate(lastPasswordResetDate);
          testUser.setEnabled(enabled);
-         testUser.setDockers(dockers);
+         //testUser.setDockers(dockers);
          ObjectMapper mapper = new ObjectMapper();
          try{
             testUserJson =mapper.writerWithDefaultPrettyPrinter().writeValueAsString(testUser);
@@ -178,9 +185,9 @@ public class UserControllerTest{
         .andExpect(jsonPath("$.lastname", is(this.testUser.getLastname())))
         .andExpect(jsonPath("$.firstname ", is(this.testUser.getFirstname())));
     }
-*/
 
-    /*public void testUpdateUserEmail(){
+
+    public void testUpdateUserEmail(){
         User emailUser = new User(this.lastname,this.firstname);
         emailUser.setEmail(this.email);
         String emailTest = "nmichanol92@gmail.com";
