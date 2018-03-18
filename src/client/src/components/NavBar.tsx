@@ -77,7 +77,7 @@ export default class NavBar extends React.Component<any, any> {
                         >
                             <Menu fixed="top" inverted={true}>
                                 <Menu.Item>
-                                    <Image size="mini" src="https://react.semantic-ui.com/logo.png" />
+                                    <Image size="mini" src="logocodeandchill.png" />
                                 </Menu.Item>
                                 <Menu.Item onClick={this.handleToggle}>
                                     <Icon name="sidebar" />
@@ -93,7 +93,7 @@ export default class NavBar extends React.Component<any, any> {
                 <Responsive minWidth={Responsive.onlyTablet.minWidth}>
                         <Menu fixed="top" inverted={true}>
                             <Menu.Item>
-                                <Image size="mini" src="https://react.semantic-ui.com/logo.png" />
+                                <Image size="mini" src="logocodeandchill.png" />
                             </Menu.Item>
                             {_.map(leftItems, (item) => <Menu.Item {...item} />)}
                             <Menu.Menu position="right">
