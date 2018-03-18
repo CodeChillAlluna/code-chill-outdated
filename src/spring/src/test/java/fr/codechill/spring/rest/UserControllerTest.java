@@ -1,29 +1,34 @@
 package fr.codechill.spring.rest;
 
-import org.junit.AfterClass;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.cglib.transform.impl.UndeclaredThrowableTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.mock.http.MockHttpOutputMessage;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.web.context.WebApplicationContext;
 import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
-
-import org.aspectj.internal.lang.annotation.ajcITD;
+import java.nio.charset.Charset;
 import java.util.List;
+import java.util.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import java.util.ArrayList;
 import java.util.Date;
 import java.io.*;
@@ -33,9 +38,27 @@ import fr.codechill.spring.repository.*;
 import fr.codechill.spring.controller.*;
 import fr.codechill.spring.model.security.Authority;
 import fr.codechill.spring.model.security.AuthorityName;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.http.*;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import java.util.Arrays;
+import java.util.List;
 
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes=CodeChillApplication.class)
+
 @WebAppConfiguration
 
 public class UserControllerTest{
@@ -43,17 +66,23 @@ public class UserControllerTest{
     private MockMvc mock;
     private HttpMessageConverter mappingJackson2HttpMessageConverter;
 
-
+    private MediaType contentType = 
+        new MediaType(MediaType.APPLICATION_JSON.getType(),
+        MediaType.APPLICATION_JSON.getSubtype(),
+        Charset.forName("utf8"));
     private  UserRepository urepo;
     private  DockerRepository drepo;
     private  DockerController dcontroller;
 
+    private UserController cController = new UserController(urepo, drepo);
+    fr.codechill.spring.model.User testUser;
+    String testUserJson;
     String username;
     String password;
     String firstname;
     String lastname;
     String email;
-    String enabled;
+    Boolean enabled;
     Date lastPasswordResetDate;
     Authority auth = new Authority();
     List<Authority> authorities = new ArrayList<Authority>();
@@ -67,12 +96,13 @@ public class UserControllerTest{
 
     @Before
     public void setUp(){
+
          username = "nathou";
          password = "123456789";
          firstname = "nathan";
          lastname = "michanol";
          email = "nathoupowa972@gmail.com";
-         enabled = "true";
+         enabled = true;
          lastPasswordResetDate = new Date(1993,12,12);
          auth = new Authority();
          auth.setId(1L);
@@ -84,6 +114,27 @@ public class UserControllerTest{
          dockers.add(dock);
          this.mock = webAppContextSetup(webApplicationContext).build();
          
+         testUser = new fr.codechill.spring.model.User(lastname, firstname);
+         testUser.setId(4L);
+         testUser.setUsername(username);
+         testUser.setPassword(password);
+         testUser.setAuthorities(authorities);
+         testUser.setEmail(email);
+         testUser.setLastPasswordResetDate(lastPasswordResetDate);
+         testUser.setEnabled(enabled);
+         testUser.setDockers(dockers);
+         ObjectMapper mapper = new ObjectMapper();
+         try{
+            testUserJson =mapper.writerWithDefaultPrettyPrinter().writeValueAsString(testUser);
+            System.out.println(" Valeurs du JSON de test : " +testUserJson);
+         }
+         catch (JsonGenerationException e ){
+            e.printStackTrace();
+         }
+         catch(JsonProcessingException e){
+             e.printStackTrace();
+         }
+
     }
 
     @Test
@@ -93,29 +144,37 @@ public class UserControllerTest{
     }
 
 
-  /*  @Test
-    public void testAddUser(){
-        this.mock.perform(post("/user"))
-        .andExpect(status().isOk())
-        .andExpect(jsonPath("$.[0].username", is(this.username)))
-        .andExpect(jsonPath("$.[0].password", is(this.password)))
-        .andExpect(jsonPath("$.[0].firstname", is(this.firstname)))
-        .andExpect(jsonPath("$.[0].lastname", is(this.lastname)))
-        .andExpect(jsonPath("$.[0].email",is(this.email)))
-        .andExpect(jsonPath("$.[0].enabled",is(this.enabled)))
-        .andExpect(jsonPath("$.[0].lastPasswordResetDate",is(this.lastPasswordResetDate)))
-        .andExpect(jsonPath("$.[0].authorities.[0].id",is(this.auth.getId().intValue())))
-        .andExpect(jsonPath("$.[0].authorities.[1].name",is(this.auth.getName())))
-        .andExpect(jsonPath("$.[0].authorities.[1].id",is(this.auth2.getId().intValue())))
-        .andExpect(jsonPath("$.[0].authorities.[1].name",is(auth2.getName().toString())));
+   @Test
+    public void testAddUser() throws Exception{
+       this.mock.perform(post("/user")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(asJsonString(testUser)))
+        //.andExpect(content().json(testUserJson))
+        .andExpect(status().isCreated());
+   }
 
+   public static String asJsonString(final Object obj) {
+        try {
+            return new ObjectMapper().writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+   /* @Test
+    public void testGetUser() throws Exception {
+        this.mock.perform(get("/user/"+this.testUser.getId().intValue()))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.lastname", is(this.testUser.getLastname())))
+        .andExpect(jsonPath("$.firstname ", is(this.testUser.getFirstname())));
     }*/
 
-    protected String json(Object o) throws IOException {
-        MockHttpOutputMessage mockHttpOutputMessage = new MockHttpOutputMessage();
-        this.mappingJackson2HttpMessageConverter.write(
-                o, MediaType.APPLICATION_JSON, mockHttpOutputMessage);
-        return mockHttpOutputMessage.getBodyAsString();
-    }
+
+    /*public void testUpdateUserEmail(){
+        User emailUser = new User(this.lastname,this.firstname);
+        emailUser.setEmail(this.email);
+        String emailTest = "nmichanol92@gmail.com";
+        assert(this.cController.updateUserEmail(emailTest)==true);
+      }*/
 
 }
