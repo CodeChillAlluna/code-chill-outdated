@@ -159,6 +159,9 @@ mkdir $client/node_modules
 # sudo mount --rbind $HOME_DIR/vagrant_node_modules $client/node_modules
 
 # Install client dependencies
+yarn add git+https://github.com/CodeChillAlluna/xterm.js.git --no-bin-links
 yarn install --no-bin-links
+cd node_modules/xterm
+npm install --no-bin-links
 
 print_help
