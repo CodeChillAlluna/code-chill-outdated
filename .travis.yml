@@ -22,6 +22,8 @@ matrix:
         - npm run build
         - cd ../..
         - yarn install
+        - cd node_modules/xterm
+        - npm install
         - ls node_modules/xterm -al
 
       script:
