@@ -26,6 +26,7 @@ matrix:
         - npm install
         - cd ../..
         - ls node_modules/xterm -al
+        - ls -al
 
       script:
         - yarn build
