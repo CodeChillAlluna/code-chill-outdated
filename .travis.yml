@@ -17,11 +17,11 @@ matrix:
         - sudo apt install g++ -y
         - cd src/client
         - yarn add git+https://github.com/CodeChillAlluna/xterm.js.git
-        - yarn install
         - cd node_modules/xterm
         - npm install
-        - npm build
+        - npm run build
         - cd ../..
+        - yarn install
 
       script:
         - yarn build
