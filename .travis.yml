@@ -19,7 +19,6 @@ matrix:
         - yarn add git+https://github.com/CodeChillAlluna/xterm.js.git
         - cd node_modules/xterm
         - npm install
-        - npm run build
         - cd ../..
         - yarn install
 
