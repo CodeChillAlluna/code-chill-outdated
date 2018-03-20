@@ -20,6 +20,7 @@ matrix:
         - yarn install
         - cd node_modules/xterm
         - npm install
+        - npm build
         - cd ../..
 
       script:
