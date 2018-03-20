@@ -16,11 +16,11 @@ matrix:
         - sudo apt install make -y
         - sudo apt install g++ -y
         - cd src/client
+        - yarn install
         - yarn add git+https://github.com/CodeChillAlluna/xterm.js.git
         - cd node_modules/xterm
         - npm install
         - cd ../..
-        - yarn install
 
       script:
         - yarn build
@@ -48,4 +48,4 @@ matrix:
         - sudo sh mvnw clean test -DTRAVIS_JOB_ID=$TRAVIS_JOB_ID jacoco:report coveralls:report
         
 notifications:
-email: false
+  email: false
