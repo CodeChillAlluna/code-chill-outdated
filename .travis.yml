@@ -22,7 +22,7 @@ matrix:
         - npm run build
         - cd ../..
         - yarn install
-        - ls -al node_modules/xterm
+        - ls node_modules/xterm -al
 
       script:
         - yarn build
