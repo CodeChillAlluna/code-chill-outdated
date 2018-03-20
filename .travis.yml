@@ -12,16 +12,15 @@ matrix:
         - sudo apt-get update
         - sudo apt-get install yarn -y
         - sudo yarn global add coveralls
-        - yarn global add gulp
+        - sudo yarn global add create-react-app
+        - sudo yarn global add serve
+        - sudo yarn global add typescript
+        - sudo yarn global add react-scripts-ts
+        - sudo yarn global add gulp
         - sudo apt install make -y
         - sudo apt install g++ -y
         - cd src/client
         - yarn add git+https://github.com/CodeChillAlluna/xterm.js.git
-        - cd node_modules/xterm
-        - npm install
-        - npm run build
-        - cd ../..
-        - yarn install
         - cd node_modules/xterm
         - npm install
         - cd ../..
