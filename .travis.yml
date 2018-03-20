@@ -30,6 +30,7 @@ matrix:
         - sudo apt-get install -y libpq-dev
         - sudo service postgresql restart
         - sudo sh install/db.sh
+        - sudo sh install/docker.sh
         - cd src/spring
 
       script:
