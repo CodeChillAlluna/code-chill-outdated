@@ -30,7 +30,7 @@ matrix:
     - language: java
       jdk: oraclejdk8
 
-    services:
+    - services:
       - docker
 
       sudo: required
