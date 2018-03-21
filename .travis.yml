@@ -28,9 +28,7 @@ matrix:
         - ls node_modules/xterm -al
 
       script:
-        - yarn build
-        - ls -al
-        - tail -f yarn-error.log
+        - react-scripts-ts build
       after_success: 
         - yarn test --coverage && cat ./coverage/lcov.info | coveralls
 
