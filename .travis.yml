@@ -32,7 +32,7 @@ matrix:
       script:
         - react-scripts-ts build
         - ls -al
-        - react-scripts-ts build
+        - yarn build
       after_success: 
         - yarn test --coverage && cat ./coverage/lcov.info | coveralls
 
