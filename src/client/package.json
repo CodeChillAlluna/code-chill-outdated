@@ -1,6 +1,6 @@
 {
-  "name": "my-app",
-  "version": "0.1.0",
+  "name": "code-chill",
+  "version": "1.0.0-Beta",
   "private": true,
   "dependencies": {
     "@types/lodash": "^4.14.104",
