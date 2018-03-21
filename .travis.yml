@@ -17,6 +17,8 @@ matrix:
         - sudo yarn global add typescript
         - sudo yarn global add react-scripts-ts
         - sudo yarn global add gulp
+        - sudo yarn global add node-pty
+        - sudo yarn global add node-gyp
         - sudo apt install make -y
         - sudo apt install g++ -y
         - cd src/client
