@@ -20,7 +20,7 @@ spring:
       starttls.enable: true
       
   datasource:
-    url: jdbc:postgresql://localhost/codechill
+    url: jdbc:postgresql://localhost/codechill_test
     username: code
     password: chill
 

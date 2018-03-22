@@ -12,8 +12,22 @@ matrix:
         - sudo apt-get update
         - sudo apt-get install yarn -y
         - sudo yarn global add coveralls
+        - sudo yarn global add create-react-app
+        - sudo yarn global add serve
+        - sudo yarn global add typescript
+        - sudo yarn global add react-scripts-ts
+        - sudo yarn global add gulp
+        - sudo yarn global add node-pty
+        - sudo yarn global add node-gyp
+        - sudo apt install make -y
+        - sudo apt install g++ -y
         - cd src/client
-        - yarn install
+        - yarn add git+https://github.com/CodeChillAlluna/xterm.js.git
+        - yarn install --no-bin-links
+        - cd node_modules/xterm
+        - npm install
+        - cd ../..
+        - ls node_modules/xterm -al
 
       script:
         - yarn build
@@ -24,12 +38,15 @@ matrix:
       jdk: oraclejdk8
 
       sudo: required
+      services:
+        - docker
       before_script:
         - sudo apt-get install -y maven
         - sudo apt-get install -y python-dev
         - sudo apt-get install -y libpq-dev
         - sudo service postgresql restart
         - sudo sh install/db.sh
+        - sudo sh install/docker.sh
         - cd src/spring
 
       script:
@@ -38,4 +55,4 @@ matrix:
         - sudo sh mvnw clean test -DTRAVIS_JOB_ID=$TRAVIS_JOB_ID jacoco:report coveralls:report
         
 notifications:
-email: false
+  email: false
