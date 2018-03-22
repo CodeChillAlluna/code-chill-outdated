@@ -18,7 +18,6 @@ export interface IxTermProps extends React.DOMAttributes<{}> {
     value?: string;
     className?: string;
     style?: React.CSSProperties;
-    // url: string;
     history?: any;
     token?: any;
     user?: any;
@@ -44,14 +43,9 @@ class CodeChillXterm extends React.Component<IxTermProps, IxTermState> {
         this.state = {
             isFocused: false
         };
-        // this.props.options
         this.msg = "";
         this.Auth = new AuthService();
         this.xterm = new Terminal();
-    }
-
-    componentDidMount() {
-        var xt = this;
         Terminal.applyAddon(attach);
         Terminal.applyAddon(fit);
         this.webSocket = new WebSocket(`ws://localhost:2375/containers/${this.props.user.dockers[0].name}/
@@ -59,6 +53,10 @@ attach/ws?logs=0&stream=1&stdin=1&stdout=1&stderr=1`);
         this.Auth.startDocker(this.props.user.dockers[0].name).then((res) => {
             console.log(res);
         });
+    }
+
+    componentDidMount() {
+        var xt = this;
         this.xterm.open(this.refs.container);
         (this.xterm as any).fit();
         this.webSocket.addEventListener("open", function () {
@@ -67,13 +65,13 @@ attach/ws?logs=0&stream=1&stdin=1&stdout=1&stderr=1`);
     }
 
     componentWillUnmount() {
-        /*if (this.xterm) {
+        if (this.xterm) {
             this.xterm.destroy();
             delete this.xterm;
         }
         this.Auth.stopDocker(this.props.user.dockers[0].name).then((res) => {
             console.log(res);
-        });*/
+        });
     }
 
     getTerminal() {
