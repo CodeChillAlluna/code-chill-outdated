@@ -70,7 +70,7 @@ public class UserControllerTest{
             .webAppContextSetup(context)
             .apply(springSecurity())
             .build();
-        this.setJwtToken();
+        this.setJwtToken("dummy","admin");
         this.authorities = new ArrayList<Authority>();
         this.authorityUser = this.createAuthority(1L, AuthorityName.ROLE_USER);
         this.authorities = this.addAuthority(authorities, authorityUser);
@@ -107,11 +107,11 @@ public class UserControllerTest{
         return user;
     }
 
-    public void setJwtToken() {
+    public void setJwtToken(String username,String password) {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode body = mapper.createObjectNode();
-        body.put("username", "dummy");
-        body.put("password", "admin");
+        body.put("username", username);
+        body.put("password", password);
         try {
             String res = this.mock.perform(post("/auth")
             .contentType(MediaType.APPLICATION_JSON)
@@ -158,13 +158,22 @@ public class UserControllerTest{
             .andExpect(status().isOk());
     }
 
+   /* @Test
+    public void testResetPassword() throws Exception{
+        this.setJwtToken(this.testUser.getUsername(),this.testUser.getPassword());
+        this.mock.perform(get("/reset/"+this.jwtToken)
+        .header("Authorization","Bearer "+this.jwtToken))
+        .andExpect(status().isOk()); 
+    }
+    */
+    @Test
+    public void testDelete() throws Exception{
+        //this.setJwtToken(this.testUser.getUsername(),this.testUser.getPassword());
+        this.mock.perform(delete("/user")
+        .header("Authorization","Bearer "+this.jwtToken))
+        .andExpect(status().is2xxSuccessful());
+    }
 
-    /* public void testUpdateUserEmail(){
-        User emailUser = new User(this.lastname,this.firstname);
-        emailUser.setEmail(this.email);
-        String emailTest = "nmichanol92@gmail.com";
-        assert(this.cController.updateUserEmail(emailTest)==true);
-      }*/
 
     public static String asJsonString(final Object obj) {
         try {
@@ -173,5 +182,7 @@ public class UserControllerTest{
             throw new RuntimeException(e);
         }
     }
+
+
 
 }
