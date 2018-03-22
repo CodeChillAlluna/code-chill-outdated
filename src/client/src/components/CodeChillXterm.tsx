@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as Terminal from "xterm/build/xterm";
 import * as attach from "xterm/build/addons/attach/attach";
+import * as fit from "xterm/build/addons/fit/fit";
 import * as ClassName from "classnames";
 import AuthService from "../AuthService";
 import withAuth from "./withAuth";
@@ -17,7 +18,6 @@ export interface IxTermProps extends React.DOMAttributes<{}> {
     value?: string;
     className?: string;
     style?: React.CSSProperties;
-    // url: string;
     history?: any;
     token?: any;
     user?: any;
@@ -43,21 +43,22 @@ class CodeChillXterm extends React.Component<IxTermProps, IxTermState> {
         this.state = {
             isFocused: false
         };
-        // this.props.options
         this.msg = "";
         this.Auth = new AuthService();
         this.xterm = new Terminal();
-    }
-
-    componentDidMount() {
-        var xt = this;
         Terminal.applyAddon(attach);
+        Terminal.applyAddon(fit);
         this.webSocket = new WebSocket(`ws://localhost:2375/containers/${this.props.user.dockers[0].name}/
 attach/ws?logs=0&stream=1&stdin=1&stdout=1&stderr=1`);
         this.Auth.startDocker(this.props.user.dockers[0].name).then((res) => {
             console.log(res);
         });
+    }
+
+    componentDidMount() {
+        var xt = this;
         this.xterm.open(this.refs.container);
+        (this.xterm as any).fit();
         this.webSocket.addEventListener("open", function () {
             (xt.xterm as any).attach(xt.webSocket, xt.webSocket, false, false);
         });
@@ -76,6 +77,7 @@ attach/ws?logs=0&stream=1&stdin=1&stdout=1&stderr=1`);
     getTerminal() {
         return this.xterm;
     }
+
     render() {
         const terminalClassName = ClassName(
             "CodeChillXterm",
@@ -83,8 +85,16 @@ attach/ws?logs=0&stream=1&stdin=1&stdout=1&stderr=1`);
             this.props.className
         );
         const container = "container";
+        const css = `.ui.container{ 
+            width: 100%!important;
+            margin-left: 0!important;
+            margin-right: 0!important;
+         }`;
         return (
+            <div>
             <div ref={container} className={terminalClassName} />
+            <style>{css}</style>
+            </div>
         );
     }
 }
