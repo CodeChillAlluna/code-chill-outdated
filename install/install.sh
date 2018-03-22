@@ -75,6 +75,7 @@ sudo apt-get install -y postgresql-contrib
 DB_USER=code
 DB_PWD=chill
 DB_NAME=codechill
+DB_NAME_TEST=codechill_test
 
 sudo service postgresql restart
 sudo su - postgres -c psql <<EOF
@@ -86,6 +87,18 @@ ALTER ROLE $DB_USER SET default_transaction_isolation TO 'read committed';
 ALTER ROLE $DB_USER SET timezone TO 'UTC';
 
 GRANT ALL PRIVILEGES ON DATABASE $DB_NAME TO $DB_USER;
+ALTER USER $DB_USER CREATEDB;
+EOF
+
+sudo su - postgres -c psql <<EOF
+CREATE DATABASE $DB_NAME_TEST;
+CREATE USER $DB_USER WITH PASSWORD '$DB_PWD';
+
+ALTER ROLE $DB_USER SET client_encoding TO 'utf8';
+ALTER ROLE $DB_USER SET default_transaction_isolation TO 'read committed';
+ALTER ROLE $DB_USER SET timezone TO 'UTC';
+
+GRANT ALL PRIVILEGES ON DATABASE $DB_NAME_TEST TO $DB_USER;
 ALTER USER $DB_USER CREATEDB;
 EOF
 
