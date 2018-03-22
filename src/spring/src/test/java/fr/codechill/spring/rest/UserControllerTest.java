@@ -94,13 +94,9 @@ public class UserControllerTest{
         return authorities;
     }
 
-    public User setUpUser
-    (
-        String username, String password, String firstname,
-        String lastname, String email, Boolean enabled, Date lastPasswordResetDate,
-        List<Authority> authorities
-    ) 
-    {
+    public User setUpUser(String username, String password, String firstname,
+                          String lastname, String email, Boolean enabled,
+                          Date lastPasswordResetDate, List<Authority> authorities) {
         User user = new User(lastname, firstname);
         user.setUsername(username);
         user.setPassword(password);
