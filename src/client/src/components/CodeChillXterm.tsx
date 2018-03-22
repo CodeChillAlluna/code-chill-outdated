@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as Terminal from "xterm/build/xterm";
 import * as attach from "xterm/build/addons/attach/attach";
+import * as fit from "xterm/build/addons/fit/fit";
 import * as ClassName from "classnames";
 import AuthService from "../AuthService";
 import withAuth from "./withAuth";
@@ -52,30 +53,33 @@ class CodeChillXterm extends React.Component<IxTermProps, IxTermState> {
     componentDidMount() {
         var xt = this;
         Terminal.applyAddon(attach);
+        Terminal.applyAddon(fit);
         this.webSocket = new WebSocket(`ws://localhost:2375/containers/${this.props.user.dockers[0].name}/
 attach/ws?logs=0&stream=1&stdin=1&stdout=1&stderr=1`);
         this.Auth.startDocker(this.props.user.dockers[0].name).then((res) => {
             console.log(res);
         });
         this.xterm.open(this.refs.container);
+        (this.xterm as any).fit();
         this.webSocket.addEventListener("open", function () {
             (xt.xterm as any).attach(xt.webSocket, xt.webSocket, false, false);
         });
     }
 
     componentWillUnmount() {
-        if (this.xterm) {
+        /*if (this.xterm) {
             this.xterm.destroy();
             delete this.xterm;
         }
         this.Auth.stopDocker(this.props.user.dockers[0].name).then((res) => {
             console.log(res);
-        });
+        });*/
     }
 
     getTerminal() {
         return this.xterm;
     }
+
     render() {
         const terminalClassName = ClassName(
             "CodeChillXterm",
@@ -83,8 +87,16 @@ attach/ws?logs=0&stream=1&stdin=1&stdout=1&stderr=1`);
             this.props.className
         );
         const container = "container";
+        const css = `.ui.container{ 
+            width: 100%!important;
+            margin-left: 0!important;
+            margin-right: 0!important;
+         }`;
         return (
+            <div>
             <div ref={container} className={terminalClassName} />
+            <style>{css}</style>
+            </div>
         );
     }
 }
