@@ -23,15 +23,13 @@ matrix:
         - sudo apt install g++ -y
         - cd src/client
         - yarn add git+https://github.com/CodeChillAlluna/xterm.js.git
-        - yarn install
+        - yarn install --no-bin-links
         - cd node_modules/xterm
         - npm install
         - cd ../..
         - ls node_modules/xterm -al
 
       script:
-        - react-scripts-ts build
-        - ls -al
         - yarn build
       after_success: 
         - yarn test --coverage && cat ./coverage/lcov.info | coveralls
