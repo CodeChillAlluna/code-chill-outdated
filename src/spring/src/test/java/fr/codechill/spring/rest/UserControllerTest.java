@@ -156,13 +156,10 @@ public class UserControllerTest{
 
     @Test
     public void testGetUser() throws Exception {
-        String res = this.mock.perform(get("/user/1")
-            .header("Authorization", "Bearer " + this.jwtToken))
-            .andReturn().getResponse().getContentAsString();
-        PrintWriter writer = new PrintWriter("/vagrant/tests.txt", "UTF-8");
-        writer.println("Resultat\n");
-        writer.println(res);
-        writer.close();
+        this.mock.perform(get("/user/1")
+            .header("Authorization", "Bearer " + this.jwtToken)
+            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk());
     }
 
 
