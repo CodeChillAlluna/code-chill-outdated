@@ -153,6 +153,9 @@ systemctl restart docker
 docker pull ubuntu
 docker run --name code-chill -dti ubuntu /bin/bash
 
+# Install nginx
+sudo apt-get install nginx
+
 # Install js packages
 cd $client
 yarn global add create-react-app
