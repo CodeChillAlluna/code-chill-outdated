@@ -41,7 +41,7 @@ public class User implements Serializable {
     @Column(name = "password", length = 100)
     @NotNull
     @Size(min = 4, max = 100)
-    @JsonIgnoreProperties("password")
+    @JsonIgnoreProperties("users")
     private String password;
 
     @Column(name = "firstname", length = 50)
@@ -90,9 +90,9 @@ public class User implements Serializable {
 
     public User(){}
 
-    public User(String nom,String prenom){
-        this.lastname = nom;
-        this.firstname = prenom;
+    public User(String lastname, String firstname) {
+        this.lastname = lastname;
+        this.firstname = firstname;
     }
 
     public Long getId() {
@@ -130,10 +130,10 @@ public class User implements Serializable {
     public String getLastname() {
         return lastname;
     }
-
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
+
 
     public String getEmail() {
         return email;

@@ -2,6 +2,9 @@ import * as React from "react";
 import NavBar from "../NavBar";
 import AuthService from "../../AuthService";
 import { Button, Form, Grid, Header, Image, Message, Segment } from "semantic-ui-react";
+import { formatRoute } from "react-router-named-routes";
+import { HOME } from "../../Routes";
+const logo = require("../../resources/logocodeandchill.png");
 
 export default class UserForgotPassword extends React.Component<any, any> {
 
@@ -24,7 +27,7 @@ export default class UserForgotPassword extends React.Component<any, any> {
 
     componentWillMount() {
         if (this.Auth.loggedIn()) {
-            this.props.history.replace("/home");
+            this.props.history.replace(formatRoute(HOME));
         }
     }
 
@@ -45,7 +48,7 @@ export default class UserForgotPassword extends React.Component<any, any> {
                     >
                         <Grid.Column style={{ maxWidth: 450 }}>
                             <Header as="h2" color="teal" textAlign="center">
-                                <Image src="https://react.semantic-ui.com/logo.png" />
+                                <Image src={logo} />
                             {" "}Recover your password
                             </Header>
                             <Form 

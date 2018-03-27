@@ -8,8 +8,8 @@ spring:
     serialization:
       INDENT_OUTPUT: true
   mail:
-    host: ""
-    port: 587
+    host: mail.smtpbucket.com
+    port: 8025
     username: ""      
     password: ""
     smtp: 
@@ -20,7 +20,7 @@ spring:
       starttls.enable: true
       
   datasource:
-    url: jdbc:postgresql://localhost/codechill
+    url: jdbc:postgresql://localhost/codechill_test
     username: code
     password: chill
 

@@ -2,6 +2,9 @@ import * as React from "react";
 import NavBar from "../NavBar";
 import AuthService from "../../AuthService";
 import { Button, Form, Grid, Header, Image, Message, Segment } from "semantic-ui-react";
+import { formatRoute } from "react-router-named-routes";
+import { HOME } from "../../Routes";
+const logo = require("../../resources/logocodeandchill.png");
 
 export default class UserResetPassword extends React.Component<any, any> {
 
@@ -24,7 +27,7 @@ export default class UserResetPassword extends React.Component<any, any> {
 
     componentWillMount() {
         if (this.Auth.loggedIn()) {
-            this.props.history.replace("/home");
+            this.props.history.replace(formatRoute(HOME));
         }
         this.Auth.checkTokenPassword(this.props.match.params.token).then((res) => {
             this.setState(
@@ -67,7 +70,7 @@ export default class UserResetPassword extends React.Component<any, any> {
                     >
                         <Grid.Column style={{ maxWidth: 450 }}>
                             <Header as="h2" color="teal" textAlign="center">
-                                <Image src="https://react.semantic-ui.com/logo.png" />
+                                <Image src={logo} />
                             {" "}Reset your password
                             </Header>
                             <Form 
@@ -166,7 +169,7 @@ export default class UserResetPassword extends React.Component<any, any> {
     private handleFormSubmit(e: any) {
         e.preventDefault();
         this.Auth.resetPassword(this.props.match.params.token, this.state.password).then((res) => {
-            this.setMessage("success", "You can now <a href=\"/login\">log-in</a> to your account");
+            this.setMessage("success", `You can now <Link to="${formatRoute(HOME)}">log-in</Link> to your account`);
         }).catch((err) => {
             this.setMessage("error", err);
         });

@@ -12,15 +12,18 @@ Master project : Online development environment
 * If you want  to set up our project from scratch using our vagrant click [here](#vagrant-installation-guide)
 * If you want to set up our project without vagrant click [here](#vagrantless-installation-guide) 
 # Release installation guide
-* You need <a href="http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html">Java 8+</a> , <a href="https://nodejs.org/en/">NodeJS 9+</a> and <a href="https://www.postgresql.org/download/">PostgresSQL</a>.
-* Create a user `code` with password `chill` in postgresSQL
-* Create a database `codechill` and grant permission on this database to your user.
-* You can install Code&Chill <a href="https://github.com/CodeChillAlluna/code-chill/releases">here</a>.
-* Go to your spring repository : `cd ./spring`
-* Run the command : `java -jar spring-0.1.0.jar`
-* And then : `npm install serve`
-* To run the server : `serve -s client` 
-* You can go to <a href="http://localhost:5000/">http://localhost:5000/</a> on your browser to access to your terminal.
+You can run our releases in our vagrant or install it on your own machine.
+You can download our releases <a href="https://github.com/CodeChillAlluna/code-chill/releases">here</a>
+## Install on Vagrant
+1. Extract the release in your vagrant folder.
+2. Follow <a href="#vagrant-installation-guide">Vagrant installation guide</a>
+3. Launch <a href="#production-mode">Server</a>
+4. Launch <a href="#production-mode-1">Client</a>
+## Install on your machine
+1. Extract the release on your machine.
+2. Install all the dependancies (Check `install/install.sh` to have all dependancies).
+3. Launch <a href="#production-mode">Server</a>
+4. Launch <a href="#production-mode-1">Client</a>
 
 # Vagrant installation guide
 ## Environment installation
@@ -54,31 +57,36 @@ You will find all our project dependancies in `install/install.sh`
 Choose either of the solutions:
 - Cloning the repository : `git clone https://github.com/CodeChillAlluna/code-chill.git`
 - Downloading the repository : `https://github.com/CodeChillAlluna/code-chill/archive/master.zip`
+- Downloading our release : `https://github.com/CodeChillAlluna/code-chill/releases`
 
 # Usage
 ## Spring
-### Build Spring
+### Production Mode
 To build Spring, you will have to use the following command lines : 
 
 1. `cd src/spring` : will place you in the source dictionnary.
 2. `sh mvnw clean package` : will compile java files to create a runnable jar package.
 3. `cd target` : will place you in the build dictionnary of the project.
 4. `java -jar spring-0.0.1-SNAPSHOT.jar` : will launch the Spring project, depending on what you are using the version might not always be "0.0.1".
-### Run Spring
+5. Server API accessible at `http://localhost:8080/`
+### Development Mode
 To run Spring in development mode, you will have to use the following command lines : 
 1. `cd src/spring` : will place you in the source dictionnary.
 2. `sh mvnw spring-boot:run`: will compile the source code and launch the spring server
+3. Server API accessible at `http://localhost:8080/`
 
 ##  React
-### Build React
+### Production Mode
 To build React, you will have to use the following command lines : 
 1. `cd src/client` : will place you in the source dictionnary.
 2. `sudo yarn install` : will install if they are missing and update the dependencies of the project.
 3. `yarn build` : will build the project.
 4. `serve -s build` : will launch the project properly.
-### Run React
+5. Website accessible at `http://localhost:5000/`
+### Development Mode
 To run react in development mode, you will have to use the following command lines : 
 1. `cd src/client` : will place you in the source dictionnary.
 2. `sudo yarn install` : will install if they are missing and update the dependencies of the project.
 3. `yarn start`: will check your code validity and launch the node server.
+4. Website accessible at `http://localhost:3000/`
 
