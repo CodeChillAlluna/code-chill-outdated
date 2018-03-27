@@ -1,6 +1,10 @@
 import * as React from "react";
 import { Button, Form, Grid, Header, Image, Message, Segment } from "semantic-ui-react";
 import AuthService from "../../AuthService";
+import { Link } from "react-router-dom";
+import { formatRoute } from "react-router-named-routes";
+import { HOME, SIGNUP, FORGOT_PASSWORD } from "../../Routes";
+const logo = require("../../resources/logocodeandchill.png");
 
 export default class UserConnection extends React.Component<any, any> {
 
@@ -16,7 +20,7 @@ export default class UserConnection extends React.Component<any, any> {
 
     componentWillMount() {
         if (this.Auth.loggedIn()) {
-            this.props.history.replace("/");
+            this.props.history.replace(formatRoute(HOME));
         }
     }
 
@@ -37,7 +41,7 @@ export default class UserConnection extends React.Component<any, any> {
                 >
                     <Grid.Column style={{ maxWidth: 450 }}>
                         <Header as="h2" color="teal" textAlign="center">
-                            <Image src="logocodeandchill.png" />
+                            <Image src={logo} />
                         {" "}Log-in to your account
                         </Header>
                         <Form 
@@ -74,8 +78,8 @@ export default class UserConnection extends React.Component<any, any> {
                             </Segment>
                         </Form>
                         <Message>
-                            <p>New to us? <a href="/signup">Sign Up</a></p>
-                            <p>Forgot your password? <a href="/forgot">Click here</a></p>
+                            <p>New to us? <Link to={formatRoute(SIGNUP)}>Sign Up</Link></p>
+                            <p>Forgot your password? <Link to={formatRoute(FORGOT_PASSWORD)}>Click here</Link></p>
                         </Message>
                     </Grid.Column>
                 </Grid>
@@ -97,7 +101,7 @@ export default class UserConnection extends React.Component<any, any> {
 
         this.Auth.login(this.state.username, this.state.password)
         .then((res) => {
-            this.props.history.replace("/home");
+            this.props.history.replace(formatRoute(HOME));
         })
         .catch((err) => {
             alert(err);

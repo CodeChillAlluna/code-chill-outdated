@@ -92,8 +92,8 @@ attach/ws?logs=0&stream=1&stdin=1&stdout=1&stderr=1`);
          }`;
         return (
             <div>
-            <div ref={container} className={terminalClassName} />
-            <style>{css}</style>
+                <div ref={container} className={terminalClassName} />
+                <style>{css}</style>
             </div>
         );
     }

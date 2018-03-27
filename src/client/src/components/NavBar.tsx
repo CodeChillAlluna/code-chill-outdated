@@ -10,6 +10,10 @@ import {
     Sidebar,
     Responsive
   } from "semantic-ui-react";
+import { Link } from "react-router-dom";
+import { formatRoute } from "react-router-named-routes";
+import { TERMINAL, HOME, LOGIN, PROFILE } from "../Routes";
+const logo = require("../resources/logocodeandchill.png");
   
 const NavBarChildren = ({ children }) => (
     <Container style={{ marginTop: "5em" }}>{children}</Container>
@@ -38,7 +42,7 @@ export default class NavBar extends React.Component<any, any> {
             rmenu = (
                 <Dropdown item={true} text={this.props.user.username}>
                     <Dropdown.Menu>
-                        <Dropdown.Item><a href="/profile">Profile</a></Dropdown.Item>
+                        <Dropdown.Item><Link to={formatRoute(PROFILE)}>Profile</Link></Dropdown.Item>
                         <Dropdown.Item
                             onClick={this.handleLogout}
                         >Log out
@@ -47,12 +51,12 @@ export default class NavBar extends React.Component<any, any> {
                 </Dropdown>
             );
             leftItems = [
-                { as: "a", content: "Terminal", key: "terminal", href: "/term" }
+                { as: Link, content: "Terminal", key: "terminal", to: formatRoute(TERMINAL) }
             ];
         } else {
             rmenu = (
                 <Menu.Item>
-                    <a href="/login">Login</a>
+                    <Link to={formatRoute(LOGIN)}>Login</Link>
                 </Menu.Item>
             );
             leftItems = [];
@@ -77,7 +81,9 @@ export default class NavBar extends React.Component<any, any> {
                         >
                             <Menu fixed="top" inverted={true}>
                                 <Menu.Item>
-                                    <Image size="mini" src="logocodeandchill.png" />
+                                    <Link to={formatRoute(HOME)}>
+                                        <Image size="mini" src={logo} />
+                                    </Link>
                                 </Menu.Item>
                                 <Menu.Item onClick={this.handleToggle}>
                                     <Icon name="sidebar" />
@@ -93,7 +99,9 @@ export default class NavBar extends React.Component<any, any> {
                 <Responsive minWidth={Responsive.onlyTablet.minWidth}>
                         <Menu fixed="top" inverted={true}>
                             <Menu.Item>
-                                <Image size="mini" src="logocodeandchill.png" />
+                            <Link to={formatRoute(HOME)}>
+                                <Image size="mini" src={logo} />
+                            </Link>
                             </Menu.Item>
                             {_.map(leftItems, (item) => <Menu.Item {...item} />)}
                             <Menu.Menu position="right">

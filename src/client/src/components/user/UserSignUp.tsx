@@ -2,6 +2,10 @@ import * as React from "react";
 import NavBar from "../NavBar";
 import AuthService from "../../AuthService";
 import { Button, Form, Grid, Header, Image, Message, Segment } from "semantic-ui-react";
+import { Link } from "react-router-dom";
+import { formatRoute } from "react-router-named-routes";
+import { HOME, LOGIN } from "../../Routes";
+const logo = require("../../resources/logocodeandchill.png");
 
 export default class UserSignUp extends React.Component<any, any> {
 
@@ -23,7 +27,7 @@ export default class UserSignUp extends React.Component<any, any> {
 
     componentWillMount() {
         if (this.Auth.loggedIn()) {
-            this.props.history.replace("/");
+            this.props.history.replace(formatRoute(HOME));
         }
     }
 
@@ -44,7 +48,7 @@ export default class UserSignUp extends React.Component<any, any> {
                     >
                         <Grid.Column style={{ maxWidth: 450 }}>
                             <Header as="h2" color="teal" textAlign="center">
-                                <Image src="logocodeandchill.png" />
+                                <Image src={logo} />
                             {" "}Register your account
                             </Header>
                             <Form 
@@ -123,7 +127,7 @@ export default class UserSignUp extends React.Component<any, any> {
                                 </Segment>
                             </Form>
                             <Message>
-                                <p>Already have an account? <a href="/login">Login</a></p>
+                                <p>Already have an account? <Link to={formatRoute(LOGIN)}>Login</Link></p>
                             </Message>
                         </Grid.Column>
                     </Grid>
@@ -147,7 +151,8 @@ export default class UserSignUp extends React.Component<any, any> {
                     "message": (
                         <Message positive={true}>
                             <Message.Header>Your user registration was successful</Message.Header>
-                            <p>You may now <a href="/login">log-in</a> with the username you have chosen</p>
+                            <p>You may now <Link to={formatRoute(LOGIN)}>log-in</Link>
+                             with the username you have chosen</p>
                         </Message>
                     )
                 }

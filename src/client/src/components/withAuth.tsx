@@ -1,6 +1,8 @@
 import * as React from "react";
 import AuthService from "../AuthService";
 import NavBar from "./NavBar";
+import { formatRoute } from "react-router-named-routes";
+import { LOGIN } from "../Routes";
 
 export default function withAuth(AuthComponent: any) {
     const Auth = new AuthService();
@@ -14,7 +16,7 @@ export default function withAuth(AuthComponent: any) {
         }
         componentWillMount() {
             if (!Auth.loggedIn()) {
-                this.props.history.replace("/login");
+                this.props.history.replace(formatRoute(LOGIN));
             } else {
                 try {
                     const profile = Auth.getProfile();
@@ -26,7 +28,7 @@ export default function withAuth(AuthComponent: any) {
                     });
                 } catch (err) {
                     Auth.logout();
-                    this.props.history.replace("/login");
+                    this.props.history.replace(formatRoute(LOGIN));
                 }
             }
         }
