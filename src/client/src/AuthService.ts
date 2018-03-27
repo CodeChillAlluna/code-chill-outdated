@@ -1,14 +1,14 @@
 import decode from "jwt-decode";
+const config = require("../package.json");
+
 export default class AuthService {
     // Initializing important variables
 
     user: Object;
     domain: string;
-    // dockerApi: string;
 
     constructor(domain?: string) {
-        this.domain = domain || "http://localhost:8080"; // API server domain
-        // this.dockerApi = "http://localhost:2375";
+        this.domain = domain || config.restApi; // API server domain
         this.user = Object;
         this.fetch = this.fetch.bind(this); // React binding stuff
         this.login = this.login.bind(this);
