@@ -53,11 +53,12 @@ public class UserControllerTest{
     @Autowired
     private WebApplicationContext context;
     private User testUser;
+    private User testUser2;
     private String username = "Nathou";
     private String password = "123456789";
     private String firstname = "Nathan";
     private String lastname = "Michanol";
-    private String email = "nathoupowa972@gmail.com";
+    private String email = "nathou@bonjour.com";
     private Boolean enabled = true;
     private Date lastPasswordResetDate = new Date(1993, 12, 12);
     private Authority authorityUser;
@@ -71,6 +72,13 @@ public class UserControllerTest{
             .apply(springSecurity())
             .build();
         this.setJwtToken("dummy","admin");
+        try {
+            PrintWriter writer = new PrintWriter("/vagrant/testtoken.txt");
+            writer.println(this.jwtToken);
+            writer.close();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
         this.authorities = new ArrayList<Authority>();
         this.authorityUser = this.createAuthority(1L, AuthorityName.ROLE_USER);
         this.authorities = this.addAuthority(authorities, authorityUser);
@@ -80,6 +88,13 @@ public class UserControllerTest{
                 this.lastname, this.email, this.enabled,
                 this.lastPasswordResetDate, this.authorities
             );
+        this.testUser2 = setUpUser
+            (
+                this.username + "2", this.password, this.firstname,
+                this.lastname, "nathoupowa972@gmail.com", this.enabled,
+                this.lastPasswordResetDate, this.authorities
+            );
+        this.addUserToBdd(this.testUser2);
     }
 
     public Authority createAuthority(Long id, AuthorityName name) {
@@ -123,7 +138,20 @@ public class UserControllerTest{
             e.printStackTrace();
         }
     }
-
+    
+    public void addUserToBdd(User user) {
+        try 
+        {
+            this.mock.perform(post("/user")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(user)))
+                .andReturn().getResponse().getContentAsString();
+        } 
+          catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
     @Test
     public void testUserController() {
         this.dcontroller = new DockerController(drepo);
@@ -135,8 +163,9 @@ public class UserControllerTest{
         this.mock.perform(post("/user")
             .contentType(MediaType.APPLICATION_JSON)
             .content(asJsonString(testUser)))
-            .andExpect(status().isCreated());
+            .andExpect(status().is2xxSuccessful());
     }
+
     @Test
     public void testAddUserUsername() throws Exception {
         this.testUser.setUsername("dummy");
@@ -174,8 +203,6 @@ public class UserControllerTest{
             .andExpect(status().isOk());
     }
 
-    
-
    /* @Test
     public void testResetPassword() throws Exception{
         this.setJwtToken(this.testUser.getUsername(),this.testUser.getPassword());
@@ -184,9 +211,28 @@ public class UserControllerTest{
         .andExpect(status().isOk()); 
     }
     */
+
+   /*@Test
+    public void testEditUser() throws Exception {
+        PrintWriter writer = new PrintWriter("/vagrant/test.txt");
+        this.setJwtToken(testUser2.getUsername(), testUser2.getPassword());
+        writer.println(this.jwtToken);
+        writer.println(testUser2.getUsername());
+        writer.println(testUser2.getPassword());
+        writer.close();
+        this.testUser2.setLastname("Simon");
+        this.testUser2.setFirstname("Ludwig");
+        String token = this.jwtToken;
+        String res = this.mock.perform(put("/user")
+            .header("Authorization", "Bearer " + token)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(asJsonString(testUser2)))
+            .andExpect(status().is2xxSuccessful())
+            .andReturn().getResponse().getContentAsString();        
+        // writer.println(res);
+    }*/
     @Test
     public void testDelete() throws Exception{
-        //this.setJwtToken(this.testUser.getUsername(),this.testUser.getPassword());
         this.mock.perform(delete("/user")
         .header("Authorization","Bearer "+this.jwtToken))
         .andExpect(status().is2xxSuccessful());
