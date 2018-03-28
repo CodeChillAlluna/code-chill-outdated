@@ -137,6 +137,22 @@ public class UserControllerTest{
             .content(asJsonString(testUser)))
             .andExpect(status().isCreated());
     }
+    @Test
+    public void testAddUserUsername() throws Exception {
+        this.testUser.setUsername("dummy");
+        this.mock.perform(post("/user")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(asJsonString(testUser)))
+            .andExpect(status().is4xxClientError());
+    }
+    @Test
+    public void testAddUserEmail() throws Exception {
+        this.testUser.setEmail("admin@admin.com");
+        this.mock.perform(post("/user")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(asJsonString(testUser)))
+            .andExpect(status().is4xxClientError());
+    }
 
     @Test
     public void testAuth() throws Exception {
@@ -157,6 +173,8 @@ public class UserControllerTest{
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk());
     }
+
+    
 
    /* @Test
     public void testResetPassword() throws Exception{
