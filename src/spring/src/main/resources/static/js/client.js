@@ -4,7 +4,7 @@
 
 $(function () {
     // VARIABLES =============================================================
-    var TOKEN_KEY = "jwtToken"
+    var TOKEN_KEY = "jwtToken";
     var $notLoggedIn = $("#notLoggedIn");
     var $loggedIn = $("#loggedIn").hide();
     var $loggedInBody = $("#loggedInBody");
@@ -41,7 +41,7 @@ $(function () {
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 if (jqXHR.status === 401) {
-                    $('#loginErrorModal')
+                    $("#loginErrorModal")
                         .modal("show")
                         .find(".modal-body")
                         .empty()
@@ -138,8 +138,8 @@ $(function () {
 
         var $form = $(this);
         var formData = {
-            username: $form.find('input[name="username"]').val(),
-            password: $form.find('input[name="password"]').val()
+            username: $form.find("input[name=\"username\"]").val(),
+            password: $form.find("input[name=\"password\"]").val()
         };
 
         doLogin(formData);

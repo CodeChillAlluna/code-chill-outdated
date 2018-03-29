@@ -55,7 +55,7 @@ public class AuthenticationRestControllerTest {
     private UserDetailsService userDetailsService;
 
     @Before
-    public void setup() {
+    public void setUp() {
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .apply(springSecurity())

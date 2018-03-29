@@ -18,7 +18,7 @@ class DeleteUser extends React.Component<any, any> {
     render() {
         return (
             <div>
-                <Button 
+                <Button
                     color="teal"
                     fluid={true}
                     size="medium"

@@ -51,7 +51,7 @@ export default class UserForgotPassword extends React.Component<any, any> {
                                 <Image src={logo} />
                             {" "}Recover your password
                             </Header>
-                            <Form 
+                            <Form
                                 error={true}
                                 success={true}
                                 size="large"
@@ -68,7 +68,7 @@ export default class UserForgotPassword extends React.Component<any, any> {
                                         onChange={this.handleChange}
                                     />
                                     {this.displayErrors}
-                                    <Button 
+                                    <Button
                                         color="teal"
                                         fluid={true}
                                         size="large"
@@ -111,7 +111,7 @@ export default class UserForgotPassword extends React.Component<any, any> {
                             <Message.Header>Request sent</Message.Header>
                                 <p>{content}</p>
                             </Message>
-                        ) 
+                        )
                     }
                 }
             );

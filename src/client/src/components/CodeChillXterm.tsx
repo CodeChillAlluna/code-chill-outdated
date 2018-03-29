@@ -5,7 +5,7 @@ import * as fit from "xterm/build/addons/fit/fit";
 import * as ClassName from "classnames";
 import AuthService from "../AuthService";
 import withAuth from "./withAuth";
-var config = require("../../package.json");
+const config = require("../../package.json");
 
 export interface IxTermProps extends React.DOMAttributes<{}> {
     onChange?: (e: any) => void;
@@ -21,8 +21,7 @@ export interface IxTermProps extends React.DOMAttributes<{}> {
     style?: React.CSSProperties;
     history?: any;
     token?: any;
-    user?: any;
-    
+    user?: any; 
 }
 
 export interface IxTermState {
@@ -57,7 +56,7 @@ attach/ws?logs=0&stream=1&stdin=1&stdout=1&stderr=1`);
     }
 
     componentDidMount() {
-        var xt = this;
+        let xt = this;
         this.xterm.open(this.refs.container);
         (this.xterm as any).fit();
         this.webSocket.addEventListener("open", function () {

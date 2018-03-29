@@ -145,7 +145,7 @@ export default class UserResetPassword extends React.Component<any, any> {
                             <Message.Header>Password successfuly changed</Message.Header>
                                 <p>{content}</p>
                             </Message>
-                        ) 
+                        )
                     }
                 }
             );

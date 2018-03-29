@@ -54,7 +54,7 @@ class UserProfile extends React.Component<any, any> {
             <NavBar history={this.props.history} user={this.props.user}>
                 <Grid>
                     <Grid.Column width={12}>
-                        <Form 
+                        <Form
                             success={true}
                             error={true}
                             size="tiny"
@@ -80,7 +80,7 @@ class UserProfile extends React.Component<any, any> {
                                 name="email"
                                 onChange={this.handleChange}
                             />
-                            <Button 
+                            <Button
                                 color="teal"
                                 fluid={true}
                                 size="large"
@@ -93,7 +93,7 @@ class UserProfile extends React.Component<any, any> {
                         </Form>
                     </Grid.Column>
                     <Grid.Column width={4}>
-                        <DeleteUser 
+                        <DeleteUser
                             history={this.props.history}
                             user={this.props.user}
                         />

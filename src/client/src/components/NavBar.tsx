@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 import { formatRoute } from "react-router-named-routes";
 import { TERMINAL, HOME, LOGIN, PROFILE } from "../Routes";
 const logo = require("../resources/logocodeandchill.png");
-  
+
 const NavBarChildren = ({ children }) => (
     <Container style={{ marginTop: "5em" }}>{children}</Container>
 );
