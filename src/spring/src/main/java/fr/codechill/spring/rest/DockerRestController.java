@@ -15,15 +15,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import fr.codechill.spring.repository.DockerRepository;
-
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:5000"})
 @RestController
 public class DockerRestController {
     private final String BASE_URL = "http://localhost:2375";
 
     @Autowired
-    public DockerRestController(DockerRepository drepo) { }
+    public DockerRestController() { }
 
     @PostMapping(value = "/containers/{id}/start", produces = "application/json")
     public ResponseEntity<?> startDocker(@PathVariable("id") String id) {

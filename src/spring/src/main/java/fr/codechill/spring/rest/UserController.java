@@ -34,7 +34,6 @@ import fr.codechill.spring.model.Docker;
 @RestController
 public class UserController {
     private final UserRepository urepo;
-    private final DockerRepository drepo;
     private final DockerController dcontroller;
     private final String SENDFROM = "codechill@hotmail.com";
     private final String BASE_URL = "http://localhost:3000";
@@ -50,7 +49,6 @@ public class UserController {
     @Autowired
     public UserController(UserRepository urepo, DockerRepository drepo) { 
         this.urepo = urepo;
-        this.drepo = drepo;
         this.dcontroller = new DockerController(drepo);
     }
 
