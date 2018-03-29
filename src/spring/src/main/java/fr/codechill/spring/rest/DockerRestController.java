@@ -20,13 +20,10 @@ import fr.codechill.spring.repository.DockerRepository;
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:5000"})
 @RestController
 public class DockerRestController {
-    private final DockerRepository drepo;
     private final String BASE_URL = "http://localhost:2375";
 
     @Autowired
-    public DockerRestController(DockerRepository drepo) { 
-        this.drepo = drepo;
-    }
+    public DockerRestController(DockerRepository drepo) { }
 
     @PostMapping(value = "/containers/{id}/start", produces = "application/json")
     public ResponseEntity<?> startDocker(@PathVariable("id") String id) {
