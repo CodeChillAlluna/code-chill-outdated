@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -19,9 +19,6 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 public class DockerRestController {
     private final String BASE_URL = "http://localhost:2375";
-
-    @Autowired
-    public DockerRestController() { }
 
     @PostMapping(value = "/containers/{id}/start", produces = "application/json")
     public ResponseEntity<?> startDocker(@PathVariable("id") String id) {

@@ -18,7 +18,7 @@ const logo = require("../resources/logocodeandchill.png");
 const NavBarChildren = ({ children }) => (
     <Container style={{ marginTop: "5em" }}>{children}</Container>
 );
-  
+
 export default class NavBar extends React.Component<any, any> {
 
     Auth: AuthService;

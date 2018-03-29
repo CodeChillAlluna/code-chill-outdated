@@ -111,7 +111,7 @@ public class UserController {
     //method sending a mail to a new user email
     public boolean updateUserEmail(String email)
     {
-        if(!email.equals(""))
+        if(!"".equals(email))
         {
             SimpleMailMessage updateEmail = new SimpleMailMessage();
             updateEmail.setFrom(SENDFROM);
@@ -173,7 +173,7 @@ public class UserController {
         c.add(Calendar.DATE, 1);
         Date currentDatePlusOne = c.getTime();
         if(user != null) {
-            if(currentDate.after(user.getLastPasswordResetDate()) && currentDate.before(currentDatePlusOne)) {
+            if((currentDate.after(user.getLastPasswordResetDate())) && (currentDate.before(currentDatePlusOne))) {
                 return ResponseEntity.ok().headers(responseHeaders).body(user);
             }
         }

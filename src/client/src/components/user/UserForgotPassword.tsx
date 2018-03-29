@@ -125,7 +125,7 @@ export default class UserForgotPassword extends React.Component<any, any> {
                             <Message.Header>Request failed</Message.Header>
                                 <p>{content}</p>
                             </Message>
-                        ) 
+                        )
                     }
                 }
             );

@@ -29,7 +29,7 @@ export default class CodeChillRouter extends React.Component<any, any> {
                             path={R.PROFILE}
                             component={UserProfile}
                         />
-                        <Route 
+                        <Route
                             exact={true}
                             path={R.FORGOT_PASSWORD}
                             component={UserForgotPassword}

@@ -21,7 +21,7 @@ export interface IxTermProps extends React.DOMAttributes<{}> {
     style?: React.CSSProperties;
     history?: any;
     token?: any;
-    user?: any; 
+    user?: any;
 }
 
 export interface IxTermState {
