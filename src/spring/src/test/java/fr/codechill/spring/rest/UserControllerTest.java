@@ -6,7 +6,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
@@ -129,15 +128,15 @@ public class UserControllerTest{
             e.printStackTrace();
         }
     }
-    
+
     public void addUserToBdd(User user) {
-        try 
+        try
         {
             this.mock.perform(post("/user")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(user)))
                 .andReturn().getResponse().getContentAsString();
-        } 
+        }
           catch (Exception e) {
             e.printStackTrace();
         }
@@ -193,7 +192,7 @@ public class UserControllerTest{
         this.setJwtToken(this.testUser.getUsername(),this.testUser.getPassword());
         this.mock.perform(get("/reset/"+this.jwtToken)
         .header("Authorization","Bearer "+this.jwtToken))
-        .andExpect(status().isOk()); 
+        .andExpect(status().isOk());
     }
     */
 
@@ -213,13 +212,13 @@ public class UserControllerTest{
             .contentType(MediaType.APPLICATION_JSON)
             .content(asJsonString(testUser2)))
             .andExpect(status().is2xxSuccessful())
-            .andReturn().getResponse().getContentAsString();        
+            .andReturn().getResponse().getContentAsString();
         // writer.println(res);
     }*/
     @Test
     public void testDelete() throws Exception{
         this.mock.perform(delete("/user")
-        .header("Authorization","Bearer "+this.jwtToken))
+        .header("Authorization", "Bearer " + this.jwtToken))
         .andExpect(status().is2xxSuccessful());
     }
 

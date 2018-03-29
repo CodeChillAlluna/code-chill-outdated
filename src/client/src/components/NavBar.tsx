@@ -121,14 +121,14 @@ export default class NavBar extends React.Component<any, any> {
 
     private handlePusher() {
         const { visible } = this.state;
-  
+
         if (visible) {
             this.setState(
                 { visible: false }
             );
         }
     }
-  
+
     private handleToggle() {
         this.setState({ visible: !this.state.visible });
     }

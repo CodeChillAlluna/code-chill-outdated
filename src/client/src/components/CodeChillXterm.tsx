@@ -85,7 +85,7 @@ attach/ws?logs=0&stream=1&stdin=1&stdout=1&stderr=1`);
             this.props.className
         );
         const container = "container";
-        const css = `.ui.container{ 
+        const css = `.ui.container{
             width: 100%!important;
             margin-left: 0!important;
             margin-right: 0!important;

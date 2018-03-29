@@ -39,12 +39,12 @@ export default class CodeChillRouter extends React.Component<any, any> {
                             path={R.RESET_PASSWORD}
                             component={UserResetPassword}
                         />
-                        <Route 
+                        <Route
                             exact={true}
                             path={R.LOGIN}
                             component={UserConnection}
                         />
-                        <Route 
+                        <Route
                             exact={true}
                             path={R.SIGNUP}
                             // render={(props) => <UserConnection props={...props} />}
@@ -55,7 +55,7 @@ export default class CodeChillRouter extends React.Component<any, any> {
                             path={R.TERMINAL}
                             component={CodeChillXterm}
                         />
-                        <Route 
+                        <Route
                             path={R.NOTFOUND}
                             component={NotFound}
                         />
