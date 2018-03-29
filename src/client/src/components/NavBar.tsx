@@ -33,7 +33,7 @@ export default class NavBar extends React.Component<any, any> {
             visible: false
         };
     }
-  
+
     render() {
         const { children } = this.props;
         let rmenu: any;

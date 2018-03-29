@@ -172,10 +172,8 @@ public class UserController {
         c.setTime(user.getLastPasswordResetDate());
         c.add(Calendar.DATE, 1);
         Date currentDatePlusOne = c.getTime();
-        if(user != null) {
-            if((currentDate.after(user.getLastPasswordResetDate())) && (currentDate.before(currentDatePlusOne))) {
-                return ResponseEntity.ok().headers(responseHeaders).body(user);
-            }
+        if(user != null && currentDate.after(user.getLastPasswordResetDate()) && currentDate.before(currentDatePlusOne)) {
+            return ResponseEntity.ok().headers(responseHeaders).body(user);
         }
         return ResponseEntity.badRequest().headers(responseHeaders).body(null);
     }
