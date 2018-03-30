@@ -1,18 +1,12 @@
-package fr.codechill.spring.Exception;
+package fr.codechill.spring.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(value=HttpStatus.FORBIDDEN,reason="Access Denied")// 403
-public class AccessDeniedException extends Exception{
-	private String message;
-    
-    public AccessDeniedException (String message){
+@ResponseStatus(value=HttpStatus.FORBIDDEN) // 403
+public class AccessDeniedException extends Exception {
+
+    public AccessDeniedException (String message) {
 		super(message);
-		this.message = message;
 	}
-	
-	public String getMessage(){
-		return this.message;
-    }
 }

@@ -1,10 +1,10 @@
 package fr.codechill.spring.rest;
 
+import java.net.URI;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
-import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -23,12 +23,13 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import fr.codechill.spring.model.User;
-import fr.codechill.spring.repository.UserRepository;
-import fr.codechill.spring.security.JwtTokenUtil;
-import fr.codechill.spring.repository.DockerRepository;
+import fr.codechill.spring.exception.BadRequestException;
 import fr.codechill.spring.controller.DockerController;
 import fr.codechill.spring.model.Docker;
+import fr.codechill.spring.model.User;
+import fr.codechill.spring.repository.DockerRepository;
+import fr.codechill.spring.repository.UserRepository;
+import fr.codechill.spring.security.JwtTokenUtil;
 
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:5000"})
 @RestController
@@ -40,14 +41,14 @@ public class UserController {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-    
+
     @Autowired
     private JavaMailSender mailSender;
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
     @Autowired
-    public UserController(UserRepository urepo, DockerRepository drepo) { 
+    public UserController(UserRepository urepo, DockerRepository drepo) {
         this.urepo = urepo;
         this.dcontroller = new DockerController(drepo);
     }
@@ -58,18 +59,18 @@ public class UserController {
         return user;
     }
 
-    
+
     @DeleteMapping("/user")
-    public Boolean deleteUser(@RequestHeader(value="Authorization") String token) {
+    public ResponseEntity<?> deleteUser(@RequestHeader(value="Authorization") String token) {
         String username = jwtTokenUtil.getUsernameFromToken(token.substring(7));
         User user = this.urepo.findByUsername(username);
         this.urepo.delete(user);
-        return true;
+        return ResponseEntity.ok().headers(new HttpHeaders()).body(null);
     }
 
     @PutMapping("/user")
     public User editUser(@RequestHeader(value="Authorization") String token, @RequestBody User user) {
-       
+
         String username = jwtTokenUtil.getUsernameFromToken(token.substring(7));
         User updatedUser = this.urepo.findByUsername(username);
         if (!updatedUser.getLastname().equals(user.getLastname())) {
@@ -82,20 +83,19 @@ public class UserController {
             updatedUser.setEmail(user.getEmail());
             updateUserEmail(updatedUser.getEmail());
         }
-            
+
         this.urepo.save(updatedUser);
         return user;
     }
 
     @PostMapping("/user")
-    public ResponseEntity<?> addUser(@RequestBody User user) {
+    public ResponseEntity<?> addUser(@RequestBody User user) throws BadRequestException {
         HttpHeaders responseHeaders = new HttpHeaders();
         if (urepo.findByUsername(user.getUsername()) != null) {
-
-            return ResponseEntity.badRequest().headers(responseHeaders).body("An account with this username already exist!");
+            throw new BadRequestException("An account with this username already exist!");
         }
         if (urepo.findByEmail(user.getEmail()) != null) {
-            return ResponseEntity.badRequest().headers(responseHeaders).body("An account with this email already exist!");
+            throw new BadRequestException("An account with this email already exist!");
         }
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         Docker docker = this.dcontroller.createDocker();
@@ -107,7 +107,7 @@ public class UserController {
         return ResponseEntity.created(location).headers(responseHeaders).body(urepo.findByUsername(user.getUsername()));
     }
 
-    
+
     //method sending a mail to a new user email
     public boolean updateUserEmail(String email)
     {
@@ -132,17 +132,17 @@ public class UserController {
             infoUpdateFail.setTo(user.getEmail());
             infoUpdateFail.setSubject("Suspicious access to your account");
             infoUpdateFail.setText("We have registered a suspicious activity on your acccount");
-            
+
             mailSender.send(infoUpdateFail);
             return true;
         }
 
         return false;
     }
-    
+
     // Process form submission from forgotPassword page
 	@PostMapping(value = "/user/forgottenpassword")
-	public ResponseEntity<?> processForgotPasswordForm(@RequestBody String email) {
+	public ResponseEntity<?> processForgotPasswordForm(@RequestBody String email) throws BadRequestException {
         User user = urepo.findByEmail(email);
         HttpHeaders responseHeaders = new HttpHeaders();
 
@@ -156,15 +156,15 @@ public class UserController {
             passwordResetEmail.setTo(user.getEmail());
             passwordResetEmail.setSubject("Password Reset Request");
             passwordResetEmail.setText("Reset link:\n" + BASE_URL + "/reset/" + user.getTokenPassword());
-            
+
             mailSender.send(passwordResetEmail);
             return ResponseEntity.ok().headers(responseHeaders).body(user);
         }
-        return ResponseEntity.badRequest().headers(responseHeaders).body(user);
+        throw new BadRequestException("No user found with this email");
     }
 
     @GetMapping(value = "/reset/{token}")
-    public ResponseEntity<?> resetPassword(@PathVariable("token") String token) {
+    public ResponseEntity<?> resetPassword(@PathVariable("token") String token) throws BadRequestException {
         HttpHeaders responseHeaders = new HttpHeaders();
         User user = urepo.findByTokenPassword(token);
         Date currentDate = new Date();
@@ -175,11 +175,11 @@ public class UserController {
         if(user != null && currentDate.after(user.getLastPasswordResetDate()) && currentDate.before(currentDatePlusOne)) {
             return ResponseEntity.ok().headers(responseHeaders).body(user);
         }
-        return ResponseEntity.badRequest().headers(responseHeaders).body(null);
+        throw new BadRequestException("Your token is invalid or hax expired");
     }
 
     @PostMapping(value = "/reset")
-    public ResponseEntity<?> setNewPassword(@RequestBody Map<String, String> requestParams) {
+    public ResponseEntity<?> setNewPassword(@RequestBody Map<String, String> requestParams) throws BadRequestException {
         User user = urepo.findByTokenPassword(requestParams.get("token"));
         HttpHeaders responseHeaders = new HttpHeaders();
 
@@ -189,6 +189,6 @@ public class UserController {
             urepo.save(user);
             return ResponseEntity.ok().headers(responseHeaders).body(user);
         }
-        return ResponseEntity.badRequest().headers(responseHeaders).body(null);
+        throw new BadRequestException("Your token is invalid or hax expired");
     }
 }

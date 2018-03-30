@@ -1,9 +1,16 @@
-package fr.codechill.spring.Exception;
+package fr.codechill.spring.exception;
 
-public class ExceptionRepresentation {
+import java.io.Serializable;
+
+public class ExceptionRepresentation implements Serializable {
     String message;
 
-    public ExceptionRepresentation (String unMessage){
-        this.message = unMessage;
+    public ExceptionRepresentation (String m){
+        this.message = m;
     }
+
+    public String getMessage() {
+        return this.message;
+    }
+
 }
