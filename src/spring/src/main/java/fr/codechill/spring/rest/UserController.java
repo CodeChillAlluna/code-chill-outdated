@@ -34,7 +34,6 @@ import fr.codechill.spring.model.Docker;
 @RestController
 public class UserController {
     private final UserRepository urepo;
-    private final DockerRepository drepo;
     private final DockerController dcontroller;
     private final String SENDFROM = "codechill@hotmail.com";
     private final String BASE_URL = "http://localhost:3000";
@@ -50,7 +49,6 @@ public class UserController {
     @Autowired
     public UserController(UserRepository urepo, DockerRepository drepo) { 
         this.urepo = urepo;
-        this.drepo = drepo;
         this.dcontroller = new DockerController(drepo);
     }
 
@@ -113,7 +111,7 @@ public class UserController {
     //method sending a mail to a new user email
     public boolean updateUserEmail(String email)
     {
-        if(!email.equals(""))
+        if(!"".equals(email))
         {
             SimpleMailMessage updateEmail = new SimpleMailMessage();
             updateEmail.setFrom(SENDFROM);
@@ -174,10 +172,8 @@ public class UserController {
         c.setTime(user.getLastPasswordResetDate());
         c.add(Calendar.DATE, 1);
         Date currentDatePlusOne = c.getTime();
-        if(user != null) {
-            if(currentDate.after(user.getLastPasswordResetDate()) && currentDate.before(currentDatePlusOne)) {
-                return ResponseEntity.ok().headers(responseHeaders).body(user);
-            }
+        if(user != null && currentDate.after(user.getLastPasswordResetDate()) && currentDate.before(currentDatePlusOne)) {
+            return ResponseEntity.ok().headers(responseHeaders).body(user);
         }
         return ResponseEntity.badRequest().headers(responseHeaders).body(null);
     }

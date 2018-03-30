@@ -21,6 +21,7 @@ public class Docker implements Serializable {
     @NotNull
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
+
     private String name;
     
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "dockers")
@@ -38,6 +39,10 @@ public class Docker implements Serializable {
         this.name = name;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public String getName() {
         return this.name;
     }
@@ -48,5 +53,13 @@ public class Docker implements Serializable {
 
     public void setUsers(List<User> u) {
         this.users = u;
+    }
+
+    public List<Language> getLanguages() {
+        return this.languages;
+    }
+
+    public void setLanguages(List<Language> l) {
+        this.languages = l;
     }
 }

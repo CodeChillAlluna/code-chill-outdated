@@ -9,18 +9,18 @@ import UserProfile from "./user/UserProfile";
 import NotFound from "./NotFound";
 import UserForgotPassword from "./user/UserForgotPassword";
 import UserResetPassword from "./user/UserResetPassword";
-var config = require("../../package.json");
+const config = require("../../package.json");
 
 export default class CodeChillRouter extends React.Component<any, any> {
-    
+
     render() {
         return (
             <main>
                 <BrowserRouter basename={config.homepage}>
                     <Switch>
 
-                        <Route 
-                            exact={true} 
+                        <Route
+                            exact={true}
                             path={R.HOME}
                             component={App}
                         />
@@ -29,33 +29,33 @@ export default class CodeChillRouter extends React.Component<any, any> {
                             path={R.PROFILE}
                             component={UserProfile}
                         />
-                        <Route 
+                        <Route
                             exact={true}
                             path={R.FORGOT_PASSWORD}
-                            component={UserForgotPassword} 
+                            component={UserForgotPassword}
                         />
-                        <Route 
+                        <Route
                             exact={true}
                             path={R.RESET_PASSWORD}
-                            component={UserResetPassword} 
+                            component={UserResetPassword}
                         />
-                        <Route 
+                        <Route
                             exact={true}
                             path={R.LOGIN}
-                            component={UserConnection} 
+                            component={UserConnection}
                         />
-                        <Route 
+                        <Route
                             exact={true}
-                            path={R.SIGNUP} 
+                            path={R.SIGNUP}
                             // render={(props) => <UserConnection props={...props} />}
-                            component={UserSignUp} 
+                            component={UserSignUp}
                         />
                         <Route
                             exact={true}
                             path={R.TERMINAL}
-                            component={CodeChillXterm} 
+                            component={CodeChillXterm}
                         />
-                        <Route 
+                        <Route
                             path={R.NOTFOUND}
                             component={NotFound}
                         />

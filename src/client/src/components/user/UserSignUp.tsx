@@ -51,7 +51,7 @@ export default class UserSignUp extends React.Component<any, any> {
                                 <Image src={logo} />
                             {" "}Register your account
                             </Header>
-                            <Form 
+                            <Form
                                 error={true}
                                 success={true}
                                 size="large"
@@ -116,7 +116,7 @@ export default class UserSignUp extends React.Component<any, any> {
                                         onChange={this.handleChange}
                                     />
 
-                                    <Button 
+                                    <Button
                                         color="teal"
                                         fluid={true}
                                         size="large"

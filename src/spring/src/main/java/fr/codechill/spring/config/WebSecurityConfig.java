@@ -71,8 +71,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.html",
                         "/**/*.css",
                         "/**/*.js",
-                        "/reset/*"
-                        
+                        "/reset/*",
+                        "/v2/api-docs",
+                        "/webjars/**"
+
                 ).permitAll()
 
                 .antMatchers(
@@ -86,6 +88,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/h2-console/**/**").permitAll()
 
                 .antMatchers("/auth/**").permitAll()
+                .antMatchers("/swagger-ui.html/**").permitAll()
+                .antMatchers("/swagger-resources/**").permitAll()
                 .anyRequest().authenticated();
 
         // Custom JWT based security filter
