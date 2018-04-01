@@ -44,7 +44,7 @@ export default class UserConnection extends React.Component<any, any> {
                             <Image src={logo} />
                         {" "}Log-in to your account
                         </Header>
-                        <Form 
+                        <Form
                             size="large"
                             onSubmit={this.handleFormSubmit}
                         >
@@ -67,7 +67,7 @@ export default class UserConnection extends React.Component<any, any> {
                                     onChange={this.handleChange}
                                 />
 
-                                <Button 
+                                <Button
                                     color="teal"
                                     fluid={true}
                                     size="large"

@@ -41,7 +41,7 @@ export default function withAuth(AuthComponent: any) {
                 );
             } else {
                 return null;
-            }                
+            }
         }
     };
 }

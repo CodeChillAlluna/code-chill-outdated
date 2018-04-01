@@ -14,11 +14,11 @@ import { Link } from "react-router-dom";
 import { formatRoute } from "react-router-named-routes";
 import { TERMINAL, HOME, LOGIN, PROFILE } from "../Routes";
 const logo = require("../resources/logocodeandchill.png");
-  
+
 const NavBarChildren = ({ children }) => (
     <Container style={{ marginTop: "5em" }}>{children}</Container>
 );
-  
+
 export default class NavBar extends React.Component<any, any> {
 
     Auth: AuthService;
@@ -33,7 +33,7 @@ export default class NavBar extends React.Component<any, any> {
             visible: false
         };
     }
-  
+
     render() {
         const { children } = this.props;
         let rmenu: any;
@@ -121,14 +121,14 @@ export default class NavBar extends React.Component<any, any> {
 
     private handlePusher() {
         const { visible } = this.state;
-  
+
         if (visible) {
             this.setState(
                 { visible: false }
             );
         }
     }
-  
+
     private handleToggle() {
         this.setState({ visible: !this.state.visible });
     }

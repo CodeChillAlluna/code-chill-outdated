@@ -19,6 +19,7 @@ public class Language implements Serializable {
     @NotNull
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
+
     private String name;
     
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "languages")
@@ -29,6 +30,10 @@ public class Language implements Serializable {
 
     public Language(String n) {
         this.name = n;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getName() {

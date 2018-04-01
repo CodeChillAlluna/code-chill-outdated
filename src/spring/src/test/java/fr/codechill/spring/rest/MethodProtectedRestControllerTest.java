@@ -30,7 +30,7 @@ public class MethodProtectedRestControllerTest {
     private JwtTokenUtil jwtTokenUtil;
 
     @Before
-    public void setup() {
+    public void setUp() {
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .apply(springSecurity())

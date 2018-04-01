@@ -46,12 +46,12 @@ public class User implements Serializable {
 
     @Column(name = "firstname", length = 50)
     @NotNull
-    @Size(min = 4, max = 50)
+    @Size(min = 3, max = 50)
     private String firstname;
 
     @Column(name = "lastname", length = 50)
     @NotNull
-    @Size(min = 4, max = 50)
+    @Size(min = 3, max = 50)
     private String lastname;
 
     @Column(name = "email", length = 50)
