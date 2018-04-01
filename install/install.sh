@@ -155,7 +155,7 @@ git clone https://github.com/CodeChillAlluna/DockerFiles.git
 docker build -f DockerFiles/CodeChill-Ubuntu/DockerFile -t codechill/ubuntu-base .
 docker build -f DockerFiles/CodeChill-Ubuntu-User/DockerFile -t codechill/ubuntu-base-user .
 rm -R DockerFiles
-docker run -dti codechill/ubuntu_base_lulu300 --name codechill
+docker run --name codechill -dti codechill/ubuntu-base-user /bin/bash
 
 # Install nginx
 sudo apt-get install nginx

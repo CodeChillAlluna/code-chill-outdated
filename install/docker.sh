@@ -8,5 +8,9 @@ then
 fi
 source /etc/environment
 systemctl restart docker
-docker pull ubuntu
-docker run --name code-chill -dti ubuntu /bin/bash
+
+git clone https://github.com/CodeChillAlluna/DockerFiles.git
+docker build -f DockerFiles/CodeChill-Ubuntu/DockerFile -t codechill/ubuntu-base .
+docker build -f DockerFiles/CodeChill-Ubuntu-User/DockerFile -t codechill/ubuntu-base-user .
+rm -R DockerFiles
+docker run --name codechill -dti codechill/ubuntu-base-user /bin/bash
