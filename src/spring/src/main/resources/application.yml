@@ -12,13 +12,13 @@ spring:
     port: 587
     username: ""
     password: ""
-    smtp: 
+    smtp:
       protocol: smtp
       debug: true
-    properties.mail.smtp: 
+    properties.mail.smtp:
       auth: true
       starttls.enable: true
-      
+
   datasource:
     url: jdbc:postgresql://localhost/codechill
     username: code
@@ -28,7 +28,7 @@ spring:
     generate:
       ddl: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
 
 jwt:
   header: Authorization
