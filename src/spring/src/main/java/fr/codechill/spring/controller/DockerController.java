@@ -28,14 +28,15 @@ public class DockerController {
     public Docker createDocker() {
         String dockerCreatetUrl = BASE_URL + "/containers/create";
         RestTemplate restTemplate = new RestTemplate();
-        
+
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode body = mapper.createObjectNode();
-        body.put("Image", "ubuntu");
+        body.put("Image", "codechill/ubuntu-base-user");
+        body.put("Hostname", "chill");
         body.put("tty", true);
         body.put("OpenStdin", true);
         body.put("AttachStdin", true);
-        body.put("StdinOnce", true); 
+        body.put("StdinOnce", true);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
