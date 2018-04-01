@@ -1,12 +1,12 @@
 ﻿/*!
-* Created by Kroplet (https://www.kroplet.com) 
-* The easiest way to create Bootstrap 4 themes. 
+* Created by Kroplet (https://www.kroplet.com)
+* The easiest way to create Bootstrap 4 themes.
 */
 
 /*!
-* Bootstrap v4.0.0-beta.2 (https://getbootstrap.com) 
-* Copyright 2011-2017 The Bootstrap Authors 
-* Copyright 2011-2017 Twitter, Inc. 
+* Bootstrap v4.0.0-beta.2 (https://getbootstrap.com)
+* Copyright 2011-2017 The Bootstrap Authors
+* Copyright 2011-2017 Twitter, Inc.
 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)*/
 @import url("https://fonts.googleapis.com/css?family=Rubik:400,500,700");
 :root {
@@ -6631,6 +6631,6 @@ Pricing tables & lists
   text-shadow: none;
   background: #00c2cc; }
 
-.todo h6, .todo p {
-  opacity: 0.7;
+.todo {
+  background: #e2e2e2;
 }
