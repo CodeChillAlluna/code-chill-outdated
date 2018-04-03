@@ -27,6 +27,8 @@ Master project : Online development environment
 https://www.vagrantup.com/downloads.html
 
 * **VirtualBox** needs to be installed. You can download it here : https://www.virtualbox.org/wiki/Downloads
+* **Git** If you want to clone our repo instead of downloading a zip file.
+https://git-scm.com/
 
 ### Download
 
@@ -113,7 +115,7 @@ Choose either of the solutions:
 
 # Usage
 
-## Spring
+## Server (Spring)
 
 ### Production Mode
 
@@ -143,7 +145,7 @@ To run Spring in development mode, you will have to use the following command li
 
   
 
-## React
+## Client (React)
 
 ### Production Mode
 
