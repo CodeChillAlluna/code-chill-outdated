@@ -67,7 +67,7 @@ Choose either of the solutions:
 
 
 
-1. Move to the project directory : `cd code-chill` or cd `cd code-chill-master` if you download the project from zip file.
+1. Move to the project directory : `cd code-chill` or cd `cd code-chill-master` if you download the project from the ZIP file.
 
 
 
@@ -115,7 +115,7 @@ Choose either of the solutions:
 
 ### Launch API and Client
 The last step is to run the API and the Client. In order to do that you will need to open a second terminal connect to the vagrant `vagrant ssh`. One terminal to run the API and the other one for the Client.
-Follow the <a href="">Usage</a> part to run them. If you only want to run the project to try it and you don't plan to install it on a real server, run the API and the Client in Development mode.
+Follow the <a href="#usage">Usage</a> part to run them. If you only want to run the project to try it and you don't plan to install it on a real server, run the API and the Client in Development mode.
 
 
 
@@ -139,15 +139,15 @@ You can download our releases <a  href="https://github.com/CodeChillAlluna/code-
 
 
 
-2. Follow <a  href="#vagrant-installation-guide">Vagrant installation guide</a>
+2. Follow <a  href="#vagrant-installation-guide">Vagrant installation guide through Setup Vagrant</a>
 
 
 
-3. Launch <a  href="#production-mode">API</a>
+3. Launch <a  href="#production-mode">API (Production mode)</a>
 
 
 
-4. Launch <a  href="#production-mode-1">Client</a>
+4. Launch <a  href="#production-mode-1">Client (Production mode)</a>
 
 
 
@@ -281,7 +281,7 @@ If you have a problem with xterm :
 `cd /vagrant/src/client/node_modules/xterm` and
 `npm install --no-bin-links`
 After return in the right folder `cd /vagrant/src/client`
-and run again `yarn build`.
+and run again `yarn start`.
 
 
 5. Website accessible at `http://localhost:3000/`
