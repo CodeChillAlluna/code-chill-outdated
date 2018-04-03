@@ -3,15 +3,7 @@
 
   
 
-[![Travis branch](https://img.shields.io/travis/CodeChillAlluna/code-chill/master.svg?style=flat-square)](https://travis-ci.org/CodeChillAlluna/code-chill)
-
-[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://github.com/CodeChillAlluna/code-chill/blob/master/LICENSE)
-
-[![Maintainability](https://api.codeclimate.com/v1/badges/b61e96a6f14db189b5b1/maintainability)](https://codeclimate.com/github/CodeChillAlluna/code-chill/maintainability)
-
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/3373b12b915d4be68943182e1c2ff979)](https://www.codacy.com/app/Lulu300/code-chill?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CodeChillAlluna/code-chill&amp;utm_campaign=Badge_Grade)
-
-[![Coverage Status](https://coveralls.io/repos/github/CodeChillAlluna/code-chill/badge.svg?branch=master)](https://coveralls.io/github/CodeChillAlluna/code-chill?branch=master)
+[![Travis branch](https://img.shields.io/travis/CodeChillAlluna/code-chill/master.svg?style=flat-square)](https://travis-ci.org/CodeChillAlluna/code-chill) [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://github.com/CodeChillAlluna/code-chill/blob/master/LICENSE) [![Maintainability](https://api.codeclimate.com/v1/badges/b61e96a6f14db189b5b1/maintainability)](https://codeclimate.com/github/CodeChillAlluna/code-chill/maintainability) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3373b12b915d4be68943182e1c2ff979)](https://www.codacy.com/app/Lulu300/code-chill?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CodeChillAlluna/code-chill&amp;utm_campaign=Badge_Grade) [![Coverage Status](https://coveralls.io/repos/github/CodeChillAlluna/code-chill/badge.svg?branch=master)](https://coveralls.io/github/CodeChillAlluna/code-chill?branch=master)
 
   
 
@@ -24,34 +16,6 @@ Master project : Online development environment
 * If you want to install our latest release click [here](#release-installation-guide)
 
 * If you want to set up our project without vagrant click [here](#vagrantless-installation-guide)
-
-# Release installation guide
-
-You can run our releases in our vagrant or install it on your own machine.
-
-You can download our releases <a  href="https://github.com/CodeChillAlluna/code-chill/releases">here</a>
-
-## Install on Vagrant
-
-1. Extract the release in your vagrant folder (You need to setup our vagrant first).
-
-2. Follow <a  href="#vagrant-installation-guide">Vagrant installation guide</a>
-
-3. Launch <a  href="#production-mode">Server</a>
-
-4. Launch <a  href="#production-mode-1">Client</a>
-
-## Install on your machine
-
-1. Extract the release on your machine.
-
-2. Install all the dependancies (Check `install/install.sh` in our repo to have all dependancies).
-
-3. Launch <a  href="#production-mode">Server</a>
-
-4. Launch <a  href="#production-mode-1">Client</a>
-
-  
 
 # Vagrant installation guide
 
@@ -99,6 +63,33 @@ Choose either of the solutions:
 - Delete the VM: `vagrant destroy`
 
 - Verify packages are up to date: `vagrant provision`
+
+# Release installation guide
+
+You can run our releases in our vagrant or install it on your own machine.
+
+You can download our releases <a  href="https://github.com/CodeChillAlluna/code-chill/releases">here</a>
+
+## Install with Vagrant
+
+1. Extract the release in your vagrant folder (You need to setup our vagrant first).
+
+2. Follow <a  href="#vagrant-installation-guide">Vagrant installation guide</a>
+
+3. Launch <a  href="#production-mode">Server</a>
+
+4. Launch <a  href="#production-mode-1">Client</a>
+
+## Install without Vagrant
+
+1. Extract the release on your machine.
+
+2. Install all the dependancies (Check `install/install.sh` in our repo to have all dependancies).
+
+3. Launch <a  href="#production-mode">Server</a>
+
+4. Launch <a  href="#production-mode-1">Client</a>
+
 
 # Vagrantless installation guide
 
