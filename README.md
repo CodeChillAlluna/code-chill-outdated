@@ -78,7 +78,7 @@ Choose either of the solutions:
 
 1. Move to the project directory : `cd code-chill` or cd `cd code-chill-master` if you download the project from zip file.
 
-2. Run the command : `vagrant up`.
+2. Run the command : `vagrant up` (It takes some time, 20~25 minutes).
 
 2. Wait for Vagrant to download all dependencies.
 
