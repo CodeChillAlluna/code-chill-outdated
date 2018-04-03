@@ -7,7 +7,8 @@
 
   
 
-Master project : Online development environment
+Master project : Online development environment.
+If you want to know more about this project check our website : https://codechillalluna.github.io/code-chill/
 
 # Summary
 
