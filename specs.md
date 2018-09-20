@@ -24,8 +24,8 @@ Etat de chaque environnement de développement avec le statut de chaque docker. 
 
 Permettre à un utilisateur de partager son environnement avec le choix entre :
 
-- donner les droits root au nouvel usager
-- ne pas donner les droits root au nouvel usager, ce qui créera un nouveau compte pour cet usager
+- donner les droits d'administration au nouvel usager
+- ne pas donner les droits root au nouvel usager, ce qui créera un nouveau compte pour celui-ci
 
 
 
@@ -39,12 +39,20 @@ Rendre prossible l'importation et l'exportation d'environnement docker pour faci
 
 Proposer des environnements pré-configurés pour faciliter la création d'un nouvel environnement (ex: à la création d'un compte).
 
+Langages proposés dans un premier temps : 
+
+* Java
+* Python
+* C et C++
+* NodeJS
 
 
-## Mise en place d'un IDE sur le site
+
+## Mise en place d'un IDE sur l'application Web
+
+Fonctionnalités proposées : 
 
 - auto-complétion
-- support de langages
 - etc.
 
 
@@ -58,6 +66,8 @@ Portage du code React en React Native pour le déploiment de l'application sur m
 ## Support de l'intégration continue
 
 Ajouter un support graphique de l'intégration continue dans l'environnement
+
+* Permettre aux utilisateurs de vérifier la qualité du code produit avec l'aide d'outils tel que Git et tous les autres outils compatibles avec celui-ci
 
 
 
@@ -77,4 +87,8 @@ Rendre possible la review du code des projets
 
 
 
-## Faire évoluer l'intégration continue et les tests du repository GitHub
+## Faire évoluer l'intégration continue et les tests du dépôt GitHub
+
+* Utilisation du plugin Maven EvoSuite afin d'assurer un coverage de la partie back et front du projet
+* Intégration de Sentry afin de pouvoir avoir une traçabilité des erreurs et la stabilité des release
+* D'autres seront utilisés en fonction des avancées du projet
