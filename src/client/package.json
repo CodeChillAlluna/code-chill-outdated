@@ -6,21 +6,20 @@
   "restApi": "http://localhost:8080",
   "dockerApi": "ws://localhost:2375",
   "dependencies": {
-    "@types/lodash": "^4.14.104",
-    "@types/react-redux": "^5.0.14",
-    "axios": "^0.18.0",
+    "@types/lodash": "^4.14.116",
+    "@types/react-redux": "^6.0.9",
     "jwt-decode": "^2.2.0",
-    "react": "^16.2.0",
-    "react-bash": "^1.6.0",
-    "react-dom": "^16.2.0",
-    "react-redux": "^5.0.6",
-    "react-router-dom": "^4.2.2",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.3.1",
     "react-router-named-routes": "^0.0.23",
-    "react-scripts-ts": "2.12.0",
-    "semantic-ui-css": "^2.2.14",
-    "semantic-ui-react": "^0.78.2",
+    "react-scripts-ts": "^2.17.0",
+    "semantic-ui-css": "^2.4.0",
+    "semantic-ui-react": "^0.82.5",
     "text-encoding": "^0.6.4",
-    "xterm": "git+https://github.com/CodeChillAlluna/xterm.js.git"
+    "typescript": "^3.0.3",
+    "xterm": "^3.7.0"
   },
   "scripts": {
     "start": "react-scripts-ts start",
@@ -29,13 +28,13 @@
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
-    "@types/enzyme": "^3.1.7",
-    "@types/jest": "^22.0.1",
-    "@types/node": "^9.3.0",
-    "@types/react": "^16.0.34",
-    "@types/react-dom": "^16.0.3",
-    "coveralls": "^3.0.0",
-    "enzyme": "^3.3.0",
+    "@types/enzyme": "^3.1.14",
+    "@types/jest": "^23.3.2",
+    "@types/node": "^10.10.1",
+    "@types/react": "^16.4.14",
+    "@types/react-dom": "^16.0.7",
+    "coveralls": "^3.0.2",
+    "enzyme": "^3.6.0",
     "react-addons-test-utils": "^15.6.2"
   }
 }

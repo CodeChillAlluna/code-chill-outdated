@@ -8,7 +8,7 @@ spring:
     serialization:
       INDENT_OUTPUT: true
   mail:
-    host: ""
+    host: 
     port: 587
     username: ""
     password: ""

@@ -1,5 +1,4 @@
 import * as React from "react";
-/*import axios from "axios";*/
 import { Button, Confirm } from "semantic-ui-react";
 import AuthService from "../../AuthService";
 import withAuth from "../withAuth";

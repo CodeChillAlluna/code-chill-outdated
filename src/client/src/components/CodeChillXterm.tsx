@@ -1,7 +1,7 @@
 import * as React from "react";
-import * as Terminal from "xterm/build/xterm";
-import * as attach from "xterm/build/addons/attach/attach";
-import * as fit from "xterm/build/addons/fit/fit";
+import { Terminal } from "xterm";
+import * as attach from "xterm/lib/addons/attach/attach";
+import * as fit from "xterm/lib/addons/fit/fit";
 import * as ClassName from "classnames";
 import AuthService from "../AuthService";
 import withAuth from "./withAuth";
