@@ -4,17 +4,23 @@
 
 ## Restructuration du projet
 
+**4 jours**
+
 Le répository GitHub contient actuellement le back-end et le front-end de l'application. Cependant, nous allon créer deux nouveaux répository pour isoler le front du back. Cela permettra d'avoir une meilleure flexibilité pour la personnalisation du front. L'isolation du back donnera une meilleure visibilité de l'API.
 
 
 
 ## Déploiement continu de Code&Chill
 
+**1 semaine**
+
 L'objectif de cette fonctionnalité est de rendre possible le déploiement de l'application en donnant une image docker de notre environnement. Cela permet de s'abstraire de toute méthode de déploiement pour nos utilisateurs. Cela nous posait aussi plusieurs problèmes au niveau de l'intégration continu avec Travis et CodeCoverage notemment
 
 
 
 ## Implémentation d'un tableau de bord sur l'état des environnements
+
+**1 semaine**
 
 Implémenter un tableau de bord donnera la possibilité aux utilisateurs d'avoir un suivi de ses environnements avec :
 
@@ -26,6 +32,8 @@ Implémenter un tableau de bord donnera la possibilité aux utilisateurs d'avoir
 
 ## Différencier usagers et propriétaire d'un environnement
 
+**2-3 jours**
+
 La différenciation se fera avec une refonte du modèle utilisateur pour permettre à un utilisateur de partager son environnement avec le choix entre :
 
 - donner les droits d'administration au nouvel usager
@@ -35,17 +43,23 @@ La différenciation se fera avec une refonte du modèle utilisateur pour permett
 
 ## Importation et exportation
 
+**1 semaine**
+
 L'importation et l'exportation d'image docker (ou l'importation de dockerfile) va permettre aux utilisateurs ayant déjà leur environnement docker de ne pas les perdre en utilisant Code&Chill. De plus, l'exportation permettra à terme de créer un hub de partage d'environnement entre utilisateurs.
 
 
 
 ## Proposer des dockerfiles pré-configurés
 
+**1 semaine**
+
 Proposer des environnements pré-configurés pour faciliter la création d'un nouvel environnement (ex: à la création d'un compte). Les principaux langages et framework seront disponibles (ex: java, python, c, javascript, etc.), mais aussi les outils d'intégration continue (git, travis, etc.)
 
 
 
 ## Mise en place d'un IDE sur l'application Web
+
+**4 semaines**
 
 Actuellement, seul un terminal est présent sur la page web. L'objectif est d'y intégrer un IDE avec tout ce que peut proposer les IDE "bureaux" traditionnels comme :
 
@@ -61,17 +75,23 @@ Actuellement, seul un terminal est présent sur la page web. L'objectif est d'y 
 
 ## Application mobile de Code&Chill
 
+**2 semaines**
+
 L'application mobile sera en React Native (sauf désacord du corps enseignant) et contiendra dans un premier temps le tableau de bord de l'utilisateurs.
 
 
 
 ## Telemetry
 
+**3-4 semaines**
+
 L'objectif est de permettre à plusieurs utilisateurs de travailler sur le même IDE en même temps et avec les mises à jours en temps réel (telemetry). Cela renforcera le travail colaboratif de nos utilisateurs.
 
 
 
 ## Faire évoluer l'intégration continue et les tests du dépôt GitHub
+
+**travail en continu**
 
 - Utilisation du plugin Maven EvoSuite afin d'assurer un coverage de la partie back et front du projet
 - Intégration de Sentry afin de pouvoir avoir une traçabilité des erreurs et la stabilité des release
@@ -82,6 +102,8 @@ L'objectif est de permettre à plusieurs utilisateurs de travailler sur le même
 # Fonctionalités prévues mais mises à l'écart
 
 ## Accès hors-ligne en cas de déconnexion imprévue
+
+**durée indéterminée**
 
 Rendre possible l'utilisation de Code&Chill en mode hors-ligne pour la prévention de déconnexion imprévue ou pour avoir une version "locale".
 
